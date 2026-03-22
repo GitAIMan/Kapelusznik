@@ -1,0 +1,14 @@
+/* BACKUP PALETY EMBER — na wypadek cofnięcia */
+@theme inline {
+  --color-bg: #1A1210;
+  --color-bg-surface: #2A2220;
+  --color-bg-surface-hover: #332A27;
+  --color-primary: #CC5500;
+  --color-primary-light: #E8854A;
+  --color-accent-gold: #E8854A;
+  --color-accent-orange: #D4622A;
+  --color-accent-violet: #8B3A3A;
+  --color-text: #F5EDE6;
+  --color-text-secondary: #A89B91;
+  --color-text-muted: #7A6E65;
+}
