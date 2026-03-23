@@ -36,6 +36,12 @@ function LoginForm({ onLogin }: { onLogin: (password: string) => Promise<void> }
   return (
     <div className="min-h-screen bg-bg flex items-center justify-center px-6">
       <div className="w-full max-w-sm">
+        <div className="flex justify-center mb-2">
+          <Link href="/" className="text-text-muted hover:text-text transition-colors text-sm flex items-center gap-1">
+            <ArrowLeft className="h-4 w-4" />
+            Wróć na stronę
+          </Link>
+        </div>
         <div className="flex justify-center mb-8">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary to-accent-violet flex items-center justify-center shadow-lg shadow-primary/30">
             <Flame className="h-7 w-7 text-text" />
