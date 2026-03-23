@@ -47,7 +47,7 @@ export default function About() {
         loop
         playsInline
       >
-        <source src={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/Video/Film_ogien_2.mp4`} type="video/mp4" />
+        <source src={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/Video/Film_ogie%C5%84_2.mp4`} type="video/mp4" />
       </video>
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/60 to-bg/80" />
