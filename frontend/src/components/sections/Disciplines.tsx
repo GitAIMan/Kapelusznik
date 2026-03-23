@@ -57,6 +57,7 @@ export default function Disciplines() {
     if (flameClickCount.current >= 3) {
       flameClickCount.current = 0;
       if (flameClickTimer.current) clearTimeout(flameClickTimer.current);
+      localStorage.removeItem("admin_token");
       window.location.href = "/admin";
       return;
     }
