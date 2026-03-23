@@ -9,21 +9,9 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem("admin_token");
-    if (!stored) {
-      setIsLoading(false);
-      return;
-    }
-
-    apiGet("/api/auth/verify", stored)
-      .then(() => {
-        setToken(stored);
-        setIsVerified(true);
-      })
-      .catch(() => {
-        localStorage.removeItem("admin_token");
-      })
-      .finally(() => setIsLoading(false));
+    // Always start fresh — require password every time
+    localStorage.removeItem("admin_token");
+    setIsLoading(false);
   }, []);
 
   const login = useCallback(async (password: string) => {
