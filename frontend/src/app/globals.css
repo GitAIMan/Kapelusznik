@@ -71,6 +71,15 @@ body {
   transform: translateY(0);
 }
 
+/* Hide scrollbar for horizontal sliders */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Premium card hover — GPU-accelerated */
 .card-hover {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
