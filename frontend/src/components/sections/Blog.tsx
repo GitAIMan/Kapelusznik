@@ -8,7 +8,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 async function getPosts() {
   try {
     const res = await fetch(`${API_URL}/api/blog`, {
-      next: { revalidate: 60 },
+      next: { revalidate: 10 },
     });
     if (!res.ok) throw new Error();
     return await res.json();
