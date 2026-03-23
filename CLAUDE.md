@@ -42,7 +42,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Data-driven sections:** All content (disciplines, timeline steps, stats, contact info, blog posts) lives in `lib/constants.ts`. Components read from these arrays. Types in `types/index.ts`.
 
-**Video dip-to-black:** Hero, About, and Disciplines sections have background `<video>` elements with JS-controlled opacity via `timeupdate` event listener. Fade-out triggers 0.5s before video ends for seamless looping. Video files in `public/video/`.
+**Video dip-to-black:** Hero, About, and Disciplines sections have background `<video>` elements with JS-controlled opacity via `timeupdate` event listener. Fade-out triggers 0.5s before video ends for seamless looping. Video files locally in `public/Video/`, on production served from Cloudflare R2.
 
 **Discipline wheel (desktop):** `useDisciplineWheel` hook handles drag-to-rotate via pointer events + `Math.atan2`. Wrapped in `mounted` state guard to avoid SSR hydration mismatch from floating-point precision differences.
 
@@ -69,6 +69,14 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 - **Backend:** Standard `npm run start` → Express on port 8080.
 - Railway auto-deploys on push to GitHub `main`.
 - Section reveal moved from inline `<Script>` to `SectionRevealProvider` client component.
+
+## Video CDN (Cloudflare R2)
+
+Background fire videos are hosted on **Cloudflare R2** (bucket: `kapelusznik-assets`).
+- **Public URL:** `https://pub-c80345f06600456890a96b515fec6e54.r2.dev`
+- **Env var:** `NEXT_PUBLIC_CDN_URL` — set in Railway Variables. Empty locally (`.env.local`) → falls back to local `/Video/` paths.
+- **Files in R2** (folder `Video/`): `film_ogień.mp4`, `Film_ogień_2.mp4`, `Film_ogień_3.mp4` — filenames contain Polish `ń`, URL-encoded as `%C5%84`.
+- Video mapping: Hero → `film_ogień.mp4`, About → `Film_ogień_2.mp4`, Disciplines → `Film_ogień_3.mp4`.
 
 ## Project docs
 - `Specyfikacja projektu - Kapelusznik.md` — full spec with all sections, colors, SEO

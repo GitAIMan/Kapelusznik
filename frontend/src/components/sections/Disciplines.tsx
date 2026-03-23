@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import { Flame, ArrowRight } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -47,6 +47,23 @@ export default function Disciplines() {
       clearTimeout(startTimeout);
       video.removeEventListener("timeupdate", handleTimeUpdate);
     };
+  }, []);
+
+  const flameClickCount = useRef(0);
+  const flameClickTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const handleFlameClick = useCallback(() => {
+    flameClickCount.current += 1;
+    if (flameClickCount.current >= 3) {
+      flameClickCount.current = 0;
+      if (flameClickTimer.current) clearTimeout(flameClickTimer.current);
+      window.location.href = "/admin";
+      return;
+    }
+    if (flameClickTimer.current) clearTimeout(flameClickTimer.current);
+    flameClickTimer.current = setTimeout(() => {
+      flameClickCount.current = 0;
+    }, 600);
   }, []);
 
   const active = DISCIPLINES[activeIndex];
@@ -105,7 +122,10 @@ export default function Disciplines() {
                 <div className="absolute inset-[120px] rounded-full border border-white/5" />
 
                 {/* Center icon */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent-violet flex items-center justify-center shadow-lg shadow-primary/30">
+                <div
+                  onClick={handleFlameClick}
+                  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent-violet flex items-center justify-center shadow-lg shadow-primary/30 cursor-default"
+                >
                   <Flame className="h-8 w-8 text-text" />
                   <FloatingEmbers />
                 </div>

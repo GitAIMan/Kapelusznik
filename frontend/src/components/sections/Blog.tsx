@@ -3,7 +3,23 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { BLOG_POSTS } from "@/lib/constants";
 
-export default function Blog() {
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+
+async function getPosts() {
+  try {
+    const res = await fetch(`${API_URL}/api/blog`, {
+      next: { revalidate: 60 },
+    });
+    if (!res.ok) throw new Error();
+    return await res.json();
+  } catch {
+    return BLOG_POSTS;
+  }
+}
+
+export default async function Blog() {
+  const posts = await getPosts();
+
   return (
     <section id="blog" className="relative py-40 px-6 md:px-12">
       <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
@@ -15,16 +31,24 @@ export default function Blog() {
         </SectionHeading>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {BLOG_POSTS.map((post) => (
+          {posts.map((post: any) => (
             <article
               key={post.id}
               className="card-hover rounded-2xl bg-bg-surface border border-white/5 overflow-hidden"
             >
-              {/* Image placeholder */}
-              <div className="aspect-[16/10] bg-gradient-to-br from-bg-surface-hover to-bg-surface flex items-center justify-center">
-                <span className="text-text-muted text-xs uppercase tracking-wider">
-                  Zdjęcie
-                </span>
+              {/* Image */}
+              <div className="aspect-[16/10] bg-gradient-to-br from-bg-surface-hover to-bg-surface flex items-center justify-center overflow-hidden">
+                {post.image ? (
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <span className="text-text-muted text-xs uppercase tracking-wider">
+                    Zdjęcie
+                  </span>
+                )}
               </div>
 
               <div className="p-6">
