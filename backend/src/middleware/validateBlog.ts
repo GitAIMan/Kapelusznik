@@ -2,12 +2,12 @@ import { z } from "zod";
 import type { Request, Response, NextFunction } from "express";
 
 export const blogPostSchema = z.object({
-  title: z.string().min(3, "Tytuł musi mieć co najmniej 3 znaki"),
-  excerpt: z.string().min(10, "Zajawka musi mieć co najmniej 10 znaków"),
-  content: z.string().min(10, "Treść musi mieć co najmniej 10 znaków"),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Data w formacie YYYY-MM-DD"),
+  title: z.string().min(1, "Tytuł jest wymagany"),
+  excerpt: z.string().min(1, "Zajawka jest wymagana"),
+  content: z.string().min(1, "Treść jest wymagana"),
+  date: z.string().min(1, "Data jest wymagana"),
   image: z.string().optional().default(""),
-  slug: z.string().min(3, "Slug musi mieć co najmniej 3 znaki").regex(/^[a-z0-9-]+$/, "Slug może zawierać tylko małe litery, cyfry i myślniki"),
+  slug: z.string().min(1, "Slug jest wymagany"),
 });
 
 export function validateBlogPost(req: Request, res: Response, next: NextFunction) {
