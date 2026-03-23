@@ -46,7 +46,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Discipline wheel (desktop):** `useDisciplineWheel` hook handles drag-to-rotate via pointer events + `Math.atan2`. Wrapped in `mounted` state guard to avoid SSR hydration mismatch from floating-point precision differences.
 
-**Section reveal:** Lightweight IntersectionObserver injected via `<Script>` in `layout.tsx` adds `.visible` class to `.section-reveal` elements. CSS transition handles the animation.
+**Section reveal:** Lightweight IntersectionObserver via `SectionRevealProvider` client component (loaded in `layout.tsx`) adds `.visible` class to `.section-reveal` elements. CSS transition handles the animation.
 
 **Premium CSS utilities** in `globals.css`: `.card-hover` (lift + shadow), `.gradient-border` (mask trick), `.section-divider` (gradient line), `.animate-bounce-subtle`.
 
@@ -61,6 +61,14 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 3. **Next.js 16 breaking change:** `params` in dynamic routes is a `Promise` — must be `await`ed.
 4. **Tailwind CSS 4:** Configuration is in CSS `@theme` block, not in `tailwind.config.ts`.
 5. **`prefers-reduced-motion`** must be respected — all animations have reduced-motion fallbacks in `globals.css`.
+
+## Deployment (Railway)
+
+**Hosting:** Railway — 2 separate services (kafelki): `Frontend` and `Backend`.
+- **Frontend:** Build command `npm run build`, Start command `npm run start` (uses `next start`). Do NOT use `output: "standalone"` — Railway nie kopiuje `public/` i `.next/static/` automatycznie.
+- **Backend:** Standard `npm run start` → Express on port 8080.
+- Railway auto-deploys on push to GitHub `main`.
+- Section reveal moved from inline `<Script>` to `SectionRevealProvider` client component.
 
 ## Project docs
 - `Specyfikacja projektu - Kapelusznik.md` — full spec with all sections, colors, SEO
