@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import { Space_Grotesk, Inter } from "next/font/google";
+import SectionRevealProvider from "@/components/SectionRevealProvider";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -40,10 +40,7 @@ export default function RootLayout({
     <html lang="pl" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body>
         {children}
-        <Script id="section-reveal" strategy="lazyOnload">{`
-          var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target)}})},{threshold:0.1});
-          document.querySelectorAll('.section-reveal').forEach(function(el){io.observe(el)});
-        `}</Script>
+        <SectionRevealProvider />
       </body>
     </html>
   );

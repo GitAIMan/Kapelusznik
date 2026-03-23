@@ -213,7 +213,7 @@ export default async function DisciplinePage({
         <section className="px-6 md:px-12 pb-24">
           <div className="mx-auto max-w-5xl">
             <Link
-              href="/#nasze-sztuki"
+              href="/"
               className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
