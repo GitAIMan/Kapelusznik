@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { BLOG_POSTS } from "@/lib/constants";
@@ -40,9 +42,10 @@ export default function BlogPage() {
         <div className="mx-auto max-w-5xl">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {posts.map((post, i) => (
-              <article
+              <Link
                 key={post.id}
-                className={`group rounded-xl overflow-hidden bg-bg-surface border border-white/[0.06] hover:border-accent-gold/20 transition-all card-hover ${
+                href={`/blog/${post.slug}`}
+                className={`group block rounded-xl overflow-hidden bg-bg-surface border border-white/[0.06] hover:border-accent-gold/20 transition-all card-hover ${
                   i === 0 ? "md:col-span-2" : ""
                 }`}
               >
@@ -70,11 +73,16 @@ export default function BlogPage() {
                     {post.title}
                   </h3>
 
-                  <p className="text-text-muted text-sm leading-relaxed line-clamp-3">
+                  <p className="text-text-muted text-sm leading-relaxed line-clamp-3 mb-4">
                     {post.excerpt}
                   </p>
+
+                  <span className="inline-flex items-center gap-2 text-sm text-accent-gold font-medium group-hover:gap-3 transition-all">
+                    Czytaj więcej
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
 
