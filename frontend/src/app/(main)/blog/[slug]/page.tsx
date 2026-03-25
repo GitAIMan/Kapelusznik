@@ -103,14 +103,20 @@ export default function BlogPostPage() {
       {/* Hero image */}
       <div className="px-6 md:px-12 mb-14">
         <div className="mx-auto max-w-4xl">
-          <div className="relative rounded-2xl overflow-hidden h-64 md:h-[420px] bg-gradient-to-br from-accent-violet/25 via-bg-surface-hover to-primary/12 border border-white/[0.04]">
-            <div className="absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-text-muted/20 text-xs uppercase tracking-[0.25em]">
-                Zdjęcie artykułu
-              </span>
-            </div>
-            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 30px, #caa775 30px, #caa775 31px)" }} />
+          <div className="relative rounded-2xl overflow-hidden h-64 md:h-[420px] border border-white/[0.04]">
+            {post.image ? (
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full bg-gradient-to-br from-accent-violet/25 via-bg-surface-hover to-primary/12 flex items-center justify-center">
+                <span className="text-text-muted/20 text-xs uppercase tracking-[0.25em]">
+                  Zdjęcie artykułu
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>

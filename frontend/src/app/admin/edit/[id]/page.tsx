@@ -14,7 +14,6 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
-  const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [date, setDate] = useState("");
   const [image, setImage] = useState("");
@@ -29,7 +28,6 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
       .then((post) => {
         setTitle(post.title);
         setSlug(post.slug);
-        setExcerpt(post.excerpt);
         setContent(post.content);
         setDate(post.date?.split("T")[0] || "");
         setImage(post.image || "");
@@ -70,6 +68,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     setError("");
     setSaving(true);
     try {
+      const excerpt = content.slice(0, 150).trim() + (content.length > 150 ? "..." : "");
       await apiPut(`/api/blog/${id}`, { title, slug, excerpt, content, date, image }, token);
       router.push("/admin");
     } catch (err: any) {
@@ -144,17 +143,6 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
             {image && (
               <img src={image} alt="Preview" className="mt-3 rounded-lg max-h-40 object-cover" />
             )}
-          </div>
-
-          <div>
-            <label className="block text-text-secondary text-sm mb-2">Zajawka</label>
-            <textarea
-              value={excerpt}
-              onChange={(e) => setExcerpt(e.target.value)}
-              rows={2}
-              className="w-full bg-bg-surface border border-white/10 text-text rounded-lg px-4 py-3 focus:border-primary focus:outline-none resize-y"
-              required
-            />
           </div>
 
           <div>
