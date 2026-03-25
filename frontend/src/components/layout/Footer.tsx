@@ -1,3 +1,5 @@
+import Image from "next/image";
+import Link from "next/link";
 import { Mail, Phone, MapPin, Facebook } from "lucide-react";
 
 export default function Footer() {
@@ -6,9 +8,15 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-16">
         {/* Logo + opis */}
         <div>
-          <p className="font-heading text-xl font-bold bg-gradient-to-r from-accent-gold to-primary bg-clip-text text-transparent">
-            Kapelusznik
-          </p>
+          <Link href="/">
+            <Image
+              src="/images/logo.jpg"
+              alt="Kapelusznik"
+              width={80}
+              height={80}
+              className="h-16 w-auto"
+            />
+          </Link>
           <p className="mt-4 text-sm text-text-secondary leading-relaxed">
             Kolektyw artystów ulicznych z Bielska-Białej. Zamieniamy ulice w
             sceny pełne ognia, akrobatyki i magii.

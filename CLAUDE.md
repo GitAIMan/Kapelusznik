@@ -15,7 +15,7 @@ cd frontend && npm run build  # Production build (validates TS + generates stati
 cd frontend && npm run lint   # ESLint
 ```
 
-### Backend (Express placeholder)
+### Backend (Express + PostgreSQL)
 ```bash
 cd backend && npm run dev     # Dev server → localhost:3001
 cd backend && npm run build   # TypeScript compile
@@ -23,7 +23,7 @@ cd backend && npm run build   # TypeScript compile
 
 ## Architecture
 
-**Monorepo** with `frontend/` (Next.js 16 App Router) and `backend/` (Express + Zod, contact form placeholder).
+**Monorepo** with `frontend/` (Next.js 16 App Router) and `backend/` (Express + Zod + PostgreSQL).
 
 ### Frontend stack
 - **Next.js 16** (App Router, `src/` dir) + **React 19** + **TypeScript**
@@ -40,7 +40,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 ### Key patterns
 
-**Data-driven sections:** All content (disciplines, timeline steps, stats, contact info, blog posts) lives in `lib/constants.ts`. Components read from these arrays. Types in `types/index.ts`.
+**Data-driven sections:** Disciplines, timeline steps, stats, contact info live in `lib/constants.ts`. Blog posts are dynamic — stored in PostgreSQL, fetched via API (`/api/blog`), with `BLOG_POSTS` in constants as fallback.
 
 **Video dip-to-black:** Hero, About, and Disciplines sections have background `<video>` elements with JS-controlled opacity via `timeupdate` event listener. Fade-out triggers 0.5s before video ends for seamless looping. Video files locally in `public/Video/`, on production served from Cloudflare R2.
 
@@ -48,11 +48,24 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Section reveal:** Lightweight IntersectionObserver via `SectionRevealProvider` client component (loaded in `layout.tsx`) adds `.visible` class to `.section-reveal` elements. CSS transition handles the animation.
 
-**Premium CSS utilities** in `globals.css`: `.card-hover` (lift + shadow), `.gradient-border` (mask trick), `.section-divider` (gradient line), `.animate-bounce-subtle`.
+**Blog horizontal slider:** Blog section uses CSS `overflow-x: auto` + `scroll-snap` for horizontal card scrolling. Arrow buttons on hover (desktop), swipe on mobile. Gradient fades on edges. `.hide-scrollbar` class hides scrollbar.
+
+**Premium CSS utilities** in `globals.css`: `.card-hover` (lift + shadow), `.gradient-border` (mask trick), `.section-divider` (gradient line), `.animate-bounce-subtle`, `.hide-scrollbar`.
 
 ### Routing
 - `/` — main one-page site (7 sections: Hero, About, Disciplines, ForOrganizers, Blog, Contact + Navbar/Footer)
 - `/dyscypliny/[id]` — discipline subpages (statically generated via `generateStaticParams`)
+- `/admin` — hidden admin panel (no links to it on the site)
+- `/admin/new` — create new blog post
+- `/admin/edit/[id]` — edit existing blog post
+
+### Secret admin panel
+- **Entry:** Triple-click Flame icon in center of Disciplines wheel → clears token → redirects to `/admin`
+- **Auth:** Password `adminkapelusznik` → SHA-256 hash compared on backend → JWT token (24h)
+- **Features:** CRUD blog posts, image upload to Cloudflare R2
+- **Backend routes:** `/api/auth` (login/verify), `/api/blog` (CRUD), `/api/upload` (images → R2)
+- **DB:** PostgreSQL on Railway, table `blog_posts`, auto-migrates on backend start
+- **Images:** Uploaded to R2 bucket `kapelusznik-assets/blog/`, public URL stored in DB
 
 ## Critical constraints
 
@@ -66,7 +79,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Hosting:** Railway — 2 separate services (kafelki): `Frontend` and `Backend`.
 - **Frontend:** Build command `npm run build`, Start command `npm run start` (uses `next start`). Do NOT use `output: "standalone"` — Railway nie kopiuje `public/` i `.next/static/` automatycznie.
-- **Backend:** Standard `npm run start` → Express on port 8080.
+- **Backend:** Standard `npm run start` → Express on port 8080. Env vars: `DATABASE_URL` (Postgres), `JWT_SECRET`, `FRONTEND_URL`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`.
 - Railway auto-deploys on push to GitHub `main`.
 - Section reveal moved from inline `<Script>` to `SectionRevealProvider` client component.
 

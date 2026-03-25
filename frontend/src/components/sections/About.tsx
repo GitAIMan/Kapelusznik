@@ -6,11 +6,15 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import StatCard from "@/components/ui/StatCard";
 import { STATS } from "@/lib/constants";
 
+// Flaga do przywrócenia filmu w tle — zmień na true, żeby włączyć
+const SHOW_VIDEO = false;
+
 export default function About() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoOpacity, setVideoOpacity] = useState(0);
 
   useEffect(() => {
+    if (!SHOW_VIDEO) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -37,20 +41,24 @@ export default function About() {
       {/* Section divider */}
       <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
 
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: videoOpacity, transition: "opacity 0.5s ease-in-out" }}
-        autoPlay
-        muted
-        loop
-        playsInline
-      >
-        <source src={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/Video/Film_ogie%C5%84_2.mp4`} type="video/mp4" />
-      </video>
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/60 to-bg/80" />
+      {/* Background video — wyłączone, zmień SHOW_VIDEO na true żeby przywrócić */}
+      {SHOW_VIDEO && (
+        <>
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ opacity: videoOpacity, transition: "opacity 0.5s ease-in-out" }}
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/Video/Film_ogie%C5%84_2.mp4`} type="video/mp4" />
+          </video>
+          {/* Gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-bg/70 via-bg/60 to-bg/80" />
+        </>
+      )}
 
       {/* Decorative bg */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">

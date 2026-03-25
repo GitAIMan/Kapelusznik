@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
@@ -29,16 +30,16 @@ export default function Navbar() {
       )}
     >
       {/* Logo */}
-      <a href="#" onClick={closeMenu} className="flex items-center">
+      <Link href="/" onClick={closeMenu} className="flex items-center">
         <Image
-          src="/images/logo.avif"
+          src="/images/logo.jpg"
           alt="Kapelusznik"
           width={120}
-          height={40}
-          className="h-10 w-auto"
+          height={120}
+          className="h-12 w-auto"
           priority
         />
-      </a>
+      </Link>
 
       {/* Hamburger */}
       <button

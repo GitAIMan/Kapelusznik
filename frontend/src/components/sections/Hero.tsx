@@ -62,12 +62,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-20 text-center px-6 max-w-5xl mx-auto">
-        <p className="text-accent-gold text-xs uppercase tracking-[0.5em] mb-8 font-medium">
-          Kolektyw Artystyczny
-        </p>
-        <h1 className="font-heading text-6xl md:text-8xl lg:text-[8rem] xl:text-[10rem] font-bold bg-gradient-to-b from-white via-white to-text-muted bg-clip-text text-transparent mb-6 leading-[0.85] tracking-tight">
-          Kapelusznik
-        </h1>
         <p className="text-text-secondary text-base md:text-lg max-w-xl mx-auto mb-14 leading-relaxed font-light">
           Zamieniamy ulice w sceny. Ogień, akrobatyka, magia — przeżyj sztukę,
           która nie zna granic.
