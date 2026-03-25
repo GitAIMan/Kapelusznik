@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import { TIMELINE_STEPS } from "@/lib/constants";
 import { Check } from "lucide-react";
+
+const DisciplineWheelSection = dynamic(
+  () => import("@/components/sections/DisciplineWheelSection")
+);
 
 export const metadata: Metadata = {
   title: "Dla organizatorów — Kapelusznik | Kolektyw Artystyczny",
@@ -130,6 +135,9 @@ export default function ForOrganizersPage() {
           </div>
         </div>
       </section>
+
+      {/* Discipline wheel — interactive picker */}
+      <DisciplineWheelSection />
 
       {/* Event gallery — staggered 3 images */}
       <section className="relative px-6 md:px-12 py-16">
