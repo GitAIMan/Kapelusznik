@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
@@ -11,26 +11,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const scrollY = useScrollPosition();
   const scrolled = scrollY > 50;
-
-  // Triple-click on logo → /admin
-  const clickCount = useRef(0);
-  const clickTimer = useRef<NodeJS.Timeout | null>(null);
-
-  const handleLogoClick = useCallback((e: React.MouseEvent) => {
-    clickCount.current += 1;
-    if (clickCount.current >= 3) {
-      clickCount.current = 0;
-      if (clickTimer.current) clearTimeout(clickTimer.current);
-      e.preventDefault();
-      localStorage.removeItem("admin_token");
-      window.location.href = "/admin";
-      return;
-    }
-    if (clickTimer.current) clearTimeout(clickTimer.current);
-    clickTimer.current = setTimeout(() => {
-      clickCount.current = 0;
-    }, 600);
-  }, []);
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev);
@@ -53,7 +33,7 @@ export default function Navbar() {
     >
       <div className="mx-auto max-w-7xl flex items-center justify-between px-6 md:px-12 h-20">
         {/* Logo */}
-        <Link href="/" onClick={handleLogoClick} className="flex items-center shrink-0">
+        <Link href="/" className="flex items-center shrink-0">
           <div className="h-11 w-11 rounded-full overflow-hidden ring-[1.5px] ring-accent-gold/30 hover:ring-accent-gold/60 transition-all">
             <Image
               src="/images/logo.jpg"
