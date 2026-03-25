@@ -28,5 +28,11 @@ frontend/public/video/*.mp4
 # Screenshots / temp assets
 /*.png
 
+# Images / photos (root level + Zdjęcia folder)
+Zdjęcia/
+/*.jpg
+/*.avif
+/*.jpeg
+
 # Backup files
 *.backup
