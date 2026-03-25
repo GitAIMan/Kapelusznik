@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { apiPost, apiUpload } from "@/lib/api";
 import { ArrowLeft, Upload } from "lucide-react";
+import ImageCropper from "@/components/ui/ImageCropper";
 
 function slugify(text: string) {
   return text
@@ -32,6 +33,7 @@ export default function NewPostPage() {
   const [content, setContent] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [image, setImage] = useState("");
+  const [rawImage, setRawImage] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -46,11 +48,20 @@ export default function NewPostPage() {
     return null;
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setRawImage(reader.result as string);
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  const handleCropDone = async (blob: Blob) => {
+    setRawImage(null);
     setUploading(true);
     try {
+      const file = new File([blob], "cropped.jpg", { type: "image/jpeg" });
       const { url } = await apiUpload(file, token);
       setImage(url);
     } catch (err: any) {
@@ -77,6 +88,15 @@ export default function NewPostPage() {
 
   return (
     <div className="min-h-screen bg-bg">
+      {/* Cropper overlay */}
+      {rawImage && (
+        <ImageCropper
+          imageSrc={rawImage}
+          onCropDone={handleCropDone}
+          onCancel={() => setRawImage(null)}
+        />
+      )}
+
       <div className="max-w-3xl mx-auto px-6 py-12">
         <div className="flex items-center gap-4 mb-10">
           <Link href="/admin" className="text-text-muted hover:text-text transition-colors">
@@ -135,14 +155,11 @@ export default function NewPostPage() {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={handleImageUpload}
+                  onChange={handleFileSelect}
                   className="hidden"
                   disabled={uploading}
                 />
               </label>
-              {image && (
-                <span className="text-text-muted text-xs truncate max-w-[200px]">{image}</span>
-              )}
             </div>
             {image && (
               <img src={image} alt="Preview" className="mt-3 rounded-lg max-h-40 object-cover" />
