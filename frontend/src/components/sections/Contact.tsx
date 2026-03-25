@@ -29,7 +29,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="kontakt" className="relative py-40 px-6 md:px-12">
+    <section className="relative py-16 px-6 md:px-12">
       {/* Section divider */}
       <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
 
@@ -39,9 +39,6 @@ export default function Contact() {
       </div>
 
       <div className="section-reveal relative mx-auto max-w-7xl">
-        <SectionLabel>Napisz do nas</SectionLabel>
-        <SectionHeading className="mt-4">Porozmawiajmy</SectionHeading>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6">

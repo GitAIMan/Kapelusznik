@@ -3,8 +3,6 @@
 import { useRef, useState, useEffect } from "react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
-import StatCard from "@/components/ui/StatCard";
-import { STATS } from "@/lib/constants";
 
 // Flaga do przywrócenia filmu w tle — zmień na true, żeby włączyć
 const SHOW_VIDEO = false;
@@ -66,31 +64,21 @@ export default function About() {
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
       </div>
 
-      <div className="section-reveal relative mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left — text */}
-        <div>
-          <SectionLabel>Poznaj nas</SectionLabel>
-          <SectionHeading className="mt-4">Kim jesteśmy</SectionHeading>
-          <p className="text-text-secondary text-base leading-relaxed mb-6">
-            Jesteśmy kolektywem artystów ulicznych z Bielska-Białej. Od ponad
-            dekady zamieniamy ulice, place i festiwale w przestrzenie pełne
-            magii. Łączymy żonglerki, akrobatykę powietrzną, sztukę
-            lalkarską i wiele więcej.
-          </p>
-          <p className="text-text-muted text-sm leading-relaxed">
-            Nasz zespół to pasjonaci, dla których sztuka uliczna jest sposobem
-            na życie. Każdy występ to unikalne doświadczenie, które tworzymy
-            wspólnie z publicznością — bo najlepsze spektakle rodzą się w
-            interakcji.
-          </p>
-        </div>
-
-        {/* Right — stats grid */}
-        <div className="grid grid-cols-2 gap-5">
-          {STATS.map((stat) => (
-            <StatCard key={stat.label} {...stat} />
-          ))}
-        </div>
+      <div className="section-reveal relative mx-auto max-w-3xl">
+        <SectionLabel>Poznaj nas</SectionLabel>
+        <SectionHeading className="mt-4">Kim jesteśmy</SectionHeading>
+        <p className="text-text-secondary text-base leading-relaxed mb-6">
+          Jesteśmy kolektywem artystów ulicznych z Bielska-Białej. Od ponad
+          dekady zamieniamy ulice, place i festiwale w przestrzenie pełne
+          magii. Łączymy żonglerki, akrobatykę powietrzną, sztukę
+          lalkarską i wiele więcej.
+        </p>
+        <p className="text-text-muted text-sm leading-relaxed">
+          Nasz zespół to pasjonaci, dla których sztuka uliczna jest sposobem
+          na życie. Każdy występ to unikalne doświadczenie, które tworzymy
+          wspólnie z publicznością — bo najlepsze spektakle rodzą się w
+          interakcji.
+        </p>
       </div>
     </section>
   );

@@ -12,11 +12,11 @@ import {
 import type { Discipline, TimelineStep, StatItem, ContactInfo, NavLink, BlogPost, DisciplineDetails } from "@/types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "O nas", href: "#o-nas" },
-  { label: "Nasze sztuki", href: "#nasze-sztuki" },
-  { label: "Dla organizatorów", href: "#dla-organizatorow" },
-  { label: "Blog", href: "#blog" },
-  { label: "Kontakt", href: "#kontakt" },
+  { label: "O nas", href: "/o-nas" },
+  { label: "Dyscypliny", href: "/dyscypliny" },
+  { label: "Dla organizatorów", href: "/dla-organizatorow" },
+  { label: "Blog", href: "/blog" },
+  { label: "Kontakt", href: "/kontakt" },
 ];
 
 export const DISCIPLINES: Discipline[] = [

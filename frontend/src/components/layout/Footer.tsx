@@ -9,13 +9,15 @@ export default function Footer() {
         {/* Logo + opis */}
         <div>
           <Link href="/">
-            <Image
-              src="/images/logo.jpg"
-              alt="Kapelusznik"
-              width={80}
-              height={80}
-              className="h-16 w-auto"
-            />
+            <div className="h-16 w-16 rounded-full overflow-hidden ring-2 ring-accent-gold/30 hover:ring-accent-gold/60 transition-all">
+              <Image
+                src="/images/logo.jpg"
+                alt="Kapelusznik"
+                width={64}
+                height={64}
+                className="h-full w-full object-cover"
+              />
+            </div>
           </Link>
           <p className="mt-4 text-sm text-text-secondary leading-relaxed">
             Kolektyw artystów ulicznych z Bielska-Białej. Zamieniamy ulice w

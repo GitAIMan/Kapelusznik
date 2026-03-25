@@ -2,8 +2,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import { DISCIPLINES, DISCIPLINE_DETAILS } from "@/lib/constants";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
 export async function generateStaticParams() {
   return DISCIPLINES.map((d) => ({ id: d.id }));
@@ -39,8 +37,6 @@ export default async function DisciplinePage({
 
   return (
     <>
-      <Navbar />
-      <main>
         {/* HEADER */}
         <section className="relative pt-32 pb-20 px-6 md:px-12 overflow-hidden">
           {/* Decorative bg */}
@@ -60,10 +56,10 @@ export default async function DisciplinePage({
               </Link>
               <ChevronRight className="h-3 w-3" />
               <Link
-                href="/#nasze-sztuki"
+                href="/dyscypliny"
                 className="transition-colors hover:text-text"
               >
-                Nasze sztuki
+                Dyscypliny
               </Link>
               <ChevronRight className="h-3 w-3" />
               <span className="text-accent-gold">{discipline.name}</span>
@@ -221,8 +217,6 @@ export default async function DisciplinePage({
             </Link>
           </div>
         </section>
-      </main>
-      <Footer />
     </>
   );
 }

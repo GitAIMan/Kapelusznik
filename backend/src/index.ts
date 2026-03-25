@@ -31,11 +31,13 @@ app.get("/api/health", (_req, res) => {
 
 migrate()
   .then(() => {
+    console.log("Migration completed successfully");
+  })
+  .catch((err) => {
+    console.warn("Migration skipped (no DATABASE_URL?):", err.message);
+  })
+  .finally(() => {
     app.listen(PORT, () => {
       console.log(`Backend działa na porcie ${PORT}`);
     });
-  })
-  .catch((err) => {
-    console.error("Migration failed:", err);
-    process.exit(1);
   });
