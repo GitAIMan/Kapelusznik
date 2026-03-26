@@ -113,21 +113,21 @@ export default function BlogPostPage() {
       {/* Hero image */}
       <div className="px-6 md:px-12 mb-14">
         <div className="mx-auto max-w-4xl">
-          <div className="relative rounded-2xl overflow-hidden h-64 md:h-[420px] border border-white/[0.04]">
-            {post.image ? (
+          {post.image ? (
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.04] bg-bg-surface flex items-center justify-center">
               <img
                 src={post.image}
                 alt={post.title}
-                className="w-full h-full object-cover"
+                className="w-full max-h-[600px] object-contain"
               />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-br from-accent-violet/25 via-bg-surface-hover to-primary/12 flex items-center justify-center">
-                <span className="text-text-muted/20 text-xs uppercase tracking-[0.25em]">
-                  Zdjęcie artykułu
-                </span>
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="relative rounded-2xl overflow-hidden h-64 md:h-[420px] border border-white/[0.04] bg-gradient-to-br from-accent-violet/25 via-bg-surface-hover to-primary/12 flex items-center justify-center">
+              <span className="text-text-muted/20 text-xs uppercase tracking-[0.25em]">
+                Zdjęcie artykułu
+              </span>
+            </div>
+          )}
         </div>
       </div>
 
