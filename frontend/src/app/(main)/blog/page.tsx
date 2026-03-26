@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { BLOG_POSTS } from "@/lib/constants";
@@ -24,6 +24,13 @@ export default function BlogPage() {
 
   return (
     <div className="pt-28 pb-20">
+      <div className="px-6 md:px-12 mb-6">
+        <Link href="/" className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm">
+          <ArrowLeft className="h-4 w-4" />
+          Strona główna
+        </Link>
+      </div>
+
       {/* Header */}
       <section className="relative px-6 md:px-12 pb-16">
         <div className="mx-auto max-w-4xl text-center">

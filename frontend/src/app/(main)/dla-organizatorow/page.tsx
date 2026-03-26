@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
@@ -30,6 +32,13 @@ const WHAT_WE_OFFER = [
 export default function ForOrganizersPage() {
   return (
     <div className="pt-28 pb-20">
+      <div className="px-6 md:px-12 mb-6">
+        <Link href="/" className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm">
+          <ArrowLeft className="h-4 w-4" />
+          Strona główna
+        </Link>
+      </div>
+
       {/* Hero — 2 columns: text left, image right */}
       <section className="relative px-6 md:px-12 pb-20 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
