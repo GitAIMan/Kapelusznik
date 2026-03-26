@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import { apiGet, apiPut, apiUpload } from "@/lib/api";
 import { ArrowLeft, Upload } from "lucide-react";
+import ImageCropper from "@/components/ui/ImageCropper";
 
 export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
@@ -14,10 +15,10 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
-  const [excerpt, setExcerpt] = useState("");
   const [content, setContent] = useState("");
   const [date, setDate] = useState("");
   const [image, setImage] = useState("");
+  const [rawImage, setRawImage] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
       .then((post) => {
         setTitle(post.title);
         setSlug(post.slug);
-        setExcerpt(post.excerpt);
         setContent(post.content);
         setDate(post.date?.split("T")[0] || "");
         setImage(post.image || "");
@@ -51,11 +51,20 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     return null;
   }
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setRawImage(reader.result as string);
+    reader.readAsDataURL(file);
+    e.target.value = "";
+  };
+
+  const handleCropDone = async (blob: Blob) => {
+    setRawImage(null);
     setUploading(true);
     try {
+      const file = new File([blob], "cropped.jpg", { type: "image/jpeg" });
       const { url } = await apiUpload(file, token);
       setImage(url);
     } catch (err: any) {
@@ -70,6 +79,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     setError("");
     setSaving(true);
     try {
+      const excerpt = content.slice(0, 150).trim() + (content.length > 150 ? "..." : "");
       await apiPut(`/api/blog/${id}`, { title, slug, excerpt, content, date, image }, token);
       router.push("/admin");
     } catch (err: any) {
@@ -81,6 +91,15 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
   return (
     <div className="min-h-screen bg-bg">
+      {/* Cropper overlay */}
+      {rawImage && (
+        <ImageCropper
+          imageSrc={rawImage}
+          onCropDone={handleCropDone}
+          onCancel={() => setRawImage(null)}
+        />
+      )}
+
       <div className="max-w-3xl mx-auto px-6 py-12">
         <div className="flex items-center gap-4 mb-10">
           <Link href="/admin" className="text-text-muted hover:text-text transition-colors">
@@ -132,29 +151,15 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={handleImageUpload}
+                  onChange={handleFileSelect}
                   className="hidden"
                   disabled={uploading}
                 />
               </label>
-              {image && (
-                <span className="text-text-muted text-xs truncate max-w-[200px]">{image}</span>
-              )}
             </div>
             {image && (
               <img src={image} alt="Preview" className="mt-3 rounded-lg max-h-40 object-cover" />
             )}
-          </div>
-
-          <div>
-            <label className="block text-text-secondary text-sm mb-2">Zajawka</label>
-            <textarea
-              value={excerpt}
-              onChange={(e) => setExcerpt(e.target.value)}
-              rows={2}
-              className="w-full bg-bg-surface border border-white/10 text-text rounded-lg px-4 py-3 focus:border-primary focus:outline-none resize-y"
-              required
-            />
           </div>
 
           <div>

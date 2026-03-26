@@ -14,11 +14,13 @@ export default function BlogPostPage() {
   const slug = params.slug;
 
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [otherPosts, setOtherPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
 
+    // Fetch current post
     fetch(`${API_URL}/api/blog/${slug}`)
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {
@@ -26,20 +28,26 @@ export default function BlogPostPage() {
         setLoading(false);
       })
       .catch(() => {
-        // Fallback to constants
         const fallback = BLOG_POSTS.find((p) => p.slug === slug) || null;
         setPost(fallback);
         setLoading(false);
       });
-  }, [slug]);
 
-  const otherPosts = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 2);
+    // Fetch other posts from API
+    fetch(`${API_URL}/api/blog`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setOtherPosts(data.filter((p: BlogPost) => p.slug !== slug).slice(0, 2));
+        }
+      })
+      .catch(() => {});
+  }, [slug]);
 
   if (loading) {
     return (
       <div className="pt-32 pb-20 px-6">
         <div className="mx-auto max-w-3xl">
-          {/* Skeleton */}
           <div className="h-4 w-32 bg-bg-surface rounded mb-12 animate-pulse" />
           <div className="h-10 w-3/4 bg-bg-surface rounded mb-4 animate-pulse" />
           <div className="h-4 w-40 bg-bg-surface rounded mb-12 animate-pulse" />
@@ -71,7 +79,6 @@ export default function BlogPostPage() {
     day: "numeric",
   });
 
-  // Split content by double newlines for paragraphs
   const paragraphs = (post.content || post.excerpt)
     .split("\n")
     .filter((p) => p.trim());
@@ -85,7 +92,6 @@ export default function BlogPostPage() {
         </div>
 
         <div className="relative mx-auto max-w-[680px]">
-          {/* Breadcrumbs */}
           <nav className="flex items-center gap-2 text-sm text-text-muted mb-10">
             <Link href="/blog" className="transition-colors hover:text-text">
               Blog
@@ -94,50 +100,48 @@ export default function BlogPostPage() {
             <span className="text-text-secondary line-clamp-1">{post.title}</span>
           </nav>
 
-          {/* Date */}
           <time className="text-xs text-accent-gold/70 uppercase tracking-[0.15em] font-medium">
             {formattedDate}
           </time>
 
-          {/* Title — editorial large */}
           <h1 className="font-heading text-3xl md:text-5xl font-bold text-text mt-3 mb-10 leading-[1.15] tracking-tight">
             {post.title}
           </h1>
         </div>
       </header>
 
-      {/* Hero image — full bleed within content width */}
+      {/* Hero image */}
       <div className="px-6 md:px-12 mb-14">
         <div className="mx-auto max-w-4xl">
-          {/* IMAGE PLACEHOLDER — replace with <Image> when photos available */}
-          <div className="relative rounded-2xl overflow-hidden h-64 md:h-[420px] bg-gradient-to-br from-accent-violet/25 via-bg-surface-hover to-primary/12 border border-white/[0.04]">
-            <div className="absolute inset-0 bg-gradient-to-t from-bg/50 via-transparent to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
+          {post.image ? (
+            <div className="relative rounded-2xl overflow-hidden border border-white/[0.04] bg-bg-surface flex items-center justify-center">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="w-full max-h-[600px] object-contain"
+              />
+            </div>
+          ) : (
+            <div className="relative rounded-2xl overflow-hidden h-64 md:h-[420px] border border-white/[0.04] bg-gradient-to-br from-accent-violet/25 via-bg-surface-hover to-primary/12 flex items-center justify-center">
               <span className="text-text-muted/20 text-xs uppercase tracking-[0.25em]">
                 Zdjęcie artykułu
               </span>
             </div>
-            {/* Subtle texture */}
-            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: "repeating-linear-gradient(135deg, transparent, transparent 30px, #caa775 30px, #caa775 31px)" }} />
-          </div>
+          )}
         </div>
       </div>
 
-      {/* Content — editorial prose */}
+      {/* Content */}
       <div className="px-6 md:px-12">
         <div className="mx-auto max-w-[680px]">
-          {/* Decorative drop cap line */}
           <div className="w-12 h-px bg-accent-gold/30 mb-10" />
 
-          {/* Paragraphs */}
           <div className="space-y-6">
             {paragraphs.map((paragraph, i) => (
               <p
                 key={i}
                 className={`text-text-secondary leading-[1.85] ${
-                  i === 0
-                    ? "text-lg font-light text-text/90"
-                    : "text-base"
+                  i === 0 ? "text-lg font-light text-text/90" : "text-base"
                 }`}
               >
                 {paragraph}
@@ -152,7 +156,6 @@ export default function BlogPostPage() {
             <div className="h-px flex-1 bg-gradient-to-l from-accent-gold/20 to-transparent" />
           </div>
 
-          {/* Back link */}
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-text-muted hover:text-accent-gold transition-colors text-sm"
@@ -180,7 +183,6 @@ export default function BlogPostPage() {
                   href={`/blog/${related.slug}`}
                   className="group block rounded-xl overflow-hidden bg-bg-surface border border-white/[0.06] hover:border-accent-gold/20 transition-all card-hover"
                 >
-                  {/* Image placeholder */}
                   <div className="h-36 bg-gradient-to-br from-bg-surface-hover to-bg-surface flex items-center justify-center">
                     <span className="text-text-muted/20 text-xs uppercase tracking-widest">
                       Zdjęcie

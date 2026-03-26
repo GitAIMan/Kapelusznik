@@ -1,10 +1,19 @@
 import { Router } from "express";
 import type { Request, Response } from "express";
+import sanitizeHtml from "sanitize-html";
 import { pool } from "../db";
 import { requireAuth } from "../middleware/auth";
 import { validateBlogPost } from "../middleware/validateBlog";
 
 const router = Router();
+
+function sanitizeText(text: string): string {
+  return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} });
+}
+
+function isValidId(id: string): boolean {
+  return /^\d+$/.test(id);
+}
 
 // Public: get all posts
 router.get("/", async (_req: Request, res: Response) => {
@@ -45,7 +54,7 @@ router.post("/", requireAuth, validateBlogPost, async (req: Request, res: Respon
       `INSERT INTO blog_posts (title, excerpt, content, date, image, slug)
        VALUES ($1, $2, $3, $4, $5, $6)
        RETURNING *`,
-      [title, excerpt, content, date, image, slug]
+      [sanitizeText(title), sanitizeText(excerpt), sanitizeText(content), date, image, slug]
     );
     res.status(201).json(rows[0]);
   } catch (err: any) {
@@ -60,6 +69,11 @@ router.post("/", requireAuth, validateBlogPost, async (req: Request, res: Respon
 
 // Protected: update post
 router.put("/:id", requireAuth, validateBlogPost, async (req: Request, res: Response) => {
+  const id = String(req.params.id);
+  if (!isValidId(id)) {
+    res.status(400).json({ error: "Nieprawidłowe ID" });
+    return;
+  }
   const { title, excerpt, content, date, image, slug } = req.body;
   try {
     const { rows } = await pool.query(
@@ -67,7 +81,7 @@ router.put("/:id", requireAuth, validateBlogPost, async (req: Request, res: Resp
        SET title=$1, excerpt=$2, content=$3, date=$4, image=$5, slug=$6, updated_at=NOW()
        WHERE id=$7
        RETURNING *`,
-      [title, excerpt, content, date, image, slug, req.params.id]
+      [sanitizeText(title), sanitizeText(excerpt), sanitizeText(content), date, image, slug, id]
     );
     if (rows.length === 0) {
       res.status(404).json({ error: "Post nie znaleziony" });
@@ -86,10 +100,15 @@ router.put("/:id", requireAuth, validateBlogPost, async (req: Request, res: Resp
 
 // Protected: delete post
 router.delete("/:id", requireAuth, async (req: Request, res: Response) => {
+  const id = String(req.params.id);
+  if (!isValidId(id)) {
+    res.status(400).json({ error: "Nieprawidłowe ID" });
+    return;
+  }
   try {
     const { rowCount } = await pool.query(
       "DELETE FROM blog_posts WHERE id = $1",
-      [req.params.id]
+      [id]
     );
     if (rowCount === 0) {
       res.status(404).json({ error: "Post nie znaleziony" });
