@@ -4,6 +4,7 @@ import { ArrowLeft } from "lucide-react";
 import Contact from "@/components/sections/Contact";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
+import ContactMapWrapper from "@/components/ui/ContactMapWrapper";
 
 export const metadata: Metadata = {
   title: "Kontakt — Kapelusznik | Kolektyw Artystyczny",
@@ -35,17 +36,10 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* IMAGE PLACEHOLDER: Wide cinematic band — Bielsko-Biała vibe */}
+      {/* Map */}
       <section className="px-6 md:px-12 pb-8">
-        <div className="mx-auto max-w-5xl relative rounded-2xl overflow-hidden h-40 md:h-52 bg-gradient-to-r from-accent-violet/20 via-bg-surface-hover to-primary/10 border border-white/[0.04]">
-          <div className="absolute inset-0 bg-gradient-to-t from-bg/70 via-transparent to-bg/30 z-10" />
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-            <span className="text-text-muted/25 text-xs uppercase tracking-[0.25em]">
-              Bielsko-Biała — siedziba kolektywu
-            </span>
-          </div>
-          {/* Subtle dot pattern */}
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(#caa775 0.5px, transparent 0.5px)", backgroundSize: "16px 16px" }} />
+        <div className="mx-auto max-w-5xl">
+          <ContactMapWrapper />
         </div>
       </section>
 
