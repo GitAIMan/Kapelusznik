@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Contact from "@/components/sections/Contact";
+import ContactMap from "@/components/ui/ContactMap";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
-import ContactMapWrapper from "@/components/ui/ContactMapWrapper";
 
 export const metadata: Metadata = {
   title: "Kontakt — Kapelusznik | Kolektyw Artystyczny",
@@ -39,7 +39,7 @@ export default function ContactPage() {
       {/* Map */}
       <section className="px-6 md:px-12 pb-8">
         <div className="mx-auto max-w-5xl">
-          <ContactMapWrapper />
+          <ContactMap />
         </div>
       </section>
 
