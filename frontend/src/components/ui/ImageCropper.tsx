@@ -3,12 +3,19 @@
 import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 import type { Area } from "react-easy-crop";
+import { cn } from "@/lib/utils";
 
 interface ImageCropperProps {
   imageSrc: string;
   onCropDone: (blob: Blob) => void;
   onCancel: () => void;
 }
+
+const ASPECT_OPTIONS = [
+  { label: "Poziome", value: 16 / 9 },
+  { label: "Pionowe", value: 9 / 16 },
+  { label: "Kwadrat", value: 1 },
+];
 
 async function getCroppedImg(imageSrc: string, pixelCrop: Area): Promise<Blob> {
   const image = new Image();
@@ -48,6 +55,7 @@ async function getCroppedImg(imageSrc: string, pixelCrop: Area): Promise<Blob> {
 export default function ImageCropper({ imageSrc, onCropDone, onCancel }: ImageCropperProps) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
+  const [aspect, setAspect] = useState(16 / 9);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
 
   const onCropComplete = useCallback((_: Area, croppedPixels: Area) => {
@@ -67,9 +75,28 @@ export default function ImageCropper({ imageSrc, onCropDone, onCancel }: ImageCr
         <h3 className="font-heading text-lg font-semibold text-text">
           Kadruj zdjęcie
         </h3>
-        <p className="text-text-muted text-xs">
-          Przeciągnij i powiększ, żeby wybrać kadr
-        </p>
+
+        {/* Aspect ratio buttons */}
+        <div className="flex items-center gap-1">
+          {ASPECT_OPTIONS.map((opt) => (
+            <button
+              key={opt.label}
+              type="button"
+              onClick={() => {
+                setAspect(opt.value);
+                setCrop({ x: 0, y: 0 });
+              }}
+              className={cn(
+                "px-3 py-1.5 text-xs rounded-md transition-colors",
+                aspect === opt.value
+                  ? "bg-accent-gold/20 text-accent-gold border border-accent-gold/30"
+                  : "text-text-muted hover:text-text border border-white/[0.06] hover:border-white/15"
+              )}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Cropper area */}
@@ -78,7 +105,7 @@ export default function ImageCropper({ imageSrc, onCropDone, onCancel }: ImageCr
           image={imageSrc}
           crop={crop}
           zoom={zoom}
-          aspect={16 / 9}
+          aspect={aspect}
           onCropChange={setCrop}
           onZoomChange={setZoom}
           onCropComplete={onCropComplete}

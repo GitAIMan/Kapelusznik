@@ -14,11 +14,13 @@ export default function BlogPostPage() {
   const slug = params.slug;
 
   const [post, setPost] = useState<BlogPost | null>(null);
+  const [otherPosts, setOtherPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!slug) return;
 
+    // Fetch current post
     fetch(`${API_URL}/api/blog/${slug}`)
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {
@@ -30,9 +32,17 @@ export default function BlogPostPage() {
         setPost(fallback);
         setLoading(false);
       });
-  }, [slug]);
 
-  const otherPosts = BLOG_POSTS.filter((p) => p.slug !== slug).slice(0, 2);
+    // Fetch other posts from API
+    fetch(`${API_URL}/api/blog`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setOtherPosts(data.filter((p: BlogPost) => p.slug !== slug).slice(0, 2));
+        }
+      })
+      .catch(() => {});
+  }, [slug]);
 
   if (loading) {
     return (
