@@ -24,9 +24,24 @@ export default function Hero() {
     };
 
     video.addEventListener("timeupdate", handleTimeUpdate);
+
+    // Pauzuj wideo gdy sekcja jest poza ekranem — oszczędza GPU/CPU
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(video);
+
     return () => {
       clearTimeout(startTimeout);
       video.removeEventListener("timeupdate", handleTimeUpdate);
+      observer.disconnect();
     };
   }, []);
 
@@ -48,8 +63,8 @@ export default function Hero() {
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/60 to-bg z-10" />
         {/* Radial glows */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-primary/15 blur-[120px] z-[5]" />
-        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-accent-violet/10 blur-[100px] z-[5]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-primary/15 blur-[60px] z-[5]" />
+        <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-accent-violet/10 blur-[60px] z-[5]" />
       </div>
 
       {/* Decorative geometric lines */}

@@ -7,6 +7,7 @@ import contactRouter from "./routes/contact";
 import authRouter from "./routes/auth";
 import blogRouter from "./routes/blog";
 import uploadRouter from "./routes/upload";
+import routeRouter from "./routes/route";
 import { migrate } from "./db/migrate";
 
 dotenv.config();
@@ -59,10 +60,21 @@ const contactLimiter = rateLimit({
 });
 app.use("/api/contact", contactLimiter);
 
+// Route calculator limiter: 20 req / min per IP
+const routeLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: "Zbyt wiele zapytań o trasę. Spróbuj ponownie za chwilę." },
+});
+app.use("/api/route", routeLimiter);
+
 app.use("/api/contact", contactRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/upload", uploadRouter);
+app.use("/api/route", routeRouter);
 
 app.get("/api/health", (_req, res) => {
   res.json({ status: "ok" });

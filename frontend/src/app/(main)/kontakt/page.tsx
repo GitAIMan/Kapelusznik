@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Contact from "@/components/sections/Contact";
 import ContactMap from "@/components/ui/ContactMap";
+import RouteCalculator from "@/components/sections/RouteCalculator";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 
@@ -36,15 +37,18 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map */}
-      <section className="px-6 md:px-12 pb-8">
+      {/* Formularz kontaktowy */}
+      <Contact />
+
+      {/* Mapa pod formularzem */}
+      <section className="px-6 md:px-12 py-8">
         <div className="mx-auto max-w-5xl">
           <ContactMap />
         </div>
       </section>
 
-      {/* Reuse existing Contact component */}
-      <Contact />
+      {/* Route calculator — ukryty do czasu dodania klucza ORS_API_KEY */}
+      {/* <RouteCalculator /> */}
     </div>
   );
 }

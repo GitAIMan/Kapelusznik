@@ -1,15 +1,6 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
-
-export const metadata: Metadata = {
-  title: "O nas — Kapelusznik | Kolektyw Artystyczny",
-  description:
-    "Poznaj historię Kapelusznika — kolektywu artystów ulicznych z Bielska-Białej. Ponad dekada doświadczeń na scenach całej Polski.",
-};
 
 const MILESTONES = [
   { year: "2012", text: "Pierwsze wspólne występy na ulicach Bielska-Białej" },
@@ -20,20 +11,13 @@ const MILESTONES = [
   { year: "2025", text: "Nowe pokolenie artystów dołącza do kolektywu" },
 ];
 
-export default function AboutPage() {
+export default function AboutContent() {
   return (
-    <div className="pt-28 pb-20">
-      <div className="px-6 md:px-12 mb-6">
-        <Link href="/" className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm">
-          <ArrowLeft className="h-4 w-4" />
-          Strona główna
-        </Link>
-      </div>
-
+    <>
       {/* Hero — asymmetric: text left, overlapping image + quote right */}
-      <section className="relative px-6 md:px-12 pb-24 overflow-hidden">
+      <section className="relative px-6 md:px-12 py-24 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[150px]" />
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[70px]" />
         </div>
 
         <div className="relative mx-auto max-w-7xl">
@@ -60,18 +44,15 @@ export default function AboutPage() {
 
             {/* Right — stacked: image with overlapping quote */}
             <div className="lg:col-span-6 relative">
-              {/* IMAGE PLACEHOLDER 1: Hero group photo — replace div with <Image> */}
               <div className="relative rounded-2xl overflow-hidden h-72 md:h-96 bg-gradient-to-br from-bg-surface-hover via-accent-violet/20 to-bg-surface border border-white/[0.06] -rotate-1">
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-text-muted/40 text-xs uppercase tracking-[0.2em]">
                     Zdjęcie zespołu
                   </span>
                 </div>
-                {/* Subtle diagonal lines decoration */}
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, #caa775 20px, #caa775 21px)" }} />
               </div>
 
-              {/* Quote overlay — floating on image */}
               <blockquote className="relative -mt-16 ml-6 mr-2 md:ml-12 bg-bg/90 backdrop-blur-sm border border-white/[0.08] rounded-xl p-6 z-10">
                 <p className="text-text font-heading text-lg md:text-xl font-medium leading-snug italic">
                   &ldquo;Najpiękniejszy moment to ten, gdy publiczność zapomina,
@@ -86,9 +67,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Panoramic image band — full width, cinematic */}
+      {/* Panoramic image band */}
       <section className="relative px-6 md:px-12 py-4">
-        {/* IMAGE PLACEHOLDER 2: Wide performance shot — replace div with <Image> */}
         <div className="section-reveal mx-auto max-w-7xl relative rounded-2xl overflow-hidden h-48 md:h-64 bg-gradient-to-r from-accent-violet/30 via-bg-surface to-accent-violet/20 border border-white/[0.04]">
           <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-bg/40 z-10" />
           <div className="absolute inset-0 flex items-center justify-center">
@@ -96,7 +76,6 @@ export default function AboutPage() {
               Panorama — Kapelusznik na scenie
             </span>
           </div>
-          {/* Decorative gradient mesh */}
           <div className="absolute top-0 left-1/4 w-1/2 h-full bg-accent-gold/[0.03] blur-[60px]" />
         </div>
       </section>
@@ -141,12 +120,11 @@ export default function AboutPage() {
 
         <div className="section-reveal mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Values cards */}
             {[
               { title: "Pasja", text: "Sztuka uliczna to nasz sposób na życie. Każdy występ jest pełen energii i autentyczności." },
               { title: "Wspólnota", text: "Kolektyw to więcej niż zespół. To rodzina artystów, która wspiera się nawzajem na scenie i poza nią." },
               { title: "Interakcja", text: "Najlepsze spektakle powstają w dialogu z publicznością. Zapraszamy widzów do wspólnej zabawy." },
-            ].map((v, i) => (
+            ].map((v) => (
               <div key={v.title} className="bg-bg-surface/60 border border-white/[0.06] rounded-xl p-8">
                 <h3 className="font-heading text-lg font-semibold text-text mb-3">
                   {v.title}
@@ -158,7 +136,6 @@ export default function AboutPage() {
             ))}
           </div>
 
-          {/* IMAGE PLACEHOLDER 3: Offset photo below values — artsy placement */}
           <div className="mt-8 flex justify-end">
             <div className="relative w-full max-w-sm rounded-2xl overflow-hidden h-52 bg-gradient-to-bl from-bg-surface via-primary/10 to-bg-surface-hover border border-white/[0.06] rotate-1">
               <div className="absolute inset-0 flex items-center justify-center">
@@ -182,6 +159,6 @@ export default function AboutPage() {
           </Button>
         </div>
       </section>
-    </div>
+    </>
   );
 }

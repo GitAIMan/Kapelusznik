@@ -59,6 +59,36 @@ body {
   animation: bounceSubtle 2s ease-in-out infinite;
 }
 
+/* Pulsująca ikona dla wyróżnionych linków nav */
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 2px rgba(202, 167, 117, 0.4));
+  }
+  50% {
+    transform: scale(1.25);
+    filter: drop-shadow(0 0 14px rgba(202, 167, 117, 0.9));
+  }
+}
+
+.animate-icon-pulse {
+  animation: iconPulse 1.8s ease-in-out infinite;
+}
+
+/* Pulsujący glow na całym linku */
+@keyframes navGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 1px rgba(202, 167, 117, 0.4), 0 0 12px rgba(202, 167, 117, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(202, 167, 117, 0.7), 0 0 24px rgba(202, 167, 117, 0.4);
+  }
+}
+
+.animate-nav-glow {
+  animation: navGlow 2.4s ease-in-out infinite;
+}
+
 /* Animacja 1: Scroll fade-in na sekcjach */
 .section-reveal {
   opacity: 0;
@@ -133,6 +163,14 @@ body {
   }
 
   .animate-bounce-subtle {
+    animation: none;
+  }
+
+  .animate-icon-pulse {
+    animation: none;
+  }
+
+  .animate-nav-glow {
     animation: none;
   }
 

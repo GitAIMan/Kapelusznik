@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import { DISCIPLINES, DISCIPLINE_DETAILS } from "@/lib/constants";
 
 export async function generateStaticParams() {
-  return DISCIPLINES.map((d) => ({ id: d.id }));
+  // Pomijamy pozycje z href (np. Teserakt linkuje do osobnej strony /teserakt-ognia)
+  return DISCIPLINES.filter((d) => !d.href).map((d) => ({ id: d.id }));
 }
 
 export async function generateMetadata({
@@ -30,7 +31,7 @@ export default async function DisciplinePage({
   const discipline = DISCIPLINES.find((d) => d.id === id);
   if (!discipline) notFound();
 
-  const details = DISCIPLINE_DETAILS[id];
+  const details: typeof DISCIPLINE_DETAILS[string] | undefined = DISCIPLINE_DETAILS[id];
   const Icon = discipline.icon;
 
   const otherDisciplines = DISCIPLINES.filter((d) => d.id !== id).slice(0, 3);
@@ -41,8 +42,8 @@ export default async function DisciplinePage({
         <section className="relative pt-32 pb-20 px-6 md:px-12 overflow-hidden">
           {/* Decorative bg */}
           <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[150px]" />
-            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-violet/10 blur-[120px]" />
+            <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[70px]" />
+            <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full bg-accent-violet/10 blur-[60px]" />
           </div>
 
           <div className="relative mx-auto max-w-5xl">
@@ -138,33 +139,6 @@ export default async function DisciplinePage({
                   </div>
                 ))}
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ARTYŚCI */}
-        <section className="px-6 md:px-12 pb-24">
-          <div className="section-divider mx-auto max-w-5xl mb-16" />
-          <div className="mx-auto max-w-5xl">
-            <h2 className="font-heading text-2xl font-bold text-text mb-8">
-              Nasi artyści
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {(details?.artists || []).map((artist, i) => (
-                <div
-                  key={i}
-                  className="gradient-border rounded-xl bg-bg-surface/80 p-6 text-center"
-                >
-                  {/* Avatar placeholder */}
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-bg-surface-hover to-bg-surface mx-auto mb-4 flex items-center justify-center border border-white/5">
-                    <span className="text-text-muted text-xs">Foto</span>
-                  </div>
-                  <p className="font-heading font-bold text-text">
-                    {artist.name}
-                  </p>
-                  <p className="text-text-muted text-sm mt-1">{artist.role}</p>
-                </div>
-              ))}
             </div>
           </div>
         </section>

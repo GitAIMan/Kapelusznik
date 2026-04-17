@@ -11,7 +11,7 @@ export default function ForOrganizers() {
 
       {/* Decorative bg */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[150px]" />
+        <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[70px]" />
       </div>
 
       <div className="section-reveal relative mx-auto max-w-7xl">

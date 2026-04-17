@@ -1,11 +1,24 @@
 import type { LucideIcon } from "lucide-react";
 
-export interface Discipline {
+export interface DisciplineItem {
   id: string;
   name: string;
   icon: LucideIcon;
   description: string;
   image: string;
+  href?: string;
+  highlight?: boolean;
+}
+
+// Zgodność wsteczna — stare importy dalej działają
+export type Discipline = DisciplineItem;
+
+export interface DisciplineCategory {
+  id: string;
+  name: string;
+  subtitle: string;
+  icon: LucideIcon;
+  items: DisciplineItem[];
 }
 
 export interface TimelineStep {
@@ -35,13 +48,24 @@ export interface ContactInfo {
 export interface NavLink {
   label: string;
   href: string;
+  highlight?: boolean;
+  icon?: LucideIcon;
 }
+
+export type BlogBlock =
+  | { type: "heading"; text: string }
+  | { type: "paragraph"; text: string }
+  | { type: "image"; url: string; caption?: string }
+  | { type: "quote"; text: string; author?: string };
 
 export interface BlogPost {
   id: string;
   title: string;
+  subtitle?: string;
   excerpt: string;
   content?: string;
+  blocks?: BlogBlock[];
+  gallery?: string[];
   date: string;
   image: string;
   slug: string;

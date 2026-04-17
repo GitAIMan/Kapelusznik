@@ -15,6 +15,10 @@ export async function migrate() {
     );
   `);
 
+  await pool.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS subtitle TEXT DEFAULT ''`);
+  await pool.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS blocks JSONB DEFAULT '[]'::jsonb`);
+  await pool.query(`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS gallery JSONB DEFAULT '[]'::jsonb`);
+
   // Seed only if table is empty
   const { rows } = await pool.query("SELECT COUNT(*) FROM blog_posts");
   if (parseInt(rows[0].count) === 0) {

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-Website for **Kolektyw Artystyczny Kapelusznik** — street artists collective from Bielsko-Biała, Poland. Dark theme with fire videos, warm color palette based on their brand logo.
+Website for **Kolektyw Artystyczny Kapelusznik** — street artists collective from Bielsko-Biała, Poland. Dark theme with fire video on hero, warm color palette based on brand logo. Multi-page architecture with separate subpages.
 
 ## Commands
 
@@ -17,7 +17,7 @@ cd frontend && npm run lint   # ESLint
 
 ### Backend (Express + PostgreSQL)
 ```bash
-cd backend && npm run dev     # Dev server → localhost:3001
+cd backend && npm run dev     # Dev server → localhost:3001 (works without DATABASE_URL — graceful start)
 cd backend && npm run build   # TypeScript compile
 ```
 
@@ -28,7 +28,9 @@ cd backend && npm run build   # TypeScript compile
 ### Frontend stack
 - **Next.js 16** (App Router, `src/` dir) + **React 19** + **TypeScript**
 - **Tailwind CSS 4** — config in `@theme inline` block in `globals.css` (NOT `tailwind.config`)
-- **framer-motion** — used minimally (only `FloatingEmbers.tsx`)
+- **framer-motion** — used minimally (only `FloatingEmbers.tsx` in discipline wheel)
+- **embla-carousel-react** — blog carousel on homepage (coverflow 3D effect)
+- **react-easy-crop** — image cropper in admin panel (16:9, 9:16, 1:1 aspect ratios)
 - **lucide-react** for icons, **clsx + tailwind-merge** via `cn()` in `lib/utils.ts`
 - Fonts: **Space Grotesk** (headings, `--font-heading`) + **Inter** (body, `--font-body`) via `next/font/google`
 
@@ -36,62 +38,131 @@ cd backend && npm run build   # TypeScript compile
 All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 - `bg: #1A1210` (warm black), `primary: #caa775` (brand gold-brown from logo), `accent-gold: #caa775`, `accent-violet: #3e1011` (dark brown)
 - `text: #faf1b7` (cream from logo), `text-secondary: #B8A88E`
-- Backup of previous "Ember" palette saved in `frontend/globals-backup-ember.css`
 
 ### Key patterns
 
-**Data-driven sections:** Disciplines, timeline steps, stats, contact info live in `lib/constants.ts`. Blog posts are dynamic — stored in PostgreSQL, fetched via API (`/api/blog`), with `BLOG_POSTS` in constants as fallback.
+**Multi-page architecture:** Site uses route group `(main)` with shared layout (Navbar + Footer). Each section is a separate subpage with its own URL, metadata, and unique layout. NOT a one-page site.
 
-**Video dip-to-black:** Hero, About, and Disciplines sections have background `<video>` elements with JS-controlled opacity via `timeupdate` event listener. Fade-out triggers 0.5s before video ends for seamless looping. Video files locally in `public/Video/`, on production served from Cloudflare R2.
+**Data-driven sections:** Disciplines, timeline steps, contact info live in `lib/constants.ts`. Blog posts are dynamic — stored in PostgreSQL, fetched via API (`/api/blog`), with `BLOG_POSTS` in constants as fallback (includes `content` field).
 
-**Discipline wheel (desktop):** `useDisciplineWheel` hook handles drag-to-rotate via pointer events + `Math.atan2`. Wrapped in `mounted` state guard to avoid SSR hydration mismatch from floating-point precision differences.
+**Video dip-to-black:** Hero section has background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end. Video only on Hero — About and Disciplines have video disabled (SHOW_VIDEO flag in About). Files locally in `public/Video/`, on production served from Cloudflare R2.
 
-**Section reveal:** Lightweight IntersectionObserver via `SectionRevealProvider` client component (loaded in `layout.tsx`) adds `.visible` class to `.section-reveal` elements. CSS transition handles the animation.
+**Discipline wheel:** Interactive drag-to-rotate wheel on `/dla-organizatorow` page. `useDisciplineWheel` hook handles pointer events + `Math.atan2`. Center Flame icon with `FloatingEmbers`. Triple-click Flame → `/admin` (secret admin entry). Desktop only — mobile shows expandable list.
 
-**Blog horizontal slider:** Blog section uses CSS `overflow-x: auto` + `scroll-snap` for horizontal card scrolling. Arrow buttons on hover (desktop), swipe on mobile. Gradient fades on edges. `.hide-scrollbar` class hides scrollbar.
+**Blog carousel (homepage):** `BlogCarousel` component using embla-carousel-react. 3D coverflow effect — center card straight, side cards rotated ±10° and scaled down. Drag to scroll, loop, navigation arrows. Fetches posts from API.
+
+**Blog post images:** Admin uploads images via cropper (react-easy-crop) with 3 aspect ratio options (Poziome 16:9, Pionowe 9:16, Kwadrat 1:1). Images stored in Cloudflare R2. Displayed on blog listing (object-cover, fixed height) and post page (object-contain, natural proportions, max-h-600px).
+
+**Block editor (blog):** `PostEditor` + `BlockEditor` + `GalleryEditor` w `components/admin/`. Post ma pola: title, subtitle (lead), blocks (heading/paragraph/image/quote, z drag-reorder ↑↓), gallery (dodatkowe zdjęcia kadrowane). Backend: DB kolumny `subtitle TEXT`, `blocks JSONB`, `gallery JSONB` (migracja idempotentna). Frontend `/blog/[slug]`: kolejność **tytuł → lead → zdjęcie główne → bloki → galeria → related** (zdjęcie POD tytułem, nie nad). Lightbox własny, bez biblioteki. Fallback: brak bloków → renderuje `content` jak przedtem (stare posty działają).
+
+**Dyscypliny accordion:** `/dyscypliny` to 3 rozwijane panele (Pokazy / Animacje cyrkowe / Warsztaty). Struktura w `DISCIPLINE_CATEGORIES` w `constants.ts`. Dyscyplina może mieć `href` (Teserakt → `/teserakt-ognia`) i `highlight` (złota obwódka + pulsująca ikonka). `generateStaticParams` filtruje pozycje z `href` żeby nie generować duplikatów. Accordion: CSS-only `grid-template-rows 0fr → 1fr` (bez biblioteki, GPU-friendly).
+
+**Section reveal:** IntersectionObserver via `SectionRevealProvider` client component adds `.visible` class to `.section-reveal` elements. CSS transition handles animation.
+
+**Back navigation:** Every subpage has "← Strona główna" link at top. `/dyscypliny/[id]` has "← Wróć do dyscyplin". `/blog/[slug]` has breadcrumbs + "← Wróć do bloga".
 
 **Premium CSS utilities** in `globals.css`: `.card-hover` (lift + shadow), `.gradient-border` (mask trick), `.section-divider` (gradient line), `.animate-bounce-subtle`, `.hide-scrollbar`.
 
 ### Routing
-- `/` — main one-page site (7 sections: Hero, About, Disciplines, ForOrganizers, Blog, Contact + Navbar/Footer)
-- `/dyscypliny/[id]` — discipline subpages (statically generated via `generateStaticParams`)
-- `/admin` — hidden admin panel (no links to it on the site)
-- `/admin/new` — create new blog post
-- `/admin/edit/[id]` — edit existing blog post
+
+```
+/                    → Homepage = O nas (Hero z wideo + AboutContent). /o-nas USUNIĘTE
+/dyscypliny          → Accordion 3 kategorii (Pokazy / Animacje / Warsztaty)
+/dyscypliny/[id]     → Discipline detail (Teserakt filtered — linkuje do /teserakt-ognia)
+/teserakt-ognia      → Dedykowana strona flagowego projektu (onepage, placeholders)
+/dla-organizatorow   → For organizers (process steps, offer checklist, discipline wheel, event gallery)
+/blog                → Blog listing
+/blog/[slug]         → Blog post detail (bloki, galeria, lightbox)
+/kontakt             → Formularz (górą) + mapa Google (pod spodem). RouteCalculator zakomentowany (brak klucza ORS)
+/admin               → Hidden admin panel
+/admin/new           → Create blog post (PostEditor — subtitle, bloki, galeria, cropper)
+/admin/edit/[id]     → Edit blog post (PostEditor)
+```
+
+**Route group:** `app/(main)/` wraps all public pages with shared `layout.tsx` (Navbar + Footer). Admin pages are outside this group.
+
+### Navbar
+- **Linki:** Dyscypliny, Teserakt Ognia, Dla organizatorów, Blog, Kontakt (O nas usunięte — jest na `/`)
+- **Wyróżnione linki (`highlight: true` w `NAV_LINKS`):** Dyscypliny (ikonka Sparkles) i Teserakt Ognia (ikonka Flame). Złoty tekst, gradient-tło, `animate-nav-glow` na ramce + `animate-icon-pulse` na ikonce. Reszta linków neutralna.
+- **Desktop (lg+):** Visible nav links in row + CTA "Zamów występ" button
+- **Mobile:** Hamburger menu with fullscreen overlay. Solid bg (`bg-bg/95`, BEZ `backdrop-blur` — usunięte dla performance).
+- Logo (round, `/images/logo.jpg`) links to `/`
 
 ### Secret admin panel
-- **Entry:** Triple-click Flame icon in center of Disciplines wheel → clears token → redirects to `/admin`
-- **Auth:** Password `adminkapelusznik` → SHA-256 hash compared on backend → JWT token (24h)
-- **Features:** CRUD blog posts, image upload to Cloudflare R2
+- **Entry:** Triple-click Flame icon in discipline wheel on `/dla-organizatorow` → clears token → redirects to `/admin`
+- **Auth:** Password from `ADMIN_PASSWORD` env var → SHA-256 hash compared → JWT token (24h)
+- **Features:** CRUD blog posts, image upload with cropper (3 aspect ratios) to Cloudflare R2
+- **Auto excerpt:** Zajawka field removed from forms — excerpt auto-generated from first 150 chars of content
 - **Backend routes:** `/api/auth` (login/verify), `/api/blog` (CRUD), `/api/upload` (images → R2)
 - **DB:** PostgreSQL on Railway, table `blog_posts`, auto-migrates on backend start
-- **Images:** Uploaded to R2 bucket `kapelusznik-assets/blog/`, public URL stored in DB
+
+### Backend security
+- **Rate limiting:** Global 100 req/15min, login 5/15min, contact 5/hour (express-rate-limit)
+- **Helmet:** Security headers (X-Content-Type-Options, X-Frame-Options, CSP etc.)
+- **Input validation:** Zod schemas with max lengths + `.strict()` (rejects unknown fields)
+- **HTML sanitization:** `sanitize-html` strips all HTML tags from blog content (XSS protection)
+- **ID validation:** PUT/DELETE routes validate numeric ID params
+- **Env vars required in production:** `ADMIN_PASSWORD`, `JWT_SECRET` (throws on missing)
+- **Request body limit:** 1MB
+
+## Performance optimizations (2026-04-17)
+
+- **Blury zredukowane:** wszystkie `blur-[120-180px]` → `blur-[60-80px]` (kilkukrotnie szybsze na GPU)
+- **Navbar:** usunięto `backdrop-blur-2xl` — teraz `bg-bg/95` solid (było widoczne na starych laptopach)
+- **Hero wideo:** IntersectionObserver pauzuje `<video>` gdy sekcja jest poza ekranem
+- **Nieużywane komponenty:** `SectionsPreview.tsx`, `BlogCarousel.tsx`, `About.tsx` zostają w repo (martwy kod) — do ewentualnego powrotu
+
+## Hidden / planned features
+
+- **RouteCalculator** (`components/sections/RouteCalculator.tsx` + `RouteMap.tsx`) — gotowy, zakomentowany w `/kontakt`. Wymaga klucza `ORS_API_KEY` (OpenRouteService, darmowe 2000/dzień). Backend proxy `/api/route`. Leaflet + react-leaflet już zainstalowane. Odkomentować gdy klient dostarczy klucz.
+
+## Color backup
+
+Kopia palety HEX zapisana w `BACKUP_KOLORYSTYKA.md` w root (do cofnięcia zmian kolorystyki).
 
 ## Critical constraints
 
-1. **Performance is absolute priority.** Previous version of this site crashed the user's laptop 15 times. No heavy animations, no canvas/WebGL, no particle systems. Max lightweight CSS transitions + framer-motion on tiny elements only.
+1. **Performance is absolute priority.** Previous version crashed the user's laptop 15 times. No heavy animations, no canvas/WebGL, no particle systems. Max lightweight CSS transitions + framer-motion on tiny elements only.
 2. **No generic "gold premium" styling.** Colors must come from client's brand logo (`#caa775`, `#faf1b7`, `#3e1011`).
 3. **Next.js 16 breaking change:** `params` in dynamic routes is a `Promise` — must be `await`ed.
-4. **Tailwind CSS 4:** Configuration is in CSS `@theme` block, not in `tailwind.config.ts`.
-5. **`prefers-reduced-motion`** must be respected — all animations have reduced-motion fallbacks in `globals.css`.
+4. **Next.js 16:** `ssr: false` in `next/dynamic` not allowed in Server Components — use client wrapper component.
+5. **Tailwind CSS 4:** Configuration is in CSS `@theme` block, not in `tailwind.config.ts`.
+6. **`prefers-reduced-motion`** must be respected — all animations have reduced-motion fallbacks in `globals.css`.
+7. **Commits only with user approval.** Never commit without explicit permission.
+8. **Accessibility:** Site must be navigable by older users — clear navigation, readable text, predictable layout.
 
-## Deployment (Railway)
+## Deployment
 
-**Hosting:** Railway — 2 separate services (kafelki): `Frontend` and `Backend`.
-- **Frontend:** Build command `npm run build`, Start command `npm run start` (uses `next start`). Do NOT use `output: "standalone"` — Railway nie kopiuje `public/` i `.next/static/` automatycznie.
-- **Backend:** Standard `npm run start` → Express on port 8080. Env vars: `DATABASE_URL` (Postgres), `JWT_SECRET`, `FRONTEND_URL`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID`.
-- Railway auto-deploys on push to GitHub `main`.
-- Section reveal moved from inline `<Script>` to `SectionRevealProvider` client component.
+### Railway — 2 environments: Production + Staging
+- **Production:** auto-deploys from `main` branch
+- **Staging:** auto-deploys from `staging` branch
+- **Frontend:** Build `npm run build`, Start `npm run start`. Do NOT use `output: "standalone"`.
+- **Backend:** Build `npm run build`, Start `npm run start` → Express on port 8080.
+
+### Backend env vars (required)
+- `DATABASE_URL` — PostgreSQL connection string
+- `JWT_SECRET` — JWT signing secret (required in production)
+- `ADMIN_PASSWORD` — Admin panel password (required in production)
+- `FRONTEND_URL` — CORS allowed origin (set per environment!)
+- `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ACCOUNT_ID` — Cloudflare R2
+
+### Frontend env vars
+- `NEXT_PUBLIC_CDN_URL` — Cloudflare R2 public URL (for videos). Empty locally → falls back to `/Video/`
+- `NEXT_PUBLIC_API_URL` — Backend URL. Must point to correct environment (staging backend for staging frontend!)
+
+### CORS gotcha
+Staging frontend must talk to staging backend (not production!). Set `FRONTEND_URL` on staging backend to staging frontend URL, and `NEXT_PUBLIC_API_URL` on staging frontend to staging backend URL.
 
 ## Video CDN (Cloudflare R2)
 
-Background fire videos are hosted on **Cloudflare R2** (bucket: `kapelusznik-assets`).
+Background fire video hosted on **Cloudflare R2** (bucket: `kapelusznik-assets`).
 - **Public URL:** `https://pub-c80345f06600456890a96b515fec6e54.r2.dev`
-- **Env var:** `NEXT_PUBLIC_CDN_URL` — set in Railway Variables. Empty locally (`.env.local`) → falls back to local `/Video/` paths.
-- **Files in R2** (folder `Video/`): `film_ogień.mp4`, `Film_ogień_2.mp4`, `Film_ogień_3.mp4` — filenames contain Polish `ń`, URL-encoded as `%C5%84`.
-- Video mapping: Hero → `film_ogień.mp4`, About → `Film_ogień_2.mp4`, Disciplines → `Film_ogień_3.mp4`.
+- **Env var:** `NEXT_PUBLIC_CDN_URL` — set in Railway Variables.
+- **Files in R2** (folder `Video/`): `film_ogień.mp4` — Hero section background.
+- Video only on Hero section. About/Disciplines videos disabled.
 
 ## Project docs
 - `Specyfikacja projektu - Kapelusznik.md` — full spec with all sections, colors, SEO
 - `Potrzebne animacje na później.md` — deferred animation ideas (fire intro, custom cursor, parallax)
 - `wstęp_do_strony.md` — analysis of current kapelusznik.com.pl site
+- `kapelusznik_homepage_mockup.html` — HTML mockup of homepage layout (inspiration reference)

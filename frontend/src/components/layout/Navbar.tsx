@@ -30,7 +30,7 @@ export default function Navbar() {
           isOpen
             ? "bg-bg"
             : scrolled
-              ? "bg-bg/85 backdrop-blur-2xl border-b border-white/[0.06] shadow-lg shadow-black/20"
+              ? "bg-bg/95 border-b border-white/[0.06] shadow-lg shadow-black/20"
               : "bg-transparent"
         )}
       >
@@ -50,16 +50,25 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav links */}
-          <div className="hidden lg:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="px-4 py-2 text-sm text-text-secondary hover:text-text transition-colors rounded-lg hover:bg-white/[0.04]"
-              >
-                {link.label}
-              </Link>
-            ))}
+          <div className="hidden lg:flex items-center gap-1.5">
+            {NAV_LINKS.map((link) => {
+              const Icon = link.icon;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    "inline-flex items-center gap-2 rounded-lg transition-all",
+                    link.highlight
+                      ? "px-4 py-2 text-xs font-bold uppercase tracking-wider text-accent-gold bg-gradient-to-r from-accent-gold/20 via-accent-gold/10 to-accent-gold/20 border border-accent-gold/50 animate-nav-glow hover:from-accent-gold/30 hover:via-accent-gold/20 hover:to-accent-gold/30 hover:text-primary-light"
+                      : "px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-white/[0.04]"
+                  )}
+                >
+                  {Icon && <Icon className="h-4 w-4 animate-icon-pulse text-accent-gold" />}
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Desktop CTA + Mobile hamburger */}
@@ -110,22 +119,31 @@ export default function Navbar() {
       >
         {/* Decorative radial gradients */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/8 blur-[100px]" />
-          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-accent-gold/6 blur-[100px]" />
+          <div className="absolute top-1/4 left-1/4 w-80 h-80 rounded-full bg-primary/8 blur-[60px]" />
+          <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-accent-gold/6 blur-[60px]" />
         </div>
 
         {/* Nav links */}
-        <div className="flex flex-col items-center gap-7">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={closeMenu}
-              className="font-heading text-2xl md:text-4xl font-bold text-text transition-colors hover:text-accent-gold"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="flex flex-col items-center gap-6">
+          {NAV_LINKS.map((link) => {
+            const Icon = link.icon;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={closeMenu}
+                className={cn(
+                  "font-heading font-bold transition-all inline-flex items-center gap-3",
+                  link.highlight
+                    ? "text-2xl md:text-4xl text-accent-gold px-5 py-2.5 rounded-2xl bg-gradient-to-r from-accent-gold/20 via-accent-gold/10 to-accent-gold/20 border border-accent-gold/50 animate-nav-glow hover:text-primary-light"
+                    : "text-2xl md:text-4xl text-text hover:text-accent-gold"
+                )}
+              >
+                {Icon && <Icon className="h-7 w-7 md:h-8 md:w-8 animate-icon-pulse text-accent-gold" />}
+                {link.label}
+              </Link>
+            );
+          })}
 
           {/* CTA in mobile menu */}
           <Link

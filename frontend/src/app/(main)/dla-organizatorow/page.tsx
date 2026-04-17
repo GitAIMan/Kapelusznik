@@ -42,7 +42,7 @@ export default function ForOrganizersPage() {
       {/* Hero — 2 columns: text left, image right */}
       <section className="relative px-6 md:px-12 pb-20 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[150px]" />
+          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/6 blur-[70px]" />
         </div>
 
         <div className="relative mx-auto max-w-7xl">

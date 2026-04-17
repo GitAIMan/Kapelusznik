@@ -3,12 +3,28 @@ import type { Request, Response } from "express";
 import sanitizeHtml from "sanitize-html";
 import { pool } from "../db";
 import { requireAuth } from "../middleware/auth";
-import { validateBlogPost } from "../middleware/validateBlog";
+import { validateBlogPost, type BlogBlock } from "../middleware/validateBlog";
 
 const router = Router();
 
 function sanitizeText(text: string): string {
   return sanitizeHtml(text, { allowedTags: [], allowedAttributes: {} });
+}
+
+function sanitizeBlock(block: BlogBlock): BlogBlock {
+  switch (block.type) {
+    case "heading":
+    case "paragraph":
+      return { ...block, text: sanitizeText(block.text) };
+    case "image":
+      return { ...block, caption: sanitizeText(block.caption || "") };
+    case "quote":
+      return {
+        ...block,
+        text: sanitizeText(block.text),
+        author: sanitizeText(block.author || ""),
+      };
+  }
 }
 
 function isValidId(id: string): boolean {
@@ -19,7 +35,7 @@ function isValidId(id: string): boolean {
 router.get("/", async (_req: Request, res: Response) => {
   try {
     const { rows } = await pool.query(
-      "SELECT id, title, excerpt, date, image, slug, created_at, updated_at FROM blog_posts ORDER BY date DESC"
+      "SELECT id, title, subtitle, excerpt, date, image, slug, gallery, created_at, updated_at FROM blog_posts ORDER BY date DESC"
     );
     res.json(rows);
   } catch (err) {
@@ -48,13 +64,24 @@ router.get("/:slug", async (req: Request, res: Response) => {
 
 // Protected: create post
 router.post("/", requireAuth, validateBlogPost, async (req: Request, res: Response) => {
-  const { title, excerpt, content, date, image, slug } = req.body;
+  const { title, subtitle, excerpt, content, date, image, slug, blocks, gallery } = req.body;
+  const sanitizedBlocks = (blocks as BlogBlock[]).map(sanitizeBlock);
   try {
     const { rows } = await pool.query(
-      `INSERT INTO blog_posts (title, excerpt, content, date, image, slug)
-       VALUES ($1, $2, $3, $4, $5, $6)
+      `INSERT INTO blog_posts (title, subtitle, excerpt, content, date, image, slug, blocks, gallery)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8::jsonb, $9::jsonb)
        RETURNING *`,
-      [sanitizeText(title), sanitizeText(excerpt), sanitizeText(content), date, image, slug]
+      [
+        sanitizeText(title),
+        sanitizeText(subtitle || ""),
+        sanitizeText(excerpt),
+        sanitizeText(content),
+        date,
+        image,
+        slug,
+        JSON.stringify(sanitizedBlocks),
+        JSON.stringify(gallery),
+      ]
     );
     res.status(201).json(rows[0]);
   } catch (err: any) {
@@ -74,14 +101,27 @@ router.put("/:id", requireAuth, validateBlogPost, async (req: Request, res: Resp
     res.status(400).json({ error: "Nieprawidłowe ID" });
     return;
   }
-  const { title, excerpt, content, date, image, slug } = req.body;
+  const { title, subtitle, excerpt, content, date, image, slug, blocks, gallery } = req.body;
+  const sanitizedBlocks = (blocks as BlogBlock[]).map(sanitizeBlock);
   try {
     const { rows } = await pool.query(
       `UPDATE blog_posts
-       SET title=$1, excerpt=$2, content=$3, date=$4, image=$5, slug=$6, updated_at=NOW()
-       WHERE id=$7
+       SET title=$1, subtitle=$2, excerpt=$3, content=$4, date=$5, image=$6, slug=$7,
+           blocks=$8::jsonb, gallery=$9::jsonb, updated_at=NOW()
+       WHERE id=$10
        RETURNING *`,
-      [sanitizeText(title), sanitizeText(excerpt), sanitizeText(content), date, image, slug, id]
+      [
+        sanitizeText(title),
+        sanitizeText(subtitle || ""),
+        sanitizeText(excerpt),
+        sanitizeText(content),
+        date,
+        image,
+        slug,
+        JSON.stringify(sanitizedBlocks),
+        JSON.stringify(gallery),
+        id,
+      ]
     );
     if (rows.length === 0) {
       res.status(404).json({ error: "Post nie znaleziony" });

@@ -52,7 +52,7 @@ export default function DisciplineWheelSection() {
 
       {/* Decorative bg */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-violet/5 blur-[180px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent-violet/5 blur-[80px]" />
       </div>
 
       <div className="section-reveal relative mx-auto max-w-7xl">

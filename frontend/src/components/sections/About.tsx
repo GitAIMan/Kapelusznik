@@ -60,8 +60,8 @@ export default function About() {
 
       {/* Decorative bg */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent-gold/10 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-accent-gold/10 blur-[60px]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-primary/10 blur-[60px]" />
       </div>
 
       <div className="section-reveal relative mx-auto max-w-3xl">

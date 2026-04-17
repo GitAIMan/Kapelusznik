@@ -8,67 +8,111 @@ import {
   Phone,
   MapPin,
   Facebook,
+  Music,
+  CircleDot,
+  GraduationCap,
+  Target,
+  Palette,
+  Theater,
+  Users,
 } from "lucide-react";
-import type { Discipline, TimelineStep, StatItem, ContactInfo, NavLink, BlogPost, DisciplineDetails } from "@/types";
+import type { DisciplineItem, DisciplineCategory, TimelineStep, StatItem, ContactInfo, NavLink, BlogPost, DisciplineDetails } from "@/types";
 
 export const NAV_LINKS: NavLink[] = [
-  { label: "O nas", href: "/o-nas" },
-  { label: "Dyscypliny", href: "/dyscypliny" },
+  { label: "Dyscypliny", href: "/dyscypliny", highlight: true, icon: Sparkles },
+  { label: "Teserakt Ognia", href: "/teserakt-ognia", highlight: true, icon: Flame },
   { label: "Dla organizatorów", href: "/dla-organizatorow" },
   { label: "Blog", href: "/blog" },
   { label: "Kontakt", href: "/kontakt" },
 ];
 
-export const DISCIPLINES: Discipline[] = [
+export const DISCIPLINE_CATEGORIES: DisciplineCategory[] = [
   {
-    id: "zywe-rzezby",
-    name: "Żywe Rzeźby",
-    icon: Sparkles,
-    description:
-      "Nieruchomi artyści, którzy ożywają w najmniej spodziewanym momencie. Mistrzowskie kostiumy i charakteryzacja przenoszą widzów w inny świat.",
-    image: "/images/disciplines/zywe-rzezby.jpg",
+    id: "pokazy",
+    name: "Pokazy",
+    subtitle: "Spektakle, które zapierają dech",
+    icon: Theater,
+    items: [
+      {
+        id: "teserakt-ognia",
+        name: "Teatr Ognia Tesserakt",
+        description: "Nasz flagowy projekt — widowiskowy spektakl ognia łączący akrobatykę, taniec i choreografię. Oddzielna strona z pełną prezentacją.",
+        icon: Flame,
+        image: "",
+        href: "/teserakt-ognia",
+        highlight: true,
+      },
+      {
+        id: "pokazy-iluzji",
+        name: "Pokazy iluzji",
+        description: "Magia sceniczna i iluzja — pokazy, które oszukują zmysły i zaskakują publiczność w każdym wieku.",
+        icon: Sparkles,
+        image: "",
+      },
+      {
+        id: "akrobatyka",
+        name: "Akrobatyka",
+        description: "Akrobatyka powietrzna i gruntowa — gracja, siła i odwaga w jednym widowisku.",
+        icon: Wind,
+        image: "",
+      },
+      {
+        id: "taniec-orientalny",
+        name: "Taniec Orientalny",
+        description: "Tradycyjny taniec brzucha i choreografie inspirowane kulturami Wschodu. Zmysłowa energia i piękno ruchu.",
+        icon: Music,
+        image: "",
+      },
+    ],
   },
   {
-    id: "zonglerka",
-    name: "Żonglerka",
-    icon: Flame,
-    description:
-      "Wirujące maczugi, płonące pochodnie i hipnotyzujące LED-y. Precyzja, rytm i widowiskowa energia, która elektryzuje tłumy.",
-    image: "/images/disciplines/zonglerka.jpg",
+    id: "animacje",
+    name: "Animacje cyrkowe",
+    subtitle: "Artystyczne atrakcje na Twoim evencie",
+    icon: Users,
+    items: [
+      {
+        id: "animacje-cyrkowe",
+        name: "Animacje cyrkowe",
+        description: "Interaktywne animacje dla gości wydarzenia — żonglerka, szczudła, clowning, malowanie twarzy i nie tylko.",
+        icon: Drama,
+        image: "",
+      },
+    ],
   },
   {
-    id: "akrobatyka",
-    name: "Akrobatyka Powietrzna",
-    icon: Wind,
-    description:
-      "Taniec w powietrzu na szarfach i trapezach. Gracja, siła i odwaga — spektakl, który zapiera dech w piersiach.",
-    image: "/images/disciplines/akrobatyka.jpg",
-  },
-  {
-    id: "highline",
-    name: "Highline",
-    icon: MountainSnow,
-    description:
-      "Spacer po taśmie rozpiętej nad ziemią. Balans na granicy możliwości — tam, gdzie niebo spotyka odwagę.",
-    image: "/images/disciplines/highline.jpg",
-  },
-  {
-    id: "lalkarstwo",
-    name: "Lalkarstwo",
-    icon: Drama,
-    description:
-      "Wielkoformatowe lalki i marionetki ożywające na ulicach. Teatr, który przemawia do wyobraźni dzieci i dorosłych.",
-    image: "/images/disciplines/lalkarstwo.jpg",
-  },
-  {
-    id: "scena",
-    name: "Scena Sztukmistrzów",
-    icon: Sparkles,
-    description:
-      "Magia, komedia i interakcja z publicznością. Sztukmistrze, którzy zamieniają ulicę w scenę pełną śmiechu i zachwytu.",
-    image: "/images/disciplines/scena.jpg",
+    id: "warsztaty",
+    name: "Warsztaty",
+    subtitle: "Nauka przez zabawę — dla szkół i grup",
+    icon: GraduationCap,
+    items: [
+      {
+        id: "ale-cyrk",
+        name: "Ale Cyrk! Warsztaty edukacyjne",
+        description: "Warsztaty edukacyjne w formie cyrku — nauka przez ruch, współpracę i kreatywną zabawę. Dla dzieci i młodzieży.",
+        icon: Palette,
+        image: "",
+      },
+      {
+        id: "zonglerka-funkcjonalna",
+        name: "Żonglerka Funkcjonalna",
+        description: "Żonglerka jako trening koordynacji i koncentracji. Od podstaw do trików — z elementami neuropedagogiki.",
+        icon: Target,
+        image: "",
+      },
+      {
+        id: "ekwilibrystyka",
+        name: "Ekwilibrystyka",
+        description: "Balans i równowaga — warsztaty z monocykla, chodzenia po linie i innych dyscyplin wymagających skupienia.",
+        icon: MountainSnow,
+        image: "",
+      },
+    ],
   },
 ];
+
+// Płaska lista — używana przez /dyscypliny/[id] i inne miejsca
+export const DISCIPLINES: DisciplineItem[] = DISCIPLINE_CATEGORIES.flatMap((c) => c.items);
 
 export const STATS: StatItem[] = [
   { value: "10+", label: "Lat doświadczenia" },
@@ -130,35 +174,7 @@ export const CONTACT_INFO: ContactInfo[] = [
   },
 ];
 
-export const BLOG_POSTS: BlogPost[] = [
-  {
-    id: "1",
-    title: "Festiwal Ognia w Bielsku-Białej 2025",
-    excerpt: "Relacja z naszego największego występu tego roku. Trzy dni pełne ognia, akrobatyki i niezapomnianych emocji.",
-    content: "Tegoroczny Festiwal Ognia w Bielsku-Białej był dla nas wyjątkowy. Przez trzy dni zaprezentowaliśmy ponad dwadzieścia pokazów — od kameralnych fire show na Starym Rynku po wielki finałowy spektakl na Placu Ratuszowym.\n\nNasi żonglerzy pracowali z płonącymi maczugami i poi, a akrobatki powietrzne tańczyły na szarfach zawieszonych między drzewami w parku miejskim. Publiczność była niesamowita — szacujemy, że łącznie zobaczyło nas ponad pięć tysięcy osób.\n\nNajwiększe wrażenie zrobił nocny pokaz highline nad rzeką Białą. Podświetlony neonami artysta przeszedł 50 metrów na taśmie rozpiętej 15 metrów nad wodą. Cisza, która zapanowała wśród widzów, była najlepszym dowodem na to, że sztuka uliczna potrafi zatrzymać czas.",
-    date: "2025-09-15",
-    image: "/images/blog/placeholder-1.jpg",
-    slug: "festiwal-ognia-2025",
-  },
-  {
-    id: "2",
-    title: "Nowi artyści w kolektywie",
-    excerpt: "Poznajcie nowych członków Kapelusznika — utalentowanych akrobatów i żonglerów, którzy dołączyli do naszej ekipy.",
-    content: "Z ogromną radością przedstawiamy nowych członków Kapelusznika! Po intensywnych przesłuchaniach i wspólnych treningach do naszego kolektywu dołączyło troje utalentowanych artystów.\n\nMarta specjalizuje się w akrobatyce powietrznej na szarfach — jej płynne przejścia i siła robią wrażenie nawet na doświadczonych artystach. Kuba to żongler, który łączy klasyczną technikę z elementami breakdance. Zosia przynosi ze sobą doświadczenie z teatru ulicznego i lalkarstwa.\n\nKażdy z nich wnosi coś nowego do naszych spektakli. Już planujemy pierwsze wspólne występy — nie możemy się doczekać, żeby pokazać Wam, co razem potrafimy stworzyć.",
-    date: "2025-08-02",
-    image: "/images/blog/placeholder-2.jpg",
-    slug: "nowi-artysci",
-  },
-  {
-    id: "3",
-    title: "Za kulisami: jak przygotowujemy pokaz",
-    excerpt: "Zaglądamy za kulisy naszych przygotowań. Od pierwszych prób po finałowy występ — jak wygląda nasza praca.",
-    content: "Wielu widzów widzi tylko efekt końcowy — spektakularny pokaz trwający godzinę. Ale za każdym występem stoją tygodnie przygotowań. Chcemy Wam pokazać, jak to wygląda od kuchni.\n\nWszystko zaczyna się od koncepcji. Spotykamy się w naszej sali treningowej w Bielsku i omawiamy charakter wydarzenia — ile osób, jaka przestrzeń, czy to dzień czy noc, indoor czy outdoor. Na tej podstawie dobieramy dyscypliny i tworzymy scenariusz.\n\nPotem następują próby. Każdy artysta trenuje indywidualnie swoje numery, ale kluczowe są próby zespołowe — synchronizacja, timing muzyczny, reakcja na siebie nawzajem. Dzień przed występem robimy przegląd techniczny na miejscu — sprawdzamy punkty zawieszenia, bezpieczeństwo, oświetlenie. Dopiero wtedy jesteśmy gotowi na scenę.",
-    date: "2025-06-20",
-    image: "/images/blog/placeholder-3.jpg",
-    slug: "za-kulisami",
-  },
-];
+export const BLOG_POSTS: BlogPost[] = [];
 
 export const DISCIPLINE_DETAILS: Record<string, DisciplineDetails> = {
   "zywe-rzezby": {

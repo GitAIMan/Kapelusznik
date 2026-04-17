@@ -35,7 +35,7 @@ export default function Contact() {
 
       {/* Decorative bg */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] rounded-full bg-accent-gold/6 blur-[150px]" />
+        <div className="absolute top-0 left-1/3 w-[600px] h-[600px] rounded-full bg-accent-gold/6 blur-[70px]" />
       </div>
 
       <div className="section-reveal relative mx-auto max-w-7xl">
