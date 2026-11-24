@@ -19,7 +19,7 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 | # | Punkt | Stan |
 |---|---|---|
 | 1 | Usunąć „Drogę Kapelusznika” | ✅ 2026-11-24 |
-| 2 | Tło: filmy (Dzień Dziecka, BBusking — po ~1 min) na przemian ze zdjęciami. **BEZ DAWIDA.** Wymaga R2 Cloudflare | ⏳ na sam koniec (decyzja użytkownika) |
+| 2 | Tło strony głównej. **Zmiana wizji (użytkownik):** sam film BBusking 0:10–2:47 (bez Dawida, bez zdjęć), na telefonie zdjęcie (postać z porożem) | 🟡 2026-11-24 ✅ 2026-11-24 — film na R2 (`Video/bbusking_tlo.mp4`), wysłane na staging |
 | 3 | Napis „Zamieniamy ulice w sceny” zostaje | ✅ jest |
 | 4 | O nas: tekst klienta (historia, Miłosz, misja, „Potrafimy zaskoczyć…”, warsztaty + żonglerka funkcjonalna) | ✅ 2026-11-24 (zdjęcia = placeholdery, czekają na 3.2) |
 | 5 | Sekcja „Kompleksowa realizacja imprez” (Bielska Scena Ognia, BBusking, dmuchańce, nagłośnienie…) | ✅ 2026-11-24 (zdjęcia imprez = placeholdery) |
@@ -34,6 +34,7 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 - ✅ Pisownia „Tesserakt” (2×s) w całej stronie + adres `/tesserakt-ognia` (stary przekierowuje)
 - ✅ Prawdziwy mail/telefon/adres też na /kontakt i w menu mobilnym
 - ✅ Czcionki: nagłówki Fraunces, tekst Hanken Grotesk (2026-11-24, wysłane na staging)
+- 🟡 Większy tekst w całej stronie (starsi odbiorcy): baza 17px, opisy o 1 stopień w górę, większe menu, płynne przejście menu → film (2026-11-24, lokalnie)
 
 ### Otwarte pytania
 - (brak) — logo potwierdzone jako OK (2026-11-24)
@@ -44,4 +45,4 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 ## Dziennik
 | Data | Część | Co zrobione |
 |---|---|---|
-| 2026-11-24 | 3.3 / 3.4 | Film → Tesserakt, usunięta Droga Kapelusznika, O nas, stopka, pisownia Tesserakt, Kompleksowa realizacja, Nasze realizacje (YT), Zaufali nam |
+| 2026-11-24 | 3.3 / 3.4 | Film → Tesserakt, usunięta Droga Kapelusznika, O nas, stopka, pisownia Tesserakt, Kompleksowa realizacja, Nasze realizacje (YT), Zaufali nam, czcionki, tło BBusking (film/telefon: zdjęcie) |

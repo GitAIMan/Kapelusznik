@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Flame } from "lucide-react";
-import FireVideo from "@/components/ui/FireVideo";
+import BackgroundVideo from "@/components/ui/BackgroundVideo";
 
 export default function TesseraktOgniaPage() {
   return (
@@ -12,7 +12,7 @@ export default function TesseraktOgniaPage() {
         id="hero"
         className="relative flex min-h-[85vh] flex-col px-6 md:px-12 pt-28 pb-24 overflow-hidden"
       >
-        <FireVideo />
+        <BackgroundVideo src="/Video/film_ogie%C5%84.mp4" />
 
         {/* Back link */}
         <div className="relative z-20 mb-6">

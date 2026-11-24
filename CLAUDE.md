@@ -45,7 +45,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Data-driven sections:** Disciplines, timeline steps, contact info live in `lib/constants.ts`. Blog posts are dynamic — stored in PostgreSQL, fetched via API (`/api/blog`), with `BLOG_POSTS` in constants as fallback (includes `content` field).
 
-**Video dip-to-black:** Fire video lives ONLY on `/tesserakt-ognia` hero (moved from homepage 2026-11-24), component `components/ui/FireVideo.tsx` — background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end. Homepage Hero has classic background (no video). Files locally in `public/Video/`, on production served from Cloudflare R2.
+**Video dip-to-black:** component `components/ui/BackgroundVideo.tsx` (props `src`, optional `mobileImage`). Homepage hero: `bbusking_tlo.mp4` on desktop (md+), photo `/images/hero-mobile.jpg` on phones (video not downloaded at all). `/tesserakt-ognia` hero: `film_ogień.mp4` — background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end.  Files locally in `public/Video/`, on production served from Cloudflare R2.
 
 **Discipline wheel:** Interactive drag-to-rotate wheel on `/dla-organizatorow` page. `useDisciplineWheel` hook handles pointer events + `Math.atan2`. Center Flame icon with `FloatingEmbers`. Triple-click Flame → `/admin` (secret admin entry). Desktop only — mobile shows expandable list.
 
@@ -109,7 +109,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 - **Blury zredukowane:** wszystkie `blur-[120-180px]` → `blur-[60-80px]` (kilkukrotnie szybsze na GPU)
 - **Navbar:** usunięto `backdrop-blur-2xl` — teraz `bg-bg/95` solid (było widoczne na starych laptopach)
-- **Wideo (FireVideo):** IntersectionObserver pauzuje `<video>` gdy sekcja jest poza ekranem
+- **Wideo (BackgroundVideo):** IntersectionObserver pauzuje `<video>` gdy sekcja jest poza ekranem
 - **Nieużywane komponenty:** `SectionsPreview.tsx`, `BlogCarousel.tsx`, `About.tsx` zostają w repo (martwy kod) — do ewentualnego powrotu
 
 ## Hidden / planned features
@@ -158,8 +158,8 @@ Staging frontend must talk to staging backend (not production!). Set `FRONTEND_U
 Background fire video hosted on **Cloudflare R2** (bucket: `kapelusznik-assets`).
 - **Public URL:** `https://pub-c80345f06600456890a96b515fec6e54.r2.dev`
 - **Env var:** `NEXT_PUBLIC_CDN_URL` — set in Railway Variables.
-- **Files in R2** (folder `Video/`): `film_ogień.mp4` — tło hero na `/tesserakt-ognia`.
-- Video only on `/tesserakt-ognia` hero. Homepage has no video.
+- **Files in R2** (folder `Video/`): `film_ogień.mp4` — tło hero na `/tesserakt-ognia`; `bbusking_tlo.mp4` — tło strony głównej (BBusking 2025, 0:10–2:47, 720p, bez dźwięku, ~25 MB).
+- Video: homepage hero (BBusking, desktop only) + `/tesserakt-ognia` hero (ogień).
 
 ## Project docs
 - `Specyfikacja projektu - Kapelusznik.md` — full spec with all sections, colors, SEO
