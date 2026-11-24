@@ -45,7 +45,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Data-driven sections:** Disciplines, timeline steps, contact info live in `lib/constants.ts`. Blog posts are dynamic — stored in PostgreSQL, fetched via API (`/api/blog`), with `BLOG_POSTS` in constants as fallback (includes `content` field).
 
-**Video dip-to-black:** Hero section has background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end. Video only on Hero — About and Disciplines have video disabled (SHOW_VIDEO flag in About). Files locally in `public/Video/`, on production served from Cloudflare R2.
+**Video dip-to-black:** Fire video lives ONLY on `/teserakt-ognia` hero (moved from homepage 2026-11-24), component `components/ui/FireVideo.tsx` — background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end. Homepage Hero has classic background (no video). Files locally in `public/Video/`, on production served from Cloudflare R2.
 
 **Discipline wheel:** Interactive drag-to-rotate wheel on `/dla-organizatorow` page. `useDisciplineWheel` hook handles pointer events + `Math.atan2`. Center Flame icon with `FloatingEmbers`. Triple-click Flame → `/admin` (secret admin entry). Desktop only — mobile shows expandable list.
 
@@ -109,7 +109,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 - **Blury zredukowane:** wszystkie `blur-[120-180px]` → `blur-[60-80px]` (kilkukrotnie szybsze na GPU)
 - **Navbar:** usunięto `backdrop-blur-2xl` — teraz `bg-bg/95` solid (było widoczne na starych laptopach)
-- **Hero wideo:** IntersectionObserver pauzuje `<video>` gdy sekcja jest poza ekranem
+- **Wideo (FireVideo):** IntersectionObserver pauzuje `<video>` gdy sekcja jest poza ekranem
 - **Nieużywane komponenty:** `SectionsPreview.tsx`, `BlogCarousel.tsx`, `About.tsx` zostają w repo (martwy kod) — do ewentualnego powrotu
 
 ## Hidden / planned features
@@ -158,8 +158,8 @@ Staging frontend must talk to staging backend (not production!). Set `FRONTEND_U
 Background fire video hosted on **Cloudflare R2** (bucket: `kapelusznik-assets`).
 - **Public URL:** `https://pub-c80345f06600456890a96b515fec6e54.r2.dev`
 - **Env var:** `NEXT_PUBLIC_CDN_URL` — set in Railway Variables.
-- **Files in R2** (folder `Video/`): `film_ogień.mp4` — Hero section background.
-- Video only on Hero section. About/Disciplines videos disabled.
+- **Files in R2** (folder `Video/`): `film_ogień.mp4` — tło hero na `/teserakt-ognia`.
+- Video only on `/teserakt-ognia` hero. Homepage has no video.
 
 ## Project docs
 - `Specyfikacja projektu - Kapelusznik.md` — full spec with all sections, colors, SEO

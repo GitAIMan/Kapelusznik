@@ -1,67 +1,13 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import Button from "@/components/ui/Button";
 
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoOpacity, setVideoOpacity] = useState(0);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const startTimeout = setTimeout(() => setVideoOpacity(1), 500);
-
-    const handleTimeUpdate = () => {
-      const timeLeft = video.duration - video.currentTime;
-      if (timeLeft <= 0.5) {
-        setVideoOpacity(0);
-      } else if (video.currentTime > 0.1) {
-        setVideoOpacity(1);
-      }
-    };
-
-    video.addEventListener("timeupdate", handleTimeUpdate);
-
-    // Pauzuj wideo gdy sekcja jest poza ekranem — oszczędza GPU/CPU
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(video);
-
-    return () => {
-      clearTimeout(startTimeout);
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-      observer.disconnect();
-    };
-  }, []);
-
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Background — fire video */}
+      {/* Background — klasyczne tło (film przeniesiony na /teserakt-ognia) */}
       <div className="absolute inset-0">
-        <video
-          ref={videoRef}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ opacity: videoOpacity, transition: "opacity 0.5s ease-in-out" }}
-          autoPlay
-          muted
-          loop
-          playsInline
-        >
-          <source src={`${process.env.NEXT_PUBLIC_CDN_URL || ""}/Video/film_ogie%C5%84.mp4`} type="video/mp4" />
-        </video>
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-bg/40 via-bg/60 to-bg z-10" />
         {/* Radial glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-primary/15 blur-[60px] z-[5]" />
         <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] rounded-full bg-accent-violet/10 blur-[60px] z-[5]" />

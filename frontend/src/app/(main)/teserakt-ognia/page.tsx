@@ -2,29 +2,30 @@
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Flame } from "lucide-react";
+import FireVideo from "@/components/ui/FireVideo";
 
 export default function TeseraktOgniaPage() {
   return (
-    <div className="pt-28 pb-20">
-      {/* Back link */}
-      <div className="px-6 md:px-12 mb-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Strona główna
-        </Link>
-      </div>
+    <div className="pb-20">
+      {/* HERO — film z ogniem w tle */}
+      <section
+        id="hero"
+        className="relative flex min-h-[85vh] flex-col px-6 md:px-12 pt-28 pb-24 overflow-hidden"
+      >
+        <FireVideo />
 
-      {/* HERO */}
-      <section id="hero" className="relative px-6 md:px-12 pb-24 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-primary/10 blur-[70px]" />
-          <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-accent-gold/6 blur-[70px]" />
+        {/* Back link */}
+        <div className="relative z-20 mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Strona główna
+          </Link>
         </div>
 
-        <div className="relative mx-auto max-w-4xl text-center">
+        <div className="relative z-20 mx-auto my-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent-gold/25 bg-accent-gold/5 text-accent-gold text-xs uppercase tracking-[0.2em] font-medium mb-8">
             <Flame className="h-3.5 w-3.5" />
             Projekt specjalny
