@@ -1,6 +1,3 @@
-import SectionLabel from "@/components/ui/SectionLabel";
-import SectionHeading from "@/components/ui/SectionHeading";
-
 /** Loga w /public/images/zaufali (przygotowane: białe tło, przycięte, webp). */
 const LOGOS = [
   { file: "miasto-bielsko-biala", name: "Miasto Bielsko-Biała" },
@@ -30,7 +27,7 @@ const LOGOS = [
 function LogoTile({ file, name, hidden }: { file: string; name: string; hidden?: boolean }) {
   return (
     <li className="shrink-0" aria-hidden={hidden || undefined}>
-      <div className="flex h-24 w-36 md:h-28 md:w-44 items-center justify-center rounded-xl bg-white p-3 md:p-4 shadow-sm shadow-black/30">
+      <div className="flex h-20 w-32 md:h-24 md:w-40 items-center justify-center rounded-xl bg-white p-3 md:p-4 shadow-sm shadow-black/30">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`/images/zaufali/${file}.webp`}
@@ -47,23 +44,14 @@ function LogoTile({ file, name, hidden }: { file: string; name: string; hidden?:
 
 export default function TrustedBy() {
   return (
-    <section className="relative py-20">
-      <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
-
-      <div className="section-reveal px-6 md:px-12 text-center mb-12">
-        <SectionLabel>Współpraca</SectionLabel>
-        <SectionHeading className="mt-4 flex flex-col items-center">
-          Zaufali nam
-        </SectionHeading>
-        <p className="mt-4 text-text-secondary text-base">
-          Biblioteki, domy kultury, teatry, fundacje i&nbsp;samorządy, z&nbsp;którymi
-          współpracowaliśmy.
-        </p>
-      </div>
+    <section className="relative py-10 md:py-12 border-y border-white/[0.05]" aria-label="Zaufali nam">
+      <p className="mb-6 text-center text-xs uppercase tracking-[0.25em] text-accent-gold/80 font-medium">
+        Zaufali nam
+      </p>
 
       {/* Pasek: lista zdublowana → płynna pętla; najechanie myszą zatrzymuje */}
       <div className="marquee marquee-fade overflow-hidden">
-        <ul className="animate-marquee flex w-max gap-4 md:gap-6 py-2">
+        <ul className="animate-marquee flex w-max gap-4 md:gap-5 py-1">
           {LOGOS.map((l) => (
             <LogoTile key={l.file} {...l} />
           ))}

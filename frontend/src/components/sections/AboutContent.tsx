@@ -2,7 +2,7 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
 import YouTubeLite from "@/components/ui/YouTubeLite";
-import TrustedBy from "@/components/sections/TrustedBy";
+import Gallery, { type Photo } from "@/components/ui/Gallery";
 import { Castle, Drama, Tent, Speaker } from "lucide-react";
 
 const REALIZATIONS: { title: string; place?: string; youtubeId?: string }[] = [
@@ -28,9 +28,44 @@ const REALIZATIONS: { title: string; place?: string; youtubeId?: string }[] = [
   },
 ];
 
-const OWN_EVENTS = [
-  { name: "Bielska Scena Ognia" },
-  { name: "Przegląd Artystów Ulicznych „BBusking”" },
+const IMG = "/images/home";
+
+const ABOUT_MAIN: Photo[] = [
+  { src: `${IMG}/onas-korowod.webp`, alt: "Artyści Kapelusznika w kostiumach na ulicy miasta" },
+];
+
+const ABOUT_STRIP: Photo[] = [
+  { src: `${IMG}/onas-ogien.webp`, alt: "Pokaz ognia z iskrami nocą" },
+  { src: `${IMG}/onas-motyl.webp`, alt: "Artystka w kostiumie motyla na ulicy", position: "center 30%" },
+  { src: `${IMG}/onas-lalkarze.webp`, alt: "Lalkarze z marionetką", position: "center 35%" },
+];
+
+const WORKSHOP_PHOTOS: Photo[] = [
+  { src: `${IMG}/warsztaty-1.webp`, alt: "Dzieci z podniesionymi rękami na warsztatach" },
+  { src: `${IMG}/warsztaty-2.webp`, alt: "Dzieci uczą się żonglerki, siedząc na podłodze" },
+  { src: `${IMG}/warsztaty-3.webp`, alt: "Dzieci przy grach zręcznościowych w sali" },
+  { src: `${IMG}/warsztaty-5.webp`, alt: "Ćwiczenia z kołem hula-hoop na warsztatach", position: "center 35%" },
+];
+
+const OWN_EVENTS: { name: string; photos: Photo[] }[] = [
+  {
+    name: "Bielska Scena Ognia",
+    photos: [{ src: `${IMG}/imprezy-2.webp`, alt: "Pokaz ognia z fajerwerkami nad wodą" }],
+  },
+  {
+    name: "Przegląd Artystów Ulicznych „BBusking”",
+    photos: [
+      { src: `${IMG}/bbusking-1.webp`, alt: "Taniec z ogniem na BBuskingu" },
+      { src: `${IMG}/bbusking-2.webp`, alt: "Artystka ze świecącymi skrzydłami na BBuskingu" },
+    ],
+  },
+];
+
+const EVENT_GALLERY: Photo[] = [
+  { src: `${IMG}/imprezy-1.webp`, alt: "Szczudlarz na imprezie przy Książnicy Beskidzkiej" },
+  { src: `${IMG}/imprezy-3.webp`, alt: "Artyści z ramą i kostiumem motyla w galerii handlowej" },
+  { src: `${IMG}/imprezy-4.webp`, alt: "Wielkie bańki mydlane nad publicznością" },
+  { src: `${IMG}/imprezy-5.webp`, alt: "Akrobatka na kole przed kamienicą" },
 ];
 
 const SERVICES = [
@@ -81,15 +116,12 @@ export default function AboutContent() {
 
             {/* Right — zdjęcie + daty */}
             <div className="lg:col-span-6 relative">
-              <div className="relative rounded-2xl overflow-hidden h-72 md:h-96 bg-gradient-to-br from-bg-surface-hover via-accent-violet/20 to-bg-surface border border-white/[0.06] -rotate-1">
-                {/* TODO: zdjęcie zespołu (3.2 Zdjęcia) */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-text-muted/40 text-xs uppercase tracking-[0.2em]">
-                    Zdjęcie zespołu
-                  </span>
-                </div>
-                <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, #caa775 20px, #caa775 21px)" }} />
-              </div>
+              <Gallery
+                photos={ABOUT_MAIN}
+                className="-rotate-1"
+                itemClassName="h-72 md:h-96 rounded-2xl"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
 
               <div className="relative -mt-14 ml-6 mr-2 md:ml-12 grid grid-cols-2 gap-px rounded-xl overflow-hidden border border-white/[0.08] bg-white/[0.06] z-10">
                 {FACTS.map((f) => (
@@ -108,18 +140,14 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* Panoramic image band */}
+      {/* Pasek 3 zdjęć — Zamieniamy ulice w sceny */}
       <section className="relative px-6 md:px-12 py-4">
-        <div className="section-reveal mx-auto max-w-7xl relative rounded-2xl overflow-hidden h-48 md:h-64 bg-gradient-to-r from-accent-violet/30 via-bg-surface to-accent-violet/20 border border-white/[0.04]">
-          <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-bg/40 z-10" />
-          {/* TODO: zdjęcie panoramiczne (3.2 Zdjęcia) */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-text-muted/30 text-xs uppercase tracking-[0.2em]">
-              Panorama — Kapelusznik na scenie
-            </span>
-          </div>
-          <div className="absolute top-0 left-1/4 w-1/2 h-full bg-accent-gold/[0.03] blur-[60px]" />
-        </div>
+        <Gallery
+          photos={ABOUT_STRIP}
+          className="section-reveal mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4"
+          itemClassName="h-64 md:h-80"
+          sizes="(min-width: 640px) 33vw, 100vw"
+        />
       </section>
 
       {/* Warsztaty — wyróżnienie */}
@@ -158,14 +186,12 @@ export default function AboutContent() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="relative w-full rounded-2xl overflow-hidden h-72 md:h-80 bg-gradient-to-bl from-bg-surface via-primary/10 to-bg-surface-hover border border-white/[0.06] rotate-1">
-              {/* TODO: zdjęcie z warsztatów (3.2 Zdjęcia) */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-text-muted/30 text-xs uppercase tracking-[0.2em]">
-                  Zdjęcie z warsztatów
-                </span>
-              </div>
-            </div>
+            <Gallery
+              photos={WORKSHOP_PHOTOS}
+              className="grid grid-cols-2 grid-rows-2 gap-3 h-[26rem] md:h-[30rem]"
+              itemClassName="h-full"
+              sizes="(min-width: 1024px) 25vw, 50vw"
+            />
           </div>
         </div>
       </section>
@@ -188,35 +214,8 @@ export default function AboutContent() {
             </p>
           </div>
 
-          {/* Własne imprezy */}
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-            {OWN_EVENTS.map((e) => (
-              <div
-                key={e.name}
-                className="card-hover rounded-2xl overflow-hidden border border-white/[0.06] bg-bg-surface/60"
-              >
-                <div className="relative h-48 md:h-56 bg-gradient-to-br from-bg-surface-hover via-accent-violet/20 to-bg-surface">
-                  {/* TODO: zdjęcie z imprezy (3.2 Zdjęcia) */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-text-muted/30 text-xs uppercase tracking-[0.2em]">
-                      Zdjęcie — {e.name}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <p className="text-xs uppercase tracking-[0.2em] text-accent-gold/80 font-medium">
-                    Nasza impreza
-                  </p>
-                  <h3 className="mt-2 font-heading text-xl md:text-2xl font-semibold text-text">
-                    {e.name}
-                  </h3>
-                </div>
-              </div>
-            ))}
-          </div>
-
           {/* Co zapewniamy */}
-          <p className="mt-14 font-heading text-lg font-semibold text-text">
+          <p className="mt-10 font-heading text-lg font-semibold text-text">
             Wszystko w&nbsp;jednym miejscu:
           </p>
           <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -232,6 +231,39 @@ export default function AboutContent() {
               </div>
             ))}
           </div>
+
+          {/* Własne imprezy */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {OWN_EVENTS.map((e) => (
+              <div
+                key={e.name}
+                className="card-hover rounded-2xl overflow-hidden border border-white/[0.06] bg-bg-surface/60"
+              >
+                <Gallery
+                  photos={e.photos}
+                  className={e.photos.length > 1 ? "grid grid-cols-[3fr_2fr] gap-1" : ""}
+                  itemClassName="h-56 md:h-72 rounded-none border-0"
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                />
+                <div className="p-6">
+                  <p className="text-xs uppercase tracking-[0.2em] text-accent-gold/80 font-medium">
+                    Nasza impreza
+                  </p>
+                  <h3 className="mt-2 font-heading text-xl md:text-2xl font-semibold text-text">
+                    {e.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Galeria z imprez */}
+          <Gallery
+            photos={EVENT_GALLERY}
+            className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4"
+            itemClassName="aspect-[4/3]"
+            sizes="(min-width: 1024px) 25vw, 50vw"
+          />
 
           <div className="mt-10">
             <Button variant="ghost" href="/dla-organizatorow">
@@ -281,9 +313,6 @@ export default function AboutContent() {
           </div>
         </div>
       </section>
-
-      {/* Zaufali nam — przewijany pasek logo */}
-      <TrustedBy />
 
       {/* CTA */}
       <section className="relative px-6 md:px-12 py-16">

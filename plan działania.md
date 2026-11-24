@@ -10,8 +10,8 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 - Materiały klienta: `Plik_klienta/strona główna/` (Readme.txt, Zamysł.txt).
 
 ## 3. Strona główna
-- [x] 3.1 Zaufali Nam — 2026-11-24 (22 loga, przewijany pasek, pliki w `frontend/public/images/zaufali/`)
-- [ ] 3.2 Zdjęcia
+- [x] 3.1 Zaufali Nam — 2026-11-24 (22 loga, wąski przewijany pasek zaraz pod filmem — wg dobrych praktyk; pliki w `frontend/public/images/zaufali/`)
+- [x] 3.2 Zdjęcia — 2026-11-24 (15 zdjęć wg nazw od klienta, `frontend/public/images/home/`, galeria z powiększaniem; odrzucone: „Jedyne takie warsztaty… 4” — Dawid)
 - [ ] 3.3 Read Me — w trakcie (lista niżej)
 - [ ] 3.4 Zamysł — w trakcie (lista niżej)
 
@@ -45,4 +45,4 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 ## Dziennik
 | Data | Część | Co zrobione |
 |---|---|---|
-| 2026-11-24 | 3.3 / 3.4 | Film → Tesserakt, usunięta Droga Kapelusznika, O nas, stopka, pisownia Tesserakt, Kompleksowa realizacja, Nasze realizacje (YT), Zaufali nam, czcionki, tło BBusking (film/telefon: zdjęcie) |
+| 2026-11-24 | 3.3 / 3.4 | Film → Tesserakt, usunięta Droga Kapelusznika, O nas, stopka, pisownia Tesserakt, Kompleksowa realizacja, Nasze realizacje (YT), Zaufali nam, czcionki, tło BBusking (film/telefon: zdjęcie), zdjęcia w sekcjach, Zaufali nam pod filmem |
