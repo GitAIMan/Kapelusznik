@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!page) return {};
   return {
     title: `${page.name} — Kapelusznik`,
-    description: page.lead.slice(0, 155),
+    description: (page.lead ?? page.quote?.text ?? "").slice(0, 155),
   };
 }
 

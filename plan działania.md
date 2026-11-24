@@ -47,6 +47,8 @@ Materiały: `Plik_klienta/Animacje dla dzieci/` (każda sekcja ma swój readme +
 - ✅ Układ zatwierdzony (mockup): wspólny szablon — 1. tytuł+lead+zdjęcie główne, 2. opis, 3. galeria, 4. dodatki (opcjonalne), 5. „Zobacz też” kafelki, 6. przycisk zamów. Przycisk „Zamów” TYLKO na dole (nie w hero). Tło jak wszędzie (zmiana na końcu projektu).
 - [x] 1. Animacje aktorskie (2026-11-24) — `/animacje/animacje-aktorskie`. Szablon: `AnimacjaTemplate` + dane w `lib/animacje.ts` (kolejne podstrony = nowy wpis). Panele „Gotowe realizacje” (`RealizacjePanels`). Zdjęcia: R2 `images/animacje/aktorskie/` (webp) + oryginały R2 `Zdjecia/animacje/aktorskie/`; lokalnie w public/ ale poza gitem. Przycisk Zamów tylko na dole.
   - Potter 1–4 + Kleks 1–3 → panel Szkoła Magii (7 zdjęć)
+- [x] 2. O nowym cyrku (2026-11-24) — strona startowa działu. Film YT w miejscu zdjęcia, definicja AI jako cytat, 5 cech (kafelki), pedagogika cyrku, galeria 18 zdjęć (R2 `images/animacje/nowy-cyrk/`), nagłówek „Zaproś nowy cyrk…” + kafelki pozostałych podstron.
+- Kolejność w menu/kafelkach = jak w readme klienta (O nowym cyrku, Szczudlarze, Kuglarze, Animacje aktorskie, Parady, Usługi klasyczne) — NIE zmieniać.
 - ❓ Klient pisze o „8 kafelkach”, a pozycji jest 5 — do wyjaśnienia
 
 ## Dziennik

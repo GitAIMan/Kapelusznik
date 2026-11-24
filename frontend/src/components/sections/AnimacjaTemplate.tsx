@@ -8,11 +8,17 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import RealizacjePanels from "@/components/sections/RealizacjePanels";
 import { NAV_LINKS } from "@/lib/constants";
 import { ANIMACJE_PAGES, type AnimacjaPage } from "@/lib/animacje";
+import YouTubeLite from "@/components/ui/YouTubeLite";
+import { cn } from "@/lib/utils";
+
+/** Strona startowa działu (tu prowadzi klik „Animacje” w menu) */
+const HUB = "/animacje/o-nowym-cyrku";
 
 /** Wspólny układ podstron „Animacje dla dzieci”. Sekcje bez danych się nie renderują. */
 export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
   const all = NAV_LINKS.find((l) => l.children && l.href.startsWith("/animacje"))?.children ?? [];
   const others = all.filter((l) => l.href !== `/animacje/${page.slug}`);
+  const isHub = `/animacje/${page.slug}` === HUB;
 
   return (
     <div className="pt-28">
@@ -20,11 +26,11 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
       <section className="relative px-6 md:px-12 pb-16">
         <div className="mx-auto max-w-7xl">
           <Link
-            href="/animacje/o-nowym-cyrku"
+            href={isHub ? "/" : HUB}
             className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm mb-8"
           >
             <ArrowLeft className="h-4 w-4" />
-            Wszystkie animacje
+            {isHub ? "Strona główna" : "Wszystkie animacje"}
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -33,9 +39,25 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
               <h1 className="font-heading text-4xl md:text-6xl font-bold text-text leading-[1.05] tracking-tight mt-4 mb-6">
                 {page.heading}
               </h1>
-              <p className="text-text-secondary text-base md:text-lg leading-relaxed">{page.lead}</p>
+              {page.lead && (
+                <p className="text-text-secondary text-base md:text-lg leading-relaxed">{page.lead}</p>
+              )}
+              {!page.lead && page.quote && (
+                <figure className="border-l-2 border-accent-gold/60 pl-6">
+                  <blockquote className="text-text text-base md:text-lg leading-relaxed italic">
+                    „{page.quote.text}”
+                  </blockquote>
+                  <figcaption className="mt-3 text-sm text-text-muted">— {page.quote.source}</figcaption>
+                </figure>
+              )}
             </div>
-            {page.cover && (
+            {page.videoId ? (
+              <div className="lg:col-span-6">
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/[0.08] bg-bg-surface">
+                  <YouTubeLite id={page.videoId} title={page.heading} />
+                </div>
+              </div>
+            ) : page.cover && (
               <div className="lg:col-span-6">
                 <Gallery
                   photos={[page.cover]}
@@ -61,9 +83,35 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
       {page.body && page.body.length > 0 && (
         <section className="relative px-6 md:px-12 py-20">
           <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
-          <div className="section-reveal mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6 text-text-secondary text-base md:text-lg leading-[1.85]">
+          <div
+            className={cn(
+              "section-reveal mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center",
+              page.bodyPhoto ? "max-w-7xl" : "max-w-4xl"
+            )}
+          >
+            <div
+              className={cn(
+                "space-y-6 text-text-secondary text-base md:text-lg leading-[1.85]",
+                page.bodyPhoto ? "lg:col-span-7" : "lg:col-span-12"
+              )}
+            >
               {page.body.map((p) => (
+                <p key={p.slice(0, 30)}>{p}</p>
+              ))}
+              {page.features && (
+                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
+                  {page.features.map((f) => (
+                    <li
+                      key={f.title}
+                      className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-5 text-base leading-relaxed"
+                    >
+                      <span className="block font-heading text-lg font-semibold text-accent-gold mb-1">{f.title}</span>
+                      {f.text}
+                    </li>
+                  ))}
+                </ul>
+              )}
+              {page.bodyAfter?.map((p) => (
                 <p key={p.slice(0, 30)}>{p}</p>
               ))}
             </div>
@@ -76,6 +124,22 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
                 />
               </div>
             )}
+          </div>
+        </section>
+      )}
+
+      {/* Galeria */}
+      {page.gallery && page.gallery.length > 0 && (
+        <section className="relative px-6 md:px-12 py-20">
+          <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
+          <div className="section-reveal mx-auto max-w-7xl">
+            <SectionHeading>Zdjęcia</SectionHeading>
+            <Gallery
+              photos={page.gallery}
+              className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+              itemClassName="aspect-[4/3]"
+              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+            />
           </div>
         </section>
       )}
@@ -121,11 +185,13 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
         <section className="relative px-6 md:px-12 py-20">
           <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
           <div className="section-reveal mx-auto max-w-7xl">
-            <SectionHeading>Zobacz też</SectionHeading>
+            <SectionHeading className={cn(isHub && "text-center md:text-5xl")}>
+              {page.tilesHeading ?? "Zobacz też"}
+            </SectionHeading>
             <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {others.map((o) => {
                 const data = ANIMACJE_PAGES.find((p) => `/animacje/${p.slug}` === o.href);
-                const img = data?.cover;
+                const img = data?.cover ?? data?.gallery?.[0];
                 return (
                   <Link
                     key={o.href}

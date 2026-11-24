@@ -18,15 +18,28 @@ export type AnimacjaPage = {
   name: string;
   /** Duży nagłówek na górze */
   heading: string;
-  lead: string;
+  /** Tekst pod nagłówkiem. Brak → w tym miejscu pokazuje się `quote` */
+  lead?: string;
   cover?: Photo;
+  /** Film YT zamiast zdjęcia głównego (id z linku) */
+  videoId?: string;
   /** Zdjęcia pod nagłówkiem (pasek) */
   strip?: Photo[];
+  /** Cytat (z podpisem) — pokazywany pod nagłówkiem */
+  quote?: { text: string; source: string };
   /** Akapity opisu + zdjęcie obok */
   body?: string[];
+  /** Lista cech (pogrubiony tytuł + tekst) pod akapitami */
+  features?: { title: string; text: string }[];
+  /** Akapity po liście cech */
+  bodyAfter?: string[];
   bodyPhoto?: Photo;
+  /** Galeria zdjęć (siatka + powiększanie) */
+  gallery?: Photo[];
   realizacje?: Realizacja[];
   chwalimy?: string[];
+  /** Nagłówek nad kafelkami innych podstron (domyślnie „Zobacz też”) */
+  tilesHeading?: string;
   /** Tekst nad przyciskiem na dole */
   ctaTitle: string;
 };
@@ -36,7 +49,44 @@ const CDN = process.env.NEXT_PUBLIC_CDN_URL ?? "";
 const A = `${CDN}/images/animacje/aktorskie`;
 const ph = (file: string, alt: string, position?: string): Photo => ({ src: `${A}/${file}.webp`, alt, position });
 
+/** nowy-cyrk-01 … 18 (01, 08, 10 = pionowe) */
+const NC_PORTRAIT = [1, 8, 10];
+const nowyCyrkGallery: Photo[] = Array.from({ length: 18 }, (_, i) => {
+  const n = String(i + 1).padStart(2, "0");
+  return {
+    src: `${CDN}/images/animacje/nowy-cyrk/nowy-cyrk-${n}.webp`,
+    alt: `Nowy cyrk — Kolektyw Kapelusznik, zdjęcie ${i + 1}`,
+    position: NC_PORTRAIT.includes(i + 1) ? "center 30%" : undefined,
+  };
+});
+
 export const ANIMACJE_PAGES: AnimacjaPage[] = [
+  {
+    slug: "o-nowym-cyrku",
+    name: "O nowym cyrku",
+    heading: "Nowy Cyrk",
+    videoId: "oZ9G8nreJ78",
+    quote: {
+      text: "To nowoczesna forma sztuki performatywnej, łącząca techniki cyrkowe z teatrem, tańcem i muzyką. Charakteryzuje się brakiem tresury zwierząt, fabułą, spójną narracją oraz występami w teatrach lub przestrzeni miejskiej. Skupia się na emocjach, metaforze i artystycznym wyrazie, odchodząc od popisów siły na rzecz opowiadania historii.",
+      source: "Próba definicji nowego cyrku według AI",
+    },
+    body: [
+      "Tak wygląda próba zdefiniowania nowego cyrku przez AI. Choć tak naprawdę nie ma jednej definicji, odpowiedzi na to, czym on jest — na pewno możemy wskazać cechy wspólne spektakli.",
+    ],
+    features: [
+      { title: "Brak zwierząt", text: "Skupienie wyłącznie na ludzkich umiejętnościach." },
+      { title: "Narracja i teatr", text: "Spektakle mają motyw przewodni, tematykę społeczną lub osobistą, często rezygnując z tradycyjnego wodzireja." },
+      { title: "Estetyka", text: "Wykorzystanie światła, muzyki i scenografii, podobnie jak w teatrze lub teatrze ulicznym." },
+      { title: "Miejsce występów", text: "Teatry, sale widowiskowe, przestrzeń publiczna i ulice — zamiast tradycyjnego namiotu." },
+      { title: "Interdyscyplinarność", text: "Połączenie z tańcem współczesnym, pantomimą, iluzją, nowymi mediami czy niszowymi dyscyplinami sportowymi." },
+    ],
+    bodyAfter: [
+      "Pedagogika Cyrku to nowatorska metoda wielokierunkowej pracy i animacji dzieci, młodzieży, ale także dorosłych. W odróżnieniu od cyrku klasycznego artyści nie zamykają się w formie występu pod namiotem — lecz wychodzą z cyrkiem do ludzi! Z przyjemnością odwiedzamy imprezy plenerowe, letnie i zimowe warsztaty artystyczne czy imprezy gminne!",
+    ],
+    gallery: nowyCyrkGallery,
+    tilesHeading: "Zaproś nowy cyrk na swoje wydarzenie!",
+    ctaTitle: "Porozmawiajmy o Twoim wydarzeniu",
+  },
   {
     slug: "animacje-aktorskie",
     name: "Animacje aktorskie",
