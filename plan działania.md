@@ -39,6 +39,16 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 - Wszystkie 34 oryginalne zdjęcia z `Plik_klienta/strona główna/Zdjęcia/` są też na R2: `Zdjecia/strona-glowna/` (2026-11-24, 21 MB). Strona na razie korzysta ze zmniejszonych kopii w projekcie.
 - 18 zdjęć bez opisu w `Plik_klienta/strona główna/Zdjęcia/` — do wykorzystania na innych podstronach.
 
+## Animacje dla dzieci — 🔧 W TOKU (2026-11-24)
+Materiały: `Plik_klienta/Animacje dla dzieci/` (każda sekcja ma swój readme + zdjęcia; folder OFERTA = przykłady graficzne z maili, oglądać max 2–3).
+
+- [x] Rozwijane menu „Animacje” (hover na komputerze, rozwijana lista na telefonie). Klik „Animacje” → `/animacje/o-nowym-cyrku`
+- [ ] Podstrony (jeszcze nie istnieją → linki dają 404): O nowym cyrku (opis + kafelki do reszty), Szczudlarze, Kuglarze w terenie i warsztaty plenerowe, Animacje aktorskie, Parady, Usługi klasyczne
+- ✅ Układ zatwierdzony (mockup): wspólny szablon — 1. tytuł+lead+zdjęcie główne, 2. opis, 3. galeria, 4. dodatki (opcjonalne), 5. „Zobacz też” kafelki, 6. przycisk zamów. Przycisk „Zamów” TYLKO na dole (nie w hero). Tło jak wszędzie (zmiana na końcu projektu).
+- [x] 1. Animacje aktorskie (2026-11-24) — `/animacje/animacje-aktorskie`. Szablon: `AnimacjaTemplate` + dane w `lib/animacje.ts` (kolejne podstrony = nowy wpis). Panele „Gotowe realizacje” (`RealizacjePanels`). Zdjęcia: R2 `images/animacje/aktorskie/` (webp) + oryginały R2 `Zdjecia/animacje/aktorskie/`; lokalnie w public/ ale poza gitem. Przycisk Zamów tylko na dole.
+  - Potter 1–4 + Kleks 1–3 → panel Szkoła Magii (7 zdjęć)
+- ❓ Klient pisze o „8 kafelkach”, a pozycji jest 5 — do wyjaśnienia
+
 ## Dziennik
 | Data | Część | Co zrobione |
 |---|---|---|

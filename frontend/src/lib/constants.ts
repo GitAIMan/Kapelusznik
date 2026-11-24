@@ -21,6 +21,18 @@ import type { DisciplineItem, DisciplineCategory, TimelineStep, StatItem, Contac
 export const NAV_LINKS: NavLink[] = [
   { label: "Dyscypliny", href: "/dyscypliny", highlight: true, icon: Sparkles },
   { label: "Tesserakt Ognia", href: "/tesserakt-ognia", highlight: true, icon: Flame },
+  {
+    label: "Animacje",
+    href: "/animacje/o-nowym-cyrku",
+    children: [
+      { label: "O nowym cyrku", href: "/animacje/o-nowym-cyrku" },
+      { label: "Szczudlarze", href: "/animacje/szczudlarze" },
+      { label: "Kuglarze w terenie i warsztaty plenerowe", href: "/animacje/kuglarze-i-warsztaty" },
+      { label: "Animacje aktorskie", href: "/animacje/animacje-aktorskie" },
+      { label: "Parady", href: "/animacje/parady" },
+      { label: "Usługi klasyczne", href: "/animacje/uslugi-klasyczne" },
+    ],
+  },
   { label: "Dla organizatorów", href: "/dla-organizatorow" },
   { label: "Blog", href: "/blog" },
   { label: "Kontakt", href: "/kontakt" },

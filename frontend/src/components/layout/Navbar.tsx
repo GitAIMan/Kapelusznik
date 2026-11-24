@@ -3,12 +3,14 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 import { useScrollPosition } from "@/hooks/useScrollPosition";
 import { NAV_LINKS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [subOpen, setSubOpen] = useState(false);
   const scrollY = useScrollPosition();
   const scrolled = scrollY > 50;
 
@@ -19,6 +21,7 @@ export default function Navbar() {
 
   const closeMenu = () => {
     setIsOpen(false);
+    setSubOpen(false);
     document.body.style.overflow = "";
   };
 
@@ -53,6 +56,35 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center gap-1.5">
             {NAV_LINKS.map((link) => {
               const Icon = link.icon;
+              if (link.children) {
+                return (
+                  <div key={link.href} className="relative group">
+                    <Link
+                      href={link.href}
+                      aria-haspopup="true"
+                      className="inline-flex items-center gap-1 px-4 py-2 text-sm rounded-lg text-text-secondary hover:text-text hover:bg-white/[0.04] group-hover:text-text group-focus-within:text-text transition-all"
+                    >
+                      {link.label}
+                      <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+                    </Link>
+                    {/* pt-2 = mostek, żeby kursor nie gubił menu przy przejściu w dół */}
+                    <div className="absolute left-0 top-full pt-2 opacity-0 invisible translate-y-1 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 transition-all duration-200">
+                      <ul className="min-w-[19rem] rounded-xl border border-white/[0.08] bg-bg py-2 shadow-xl shadow-black/40">
+                        {link.children.map((child) => (
+                          <li key={child.href}>
+                            <Link
+                              href={child.href}
+                              className="block px-5 py-2.5 text-sm text-text-secondary hover:text-accent-gold hover:bg-white/[0.04] focus-visible:text-accent-gold focus-visible:bg-white/[0.04] outline-none transition-colors"
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                );
+              }
               return (
                 <Link
                   key={link.href}
@@ -113,7 +145,7 @@ export default function Navbar() {
       {/* Mobile fullscreen overlay — outside nav, fixed with proper z-index */}
       <div
         className={cn(
-          "fixed inset-0 z-[55] flex lg:hidden flex-col items-center justify-center bg-bg transition-all duration-300",
+          "fixed inset-0 z-[55] flex lg:hidden flex-col items-center overflow-y-auto bg-bg transition-all duration-300",
           isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}
       >
@@ -124,9 +156,45 @@ export default function Navbar() {
         </div>
 
         {/* Nav links */}
-        <div className="flex flex-col items-center gap-6">
+        <div className="relative my-auto flex flex-col items-center gap-6 pt-28 pb-28">
           {NAV_LINKS.map((link) => {
             const Icon = link.icon;
+            if (link.children) {
+              return (
+                <div key={link.href} className="flex flex-col items-center">
+                  <button
+                    type="button"
+                    onClick={() => setSubOpen((prev) => !prev)}
+                    aria-expanded={subOpen}
+                    className="font-heading font-bold text-2xl md:text-4xl text-text hover:text-accent-gold inline-flex items-center gap-2 transition-colors cursor-pointer"
+                  >
+                    {link.label}
+                    <ChevronDown className={cn("h-6 w-6 transition-transform duration-200", subOpen && "rotate-180")} />
+                  </button>
+                  <div
+                    className={cn(
+                      "grid transition-[grid-template-rows] duration-300",
+                      subOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                    )}
+                  >
+                    <ul className="overflow-hidden flex flex-col items-center gap-3">
+                      {link.children.map((child, i) => (
+                        <li key={child.href} className={i === 0 ? "mt-4" : undefined}>
+                          <Link
+                            href={child.href}
+                            onClick={closeMenu}
+                            tabIndex={subOpen ? 0 : -1}
+                            className="text-lg text-text-secondary hover:text-accent-gold transition-colors"
+                          >
+                            {child.label}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              );
+            }
             return (
               <Link
                 key={link.href}

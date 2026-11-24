@@ -39,3 +39,6 @@ Zdjęcia/
 
 # Materiały od klienta (oryginały — zostają lokalnie)
 Plik_klienta/
+
+# Zdjęcia podstron — trzymane na Cloudflare R2 (lokalnie tylko kopia robocza)
+frontend/public/images/animacje/

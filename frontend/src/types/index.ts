@@ -50,6 +50,7 @@ export interface NavLink {
   href: string;
   highlight?: boolean;
   icon?: LucideIcon;
+  children?: { label: string; href: string }[];
 }
 
 export type BlogBlock =
