@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import { DISCIPLINES, DISCIPLINE_DETAILS } from "@/lib/constants";
 
 export async function generateStaticParams() {
-  // Pomijamy pozycje z href (np. Teserakt linkuje do osobnej strony /teserakt-ognia)
+  // Pomijamy pozycje z href (np. Tesserakt linkuje do osobnej strony /tesserakt-ognia)
   return DISCIPLINES.filter((d) => !d.href).map((d) => ({ id: d.id }));
 }
 

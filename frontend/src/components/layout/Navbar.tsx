@@ -166,7 +166,7 @@ export default function Navbar() {
             Facebook
           </a>
           <a
-            href="mailto:kontakt@kapelusznik.com.pl"
+            href="mailto:kolektyw.kapelusznik@gmail.com"
             className="text-xs uppercase tracking-[0.2em] text-text-muted transition-colors hover:text-accent-gold"
           >
             Email

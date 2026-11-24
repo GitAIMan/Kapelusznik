@@ -45,7 +45,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Data-driven sections:** Disciplines, timeline steps, contact info live in `lib/constants.ts`. Blog posts are dynamic — stored in PostgreSQL, fetched via API (`/api/blog`), with `BLOG_POSTS` in constants as fallback (includes `content` field).
 
-**Video dip-to-black:** Fire video lives ONLY on `/teserakt-ognia` hero (moved from homepage 2026-11-24), component `components/ui/FireVideo.tsx` — background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end. Homepage Hero has classic background (no video). Files locally in `public/Video/`, on production served from Cloudflare R2.
+**Video dip-to-black:** Fire video lives ONLY on `/tesserakt-ognia` hero (moved from homepage 2026-11-24), component `components/ui/FireVideo.tsx` — background `<video>` with JS-controlled opacity via `timeupdate` event. Fade-out triggers 0.5s before video end. Homepage Hero has classic background (no video). Files locally in `public/Video/`, on production served from Cloudflare R2.
 
 **Discipline wheel:** Interactive drag-to-rotate wheel on `/dla-organizatorow` page. `useDisciplineWheel` hook handles pointer events + `Math.atan2`. Center Flame icon with `FloatingEmbers`. Triple-click Flame → `/admin` (secret admin entry). Desktop only — mobile shows expandable list.
 
@@ -55,7 +55,7 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 
 **Block editor (blog):** `PostEditor` + `BlockEditor` + `GalleryEditor` w `components/admin/`. Post ma pola: title, subtitle (lead), blocks (heading/paragraph/image/quote, z drag-reorder ↑↓), gallery (dodatkowe zdjęcia kadrowane). Backend: DB kolumny `subtitle TEXT`, `blocks JSONB`, `gallery JSONB` (migracja idempotentna). Frontend `/blog/[slug]`: kolejność **tytuł → lead → zdjęcie główne → bloki → galeria → related** (zdjęcie POD tytułem, nie nad). Lightbox własny, bez biblioteki. Fallback: brak bloków → renderuje `content` jak przedtem (stare posty działają).
 
-**Dyscypliny accordion:** `/dyscypliny` to 3 rozwijane panele (Pokazy / Animacje cyrkowe / Warsztaty). Struktura w `DISCIPLINE_CATEGORIES` w `constants.ts`. Dyscyplina może mieć `href` (Teserakt → `/teserakt-ognia`) i `highlight` (złota obwódka + pulsująca ikonka). `generateStaticParams` filtruje pozycje z `href` żeby nie generować duplikatów. Accordion: CSS-only `grid-template-rows 0fr → 1fr` (bez biblioteki, GPU-friendly).
+**Dyscypliny accordion:** `/dyscypliny` to 3 rozwijane panele (Pokazy / Animacje cyrkowe / Warsztaty). Struktura w `DISCIPLINE_CATEGORIES` w `constants.ts`. Dyscyplina może mieć `href` (Tesserakt → `/tesserakt-ognia`) i `highlight` (złota obwódka + pulsująca ikonka). `generateStaticParams` filtruje pozycje z `href` żeby nie generować duplikatów. Accordion: CSS-only `grid-template-rows 0fr → 1fr` (bez biblioteki, GPU-friendly).
 
 **Section reveal:** IntersectionObserver via `SectionRevealProvider` client component adds `.visible` class to `.section-reveal` elements. CSS transition handles animation.
 
@@ -68,8 +68,8 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 ```
 /                    → Homepage = O nas (Hero z wideo + AboutContent). /o-nas USUNIĘTE
 /dyscypliny          → Accordion 3 kategorii (Pokazy / Animacje / Warsztaty)
-/dyscypliny/[id]     → Discipline detail (Teserakt filtered — linkuje do /teserakt-ognia)
-/teserakt-ognia      → Dedykowana strona flagowego projektu (onepage, placeholders)
+/dyscypliny/[id]     → Discipline detail (Tesserakt filtered — linkuje do /tesserakt-ognia)
+/tesserakt-ognia      → Dedykowana strona flagowego projektu (onepage, placeholders)
 /dla-organizatorow   → For organizers (process steps, offer checklist, discipline wheel, event gallery)
 /blog                → Blog listing
 /blog/[slug]         → Blog post detail (bloki, galeria, lightbox)
@@ -82,8 +82,8 @@ All color tokens defined in `globals.css` `@theme inline`. Key tokens:
 **Route group:** `app/(main)/` wraps all public pages with shared `layout.tsx` (Navbar + Footer). Admin pages are outside this group.
 
 ### Navbar
-- **Linki:** Dyscypliny, Teserakt Ognia, Dla organizatorów, Blog, Kontakt (O nas usunięte — jest na `/`)
-- **Wyróżnione linki (`highlight: true` w `NAV_LINKS`):** Dyscypliny (ikonka Sparkles) i Teserakt Ognia (ikonka Flame). Złoty tekst, gradient-tło, `animate-nav-glow` na ramce + `animate-icon-pulse` na ikonce. Reszta linków neutralna.
+- **Linki:** Dyscypliny, Tesserakt Ognia, Dla organizatorów, Blog, Kontakt (O nas usunięte — jest na `/`)
+- **Wyróżnione linki (`highlight: true` w `NAV_LINKS`):** Dyscypliny (ikonka Sparkles) i Tesserakt Ognia (ikonka Flame). Złoty tekst, gradient-tło, `animate-nav-glow` na ramce + `animate-icon-pulse` na ikonce. Reszta linków neutralna.
 - **Desktop (lg+):** Visible nav links in row + CTA "Zamów występ" button
 - **Mobile:** Hamburger menu with fullscreen overlay. Solid bg (`bg-bg/95`, BEZ `backdrop-blur` — usunięte dla performance).
 - Logo (round, `/images/logo.jpg`) links to `/`
@@ -158,8 +158,8 @@ Staging frontend must talk to staging backend (not production!). Set `FRONTEND_U
 Background fire video hosted on **Cloudflare R2** (bucket: `kapelusznik-assets`).
 - **Public URL:** `https://pub-c80345f06600456890a96b515fec6e54.r2.dev`
 - **Env var:** `NEXT_PUBLIC_CDN_URL` — set in Railway Variables.
-- **Files in R2** (folder `Video/`): `film_ogień.mp4` — tło hero na `/teserakt-ognia`.
-- Video only on `/teserakt-ognia` hero. Homepage has no video.
+- **Files in R2** (folder `Video/`): `film_ogień.mp4` — tło hero na `/tesserakt-ognia`.
+- Video only on `/tesserakt-ognia` hero. Homepage has no video.
 
 ## Project docs
 - `Specyfikacja projektu - Kapelusznik.md` — full spec with all sections, colors, SEO

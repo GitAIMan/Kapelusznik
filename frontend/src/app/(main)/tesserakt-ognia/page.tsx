@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowLeft, ArrowRight, Flame } from "lucide-react";
 import FireVideo from "@/components/ui/FireVideo";
 
-export default function TeseraktOgniaPage() {
+export default function TesseraktOgniaPage() {
   return (
     <div className="pb-20">
       {/* HERO — film z ogniem w tle */}
@@ -32,13 +32,13 @@ export default function TeseraktOgniaPage() {
           </div>
 
           <h1 className="font-heading text-4xl md:text-7xl font-bold text-text leading-[1.05] tracking-tight mb-6">
-            Teserakt Ognia
+            Tesserakt Ognia
           </h1>
 
           <p className="text-text-secondary text-lg md:text-xl leading-relaxed max-w-2xl mx-auto mb-10">
             {/* TODO: wstawić opis projektu */}
             Miejsce na krótki opis projektu. Tu pojawi się wprowadzenie, które opowie
-            czym jest Teserakt Ognia.
+            czym jest Tesserakt Ognia.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-3">
@@ -66,7 +66,7 @@ export default function TeseraktOgniaPage() {
             O projekcie
           </span>
           <h2 className="font-heading text-3xl md:text-5xl font-bold text-text mt-3 mb-8 leading-tight">
-            Czym jest Teserakt Ognia?
+            Czym jest Tesserakt Ognia?
           </h2>
 
           <div className="space-y-6 text-text-secondary leading-[1.85]">
@@ -76,7 +76,7 @@ export default function TeseraktOgniaPage() {
               przygotowane treści.
             </p>
             <p>
-              Można opowiedzieć o genezie projektu, kim są twórcy, co odróżnia Teserakt
+              Można opowiedzieć o genezie projektu, kim są twórcy, co odróżnia Tesserakt
               od klasycznego fire show.
             </p>
           </div>
@@ -91,7 +91,7 @@ export default function TeseraktOgniaPage() {
               Galeria
             </span>
             <h2 className="font-heading text-3xl md:text-5xl font-bold text-text mt-3 leading-tight">
-              Zobacz Teserakt w akcji
+              Zobacz Tesserakt w akcji
             </h2>
           </div>
 
@@ -144,7 +144,7 @@ export default function TeseraktOgniaPage() {
             Zainteresowany pokazem?
           </h2>
           <p className="text-text-secondary text-lg mb-10">
-            Skontaktuj się z nami — dopasujemy Teserakt Ognia do Twojego wydarzenia.
+            Skontaktuj się z nami — dopasujemy Tesserakt Ognia do Twojego wydarzenia.
           </p>
           <Link
             href="/kontakt"

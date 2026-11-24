@@ -36,3 +36,6 @@ Zdjęcia/
 
 # Backup files
 *.backup
+
+# Materiały od klienta (oryginały — zostają lokalnie)
+Plik_klienta/

@@ -20,7 +20,7 @@ import type { DisciplineItem, DisciplineCategory, TimelineStep, StatItem, Contac
 
 export const NAV_LINKS: NavLink[] = [
   { label: "Dyscypliny", href: "/dyscypliny", highlight: true, icon: Sparkles },
-  { label: "Teserakt Ognia", href: "/teserakt-ognia", highlight: true, icon: Flame },
+  { label: "Tesserakt Ognia", href: "/tesserakt-ognia", highlight: true, icon: Flame },
   { label: "Dla organizatorów", href: "/dla-organizatorow" },
   { label: "Blog", href: "/blog" },
   { label: "Kontakt", href: "/kontakt" },
@@ -34,12 +34,12 @@ export const DISCIPLINE_CATEGORIES: DisciplineCategory[] = [
     icon: Theater,
     items: [
       {
-        id: "teserakt-ognia",
+        id: "tesserakt-ognia",
         name: "Teatr Ognia Tesserakt",
         description: "Nasz flagowy projekt — widowiskowy spektakl ognia łączący akrobatykę, taniec i choreografię. Oddzielna strona z pełną prezentacją.",
         icon: Flame,
         image: "",
-        href: "/teserakt-ognia",
+        href: "/tesserakt-ognia",
         highlight: true,
       },
       {
@@ -152,19 +152,19 @@ export const CONTACT_INFO: ContactInfo[] = [
   {
     icon: Mail,
     label: "Email",
-    value: "kontakt@kapelusznik.com.pl",
-    href: "mailto:kontakt@kapelusznik.com.pl",
+    value: "kolektyw.kapelusznik@gmail.com",
+    href: "mailto:kolektyw.kapelusznik@gmail.com",
   },
   {
     icon: Phone,
     label: "Telefon",
-    value: "+48 123 456 789",
-    href: "tel:+48123456789",
+    value: "+48 509 999 683",
+    href: "tel:+48509999683",
   },
   {
     icon: MapPin,
-    label: "Lokalizacja",
-    value: "Bielsko-Biała, Polska",
+    label: "Adres",
+    value: "ul. 11 Listopada 78, Bielsko-Biała",
   },
   {
     icon: Facebook,

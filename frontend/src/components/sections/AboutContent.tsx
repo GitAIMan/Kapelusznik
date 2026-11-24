@@ -1,20 +1,54 @@
 import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 import Button from "@/components/ui/Button";
+import YouTubeLite from "@/components/ui/YouTubeLite";
+import TrustedBy from "@/components/sections/TrustedBy";
+import { Castle, Drama, Tent, Speaker } from "lucide-react";
 
-const MILESTONES = [
-  { year: "2012", text: "Pierwsze wspólne występy na ulicach Bielska-Białej" },
-  { year: "2015", text: "Oficjalne powstanie Kolektywu Kapelusznik" },
-  { year: "2018", text: "Pierwszy duży festiwal — Carnaval Sztukmistrzów w Lublinie" },
-  { year: "2020", text: "Rozszerzenie o akrobatykę powietrzną i highline" },
-  { year: "2023", text: "Ponad 200 wydarzeń na koncie w całej Polsce" },
-  { year: "2025", text: "Nowe pokolenie artystów dołącza do kolektywu" },
+const REALIZATIONS: { title: string; place?: string; youtubeId?: string }[] = [
+  {
+    title: "Bielska Scena Ognia",
+    place: "Realizacja wydarzenia",
+    youtubeId: "-xRMzKOXYgo",
+  },
+  {
+    title: "Przegląd Artystów Ulicznych „BBusking”",
+    place: "Bielsko-Biała",
+    youtubeId: "d1b-5nlGC3g",
+  },
+  {
+    title: "Cyrkowy Dzień Dziecka",
+    place: "Ośrodek Promocji Gminy Jaworze",
+    youtubeId: "oZ9G8nreJ78",
+  },
+  {
+    title: "Dzień Harry’ego Pottera",
+    place: "Biblioteka Gminna w Pleszewie",
+    // TODO: youtubeId — klient doda film (coming soon)
+  },
+];
+
+const OWN_EVENTS = [
+  { name: "Bielska Scena Ognia" },
+  { name: "Przegląd Artystów Ulicznych „BBusking”" },
+];
+
+const SERVICES = [
+  { icon: Castle, label: "Dmuchańce" },
+  { icon: Drama, label: "Występy artystyczne" },
+  { icon: Tent, label: "Atrakcje plenerowe" },
+  { icon: Speaker, label: "Nagłośnienie i oświetlenie" },
+];
+
+const FACTS = [
+  { year: "2019", text: "Teatr Ognia Tesserakt" },
+  { year: "2023", text: "Kolektyw Artystyczny Kapelusznik" },
 ];
 
 export default function AboutContent() {
   return (
     <>
-      {/* Hero — asymmetric: text left, overlapping image + quote right */}
+      {/* O nas — tekst po lewej, zdjęcie po prawej */}
       <section className="relative px-6 md:px-12 py-24 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-primary/8 blur-[70px]" />
@@ -26,25 +60,29 @@ export default function AboutContent() {
             <div className="lg:col-span-6">
               <SectionLabel>O nas</SectionLabel>
               <SectionHeading className="mt-4">
-                Kolektyw, który zamienia ulice w&nbsp;sceny
+                Kolektyw Artystyczny Kapelusznik
               </SectionHeading>
               <p className="text-text-secondary text-base leading-relaxed mt-6 max-w-xl">
-                Jesteśmy grupą artystów ulicznych z Bielska-Białej. Od ponad
-                dekady łączymy żonglerkę, akrobatykę powietrzną, sztukę lalkarską,
-                highline i wiele więcej — tworząc spektakle, które publiczność
-                pamięta latami.
+                Działamy od 2023 roku, zrzeszając artystów cyrkowych, ulicznych
+                i&nbsp;wszystkich tych, którzy zajmują się sztuką niezależną.
+                Kapelusznik powstał po rozwinięciu działalności Teatru Ognia
+                Tesserakt, który funkcjonuje na rynku od 2019 roku.
               </p>
-              <p className="text-text-muted text-sm leading-relaxed mt-4 max-w-xl">
-                Nasz zespół to pasjonaci, dla których sztuka uliczna jest sposobem
-                na życie. Każdy występ to unikalne doświadczenie, które tworzymy
-                wspólnie z publicznością — bo najlepsze spektakle rodzą się
-                w&nbsp;interakcji.
+              <p className="text-text-secondary text-base leading-relaxed mt-4 max-w-xl">
+                Założycielem Kolektywu jest Miłosz Goślicki — kuglarz, tancerz
+                ognia, warsztatowiec i&nbsp;pedagog cyrkowy.
+              </p>
+              <p className="text-text-muted text-base leading-relaxed mt-4 max-w-xl">
+                Naszą misją jest szerzenie ruchu Nowego Cyrku i&nbsp;krzewienie
+                idei cyrku bez zwierząt. W&nbsp;naszej pracy opieramy się
+                o&nbsp;metodykę pedagogiki cyrku i&nbsp;pedagogiki zabawy.
               </p>
             </div>
 
-            {/* Right — stacked: image with overlapping quote */}
+            {/* Right — zdjęcie + daty */}
             <div className="lg:col-span-6 relative">
               <div className="relative rounded-2xl overflow-hidden h-72 md:h-96 bg-gradient-to-br from-bg-surface-hover via-accent-violet/20 to-bg-surface border border-white/[0.06] -rotate-1">
+                {/* TODO: zdjęcie zespołu (3.2 Zdjęcia) */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-text-muted/40 text-xs uppercase tracking-[0.2em]">
                     Zdjęcie zespołu
@@ -53,15 +91,18 @@ export default function AboutContent() {
                 <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent, transparent 20px, #caa775 20px, #caa775 21px)" }} />
               </div>
 
-              <blockquote className="relative -mt-16 ml-6 mr-2 md:ml-12 bg-bg/90 backdrop-blur-sm border border-white/[0.08] rounded-xl p-6 z-10">
-                <p className="text-text font-heading text-lg md:text-xl font-medium leading-snug italic">
-                  &ldquo;Najpiękniejszy moment to ten, gdy publiczność zapomina,
-                  że stoi na ulicy.&rdquo;
-                </p>
-                <cite className="block mt-3 text-text-muted text-sm not-italic">
-                  — Założyciel Kapelusznika
-                </cite>
-              </blockquote>
+              <div className="relative -mt-14 ml-6 mr-2 md:ml-12 grid grid-cols-2 gap-px rounded-xl overflow-hidden border border-white/[0.08] bg-white/[0.06] z-10">
+                {FACTS.map((f) => (
+                  <div key={f.year} className="bg-bg/95 p-5">
+                    <div className="font-heading text-2xl md:text-3xl font-bold text-accent-gold">
+                      od {f.year}
+                    </div>
+                    <div className="mt-1 text-text-secondary text-sm leading-snug">
+                      {f.text}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -71,6 +112,7 @@ export default function AboutContent() {
       <section className="relative px-6 md:px-12 py-4">
         <div className="section-reveal mx-auto max-w-7xl relative rounded-2xl overflow-hidden h-48 md:h-64 bg-gradient-to-r from-accent-violet/30 via-bg-surface to-accent-violet/20 border border-white/[0.04]">
           <div className="absolute inset-0 bg-gradient-to-t from-bg/80 via-transparent to-bg/40 z-10" />
+          {/* TODO: zdjęcie panoramiczne (3.2 Zdjęcia) */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="text-text-muted/30 text-xs uppercase tracking-[0.2em]">
               Panorama — Kapelusznik na scenie
@@ -80,73 +122,168 @@ export default function AboutContent() {
         </div>
       </section>
 
-      {/* Timeline */}
+      {/* Warsztaty — wyróżnienie */}
       <section className="relative px-6 md:px-12 py-20">
         <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
 
-        <div className="section-reveal mx-auto max-w-4xl">
-          <div className="text-center mb-16">
-            <SectionLabel>Nasza historia</SectionLabel>
-            <SectionHeading className="mt-4 flex flex-col items-center">
-              Droga Kapelusznika
+        <div className="section-reveal mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="lg:col-span-7">
+            <SectionLabel>Warsztaty cyrkowe</SectionLabel>
+            <SectionHeading className="mt-4">
+              Jedyne takie warsztaty na&nbsp;południu Polski
             </SectionHeading>
-          </div>
+            <p className="text-text-secondary text-base leading-relaxed mt-6 max-w-2xl">
+              Prowadzimy kompleksowe warsztaty cyrkowe dla dzieci. Rozwijamy
+              motorykę małą i&nbsp;dużą, uczymy równowagi, pracujemy nad
+              błędnikiem i&nbsp;koordynacją półkul mózgowych. Jedyne takie
+              warsztaty w&nbsp;naszym regionie, które są inkluzywne
+              i&nbsp;dostępne dla każdego!
+            </p>
 
-          <div className="relative">
-            <div className="absolute left-[39px] top-0 bottom-0 w-px bg-gradient-to-b from-accent-gold/30 via-accent-gold/10 to-transparent hidden md:block" />
+            <div className="mt-8 max-w-2xl rounded-xl border border-accent-gold/25 bg-accent-gold/[0.05] p-6">
+              <p className="font-heading text-lg font-semibold text-accent-gold">
+                Żonglerka funkcjonalna
+              </p>
+              <p className="mt-2 text-text-secondary text-sm leading-relaxed">
+                Specjalizujemy się w&nbsp;zajęciach wspomagających terapię dzieci
+                w&nbsp;spektrum autyzmu i&nbsp;ADHD.
+              </p>
+            </div>
 
-            <div className="space-y-8">
-              {MILESTONES.map((m) => (
-                <div key={m.year} className="flex gap-6 items-start">
-                  <div className="shrink-0 w-20 text-right">
-                    <span className="font-heading text-lg font-bold text-accent-gold">
-                      {m.year}
-                    </span>
-                  </div>
-                  <div className="hidden md:block shrink-0 w-3 h-3 mt-2 rounded-full bg-accent-gold/40 ring-4 ring-bg" />
-                  <p className="text-text-secondary text-sm leading-relaxed pt-0.5">
-                    {m.text}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-8">
+              <Button variant="ghost" href="/dyscypliny">
+                Zobacz warsztaty
+              </Button>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Values + image */}
-      <section className="relative px-6 md:px-12 py-20">
-        <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
-
-        <div className="section-reveal mx-auto max-w-7xl">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {[
-              { title: "Pasja", text: "Sztuka uliczna to nasz sposób na życie. Każdy występ jest pełen energii i autentyczności." },
-              { title: "Wspólnota", text: "Kolektyw to więcej niż zespół. To rodzina artystów, która wspiera się nawzajem na scenie i poza nią." },
-              { title: "Interakcja", text: "Najlepsze spektakle powstają w dialogu z publicznością. Zapraszamy widzów do wspólnej zabawy." },
-            ].map((v) => (
-              <div key={v.title} className="bg-bg-surface/60 border border-white/[0.06] rounded-xl p-8">
-                <h3 className="font-heading text-lg font-semibold text-text mb-3">
-                  {v.title}
-                </h3>
-                <p className="text-text-muted text-sm leading-relaxed">
-                  {v.text}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex justify-end">
-            <div className="relative w-full max-w-sm rounded-2xl overflow-hidden h-52 bg-gradient-to-bl from-bg-surface via-primary/10 to-bg-surface-hover border border-white/[0.06] rotate-1">
+          <div className="lg:col-span-5">
+            <div className="relative w-full rounded-2xl overflow-hidden h-72 md:h-80 bg-gradient-to-bl from-bg-surface via-primary/10 to-bg-surface-hover border border-white/[0.06] rotate-1">
+              {/* TODO: zdjęcie z warsztatów (3.2 Zdjęcia) */}
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="text-text-muted/30 text-xs uppercase tracking-[0.2em]">
-                  Za kulisami
+                  Zdjęcie z warsztatów
                 </span>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Kompleksowa realizacja imprez */}
+      <section className="relative px-6 md:px-12 py-20">
+        <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
+
+        <div className="section-reveal mx-auto max-w-7xl">
+          <div className="max-w-3xl">
+            <SectionLabel>Organizacja wydarzeń</SectionLabel>
+            <SectionHeading className="mt-4">
+              Kompleksowa realizacja imprez
+            </SectionHeading>
+            <p className="text-text-secondary text-base leading-relaxed mt-6">
+              Kapelusznik jest twórcą i&nbsp;organizatorem dwóch własnych imprez
+              w&nbsp;Bielsku-Białej. Oprócz tego możemy podjąć się kompleksowej
+              realizacji wydarzenia pod kątem animacyjnym — nie tylko
+              w&nbsp;klimacie cyrkowym.
+            </p>
+          </div>
+
+          {/* Własne imprezy */}
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            {OWN_EVENTS.map((e) => (
+              <div
+                key={e.name}
+                className="card-hover rounded-2xl overflow-hidden border border-white/[0.06] bg-bg-surface/60"
+              >
+                <div className="relative h-48 md:h-56 bg-gradient-to-br from-bg-surface-hover via-accent-violet/20 to-bg-surface">
+                  {/* TODO: zdjęcie z imprezy (3.2 Zdjęcia) */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-text-muted/30 text-xs uppercase tracking-[0.2em]">
+                      Zdjęcie — {e.name}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <p className="text-xs uppercase tracking-[0.2em] text-accent-gold/80 font-medium">
+                    Nasza impreza
+                  </p>
+                  <h3 className="mt-2 font-heading text-xl md:text-2xl font-semibold text-text">
+                    {e.name}
+                  </h3>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Co zapewniamy */}
+          <p className="mt-14 font-heading text-lg font-semibold text-text">
+            Wszystko w&nbsp;jednym miejscu:
+          </p>
+          <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {SERVICES.map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="flex flex-col items-center text-center gap-3 rounded-xl border border-white/[0.06] bg-bg-surface/40 p-6"
+              >
+                <Icon className="h-7 w-7 text-accent-gold" />
+                <span className="text-text-secondary text-sm leading-snug">
+                  {label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <Button variant="ghost" href="/dla-organizatorow">
+              Zorganizujmy Twoje wydarzenie
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* Nasze realizacje — filmy YouTube (lekkie: miniatura → odtwarzacz po kliknięciu) */}
+      <section className="relative px-6 md:px-12 py-20">
+        <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
+
+        <div className="section-reveal mx-auto max-w-7xl">
+          <div className="text-center mb-12">
+            <SectionLabel>Zobacz nas w akcji</SectionLabel>
+            <SectionHeading className="mt-4 flex flex-col items-center">
+              Nasze realizacje
+            </SectionHeading>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {REALIZATIONS.map((r) => (
+              <div key={r.title} className="group/card">
+                <div className="relative aspect-video rounded-2xl overflow-hidden border border-white/[0.06] bg-bg-surface">
+                  {r.youtubeId ? (
+                    <YouTubeLite id={r.youtubeId} title={r.title} />
+                  ) : (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-bg-surface-hover via-accent-violet/20 to-bg-surface">
+                      <span className="rounded-full border border-accent-gold/30 bg-accent-gold/10 px-4 py-1.5 text-xs uppercase tracking-[0.2em] text-accent-gold font-medium">
+                        Wkrótce
+                      </span>
+                      <span className="text-text-muted/50 text-xs uppercase tracking-[0.2em]">
+                        Film w przygotowaniu
+                      </span>
+                    </div>
+                  )}
+                </div>
+                <h3 className="mt-4 font-heading text-lg md:text-xl font-semibold text-text leading-snug">
+                  {r.title}
+                </h3>
+                {r.place && (
+                  <p className="mt-1 text-text-muted text-sm">{r.place}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Zaufali nam — przewijany pasek logo */}
+      <TrustedBy />
 
       {/* CTA */}
       <section className="relative px-6 md:px-12 py-16">

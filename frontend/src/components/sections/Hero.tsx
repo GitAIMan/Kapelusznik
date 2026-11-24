@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button";
 export default function Hero() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-      {/* Background — klasyczne tło (film przeniesiony na /teserakt-ognia) */}
+      {/* Background — klasyczne tło (film przeniesiony na /tesserakt-ognia) */}
       <div className="absolute inset-0">
         {/* Radial glows */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full bg-primary/15 blur-[60px] z-[5]" />
@@ -29,8 +29,10 @@ export default function Hero() {
         <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-text mb-6 leading-[1.1] tracking-tight">
           Zamieniamy ulice w&nbsp;sceny
         </h1>
-        <p className="text-text-secondary text-base md:text-lg max-w-lg mx-auto mb-10 leading-relaxed">
-          Ogień, akrobatyka, magia — spektakle, które publiczność pamięta latami.
+        <p className="text-text-secondary text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
+          Potrafimy zaskoczyć i&nbsp;zachwycić w&nbsp;czasach, gdy wszystko można
+          zobaczyć w&nbsp;sieci. Szokujące widowiska żonglerskie, akrobatyczne,
+          fireshow, pokazy iluzji i&nbsp;wiele więcej!
         </p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <Button variant="gold" href="/kontakt">
