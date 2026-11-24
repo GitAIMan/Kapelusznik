@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone, MapPin, Facebook, Youtube } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Youtube, Instagram } from "lucide-react";
 
 const COMPANY = {
   name: "Kolektyw Kapelusznik Sp. z o.o.",
@@ -12,33 +12,31 @@ const COMPANY = {
 export default function Footer() {
   return (
     <footer className="border-t border-white/[0.07] bg-bg px-6 md:px-12 py-20">
-      <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-3 gap-16">
-        {/* Pełne logo + dane firmy */}
-        <div>
-          <Link href="/" className="inline-block">
+      <div className="mx-auto max-w-7xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+        {/* Marka: logo + nazwa + 1 zdanie */}
+        <div className="sm:col-span-2 lg:col-span-4 flex items-start gap-4">
+          <Link href="/" className="shrink-0">
             <Image
               src="/images/logo.jpg"
               alt="Kolektyw Artystyczny Kapelusznik — logo"
-              width={128}
-              height={128}
-              className="h-32 w-32 rounded-xl border border-accent-gold/20 hover:border-accent-gold/50 transition-colors"
+              width={64}
+              height={64}
+              className="h-16 w-16 rounded-lg border border-accent-gold/20 hover:border-accent-gold/50 transition-colors"
             />
           </Link>
-          <p className="mt-5 font-heading font-semibold text-text">
-            {COMPANY.name}
-          </p>
-          <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm text-text-secondary">
-            <dt className="text-text-muted">NIP:</dt>
-            <dd>{COMPANY.nip}</dd>
-            <dt className="text-text-muted">REGON:</dt>
-            <dd>{COMPANY.regon}</dd>
-            <dt className="text-text-muted">KRS:</dt>
-            <dd>{COMPANY.krs}</dd>
-          </dl>
+          <div>
+            <p className="font-heading font-semibold text-text mb-4">
+              Kolektyw Artystyczny Kapelusznik
+            </p>
+            <p className="text-sm text-text-secondary leading-relaxed max-w-xs">
+              Artyści cyrkowi i&nbsp;uliczni z&nbsp;Bielska-Białej. Pokazy,
+              warsztaty i&nbsp;kompleksowa realizacja imprez.
+            </p>
+          </div>
         </div>
 
         {/* Kontakt */}
-        <div>
+        <div className="lg:col-span-3">
           <p className="font-heading font-semibold text-text mb-4">Kontakt</p>
           <ul className="space-y-3 text-sm text-text-secondary">
             <li className="flex items-center gap-3">
@@ -70,8 +68,22 @@ export default function Footer() {
           </ul>
         </div>
 
+        {/* Dane firmy — w kolumnie */}
+        <div className="lg:col-span-3">
+          <p className="font-heading font-semibold text-text mb-4">Dane firmy</p>
+          <p className="text-sm text-text-secondary mb-3">{COMPANY.name}</p>
+          <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-sm">
+            <dt className="text-text-muted">NIP</dt>
+            <dd className="text-text-secondary">{COMPANY.nip}</dd>
+            <dt className="text-text-muted">REGON</dt>
+            <dd className="text-text-secondary">{COMPANY.regon}</dd>
+            <dt className="text-text-muted">KRS</dt>
+            <dd className="text-text-secondary">{COMPANY.krs}</dd>
+          </dl>
+        </div>
+
         {/* Social */}
-        <div>
+        <div className="lg:col-span-2">
           <p className="font-heading font-semibold text-text mb-4">
             Social Media
           </p>
@@ -98,11 +110,22 @@ export default function Footer() {
                 YouTube
               </a>
             </li>
+            <li>
+              <a
+                href="https://www.instagram.com/kolektyw.kapelusznik"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 text-sm text-text-secondary transition-colors hover:text-text"
+              >
+                <Instagram className="h-4 w-4 text-accent-gold" />
+                Instagram
+              </a>
+            </li>
           </ul>
         </div>
       </div>
 
-      {/* Copyright */}
+      {/* Dolny pasek: © */}
       <div className="mx-auto max-w-7xl mt-12 pt-8 border-t border-white/5 text-center text-xs text-text-muted">
         &copy; {new Date().getFullYear()} {COMPANY.name} Wszystkie prawa
         zastrzeżone.

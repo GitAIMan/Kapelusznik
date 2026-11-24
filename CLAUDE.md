@@ -2,6 +2,10 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## ⚠️ PRZEBUDOWA W TOKU — zacznij od `plan działania.md`
+
+Od 2026-11-24 trwa przebudowa strony wg materiałów klienta. **Na początku każdej rozmowy przeczytaj `plan działania.md`** (root) — tam jest status, co zrobione, na co czekamy i zasady (1 rozmowa = 1 część, kolejność wybiera użytkownik). Pracujemy na gałęzi **staging**.
+
 ## Project
 
 Website for **Kolektyw Artystyczny Kapelusznik** — street artists collective from Bielsko-Biała, Poland. Dark theme with fire video on hero, warm color palette based on brand logo. Multi-page architecture with separate subpages.
