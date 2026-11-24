@@ -20,7 +20,7 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 - [x] 3.2 Zdjęcia — 15 zdjęć wg nazw od klienta (`frontend/public/images/home/`), galeria z powiększaniem. Odrzucone: „Jedyne takie warsztaty… 4” (Dawid)
 - [x] 3.3 Read Me / 3.4 Zamysł:
   - usunięta „Droga Kapelusznika”
-  - tło: film BBusking 0:10–2:47 (komputer, R2 `Video/bbusking_tlo.mp4`) / zdjęcie z porożem (telefon) — zmiana wizji użytkownika zamiast filmów+zdjęć
+  - tło: film BBusking 0:10–2:32.6 (komputer, R2 `Video/bbusking_tlo_v3.mp4` — v3: gitarzysta na końcu max 3 s, bez białego błysku) / zdjęcie z porożem (telefon) — zmiana wizji użytkownika zamiast filmów+zdjęć
   - napis „Zamieniamy ulice w sceny” + tekst „Potrafimy zaskoczyć…”
   - O nas (tekst klienta), Warsztaty + żonglerka funkcjonalna
   - Kompleksowa realizacja imprez (kafelki usług, Bielska Scena Ognia, BBusking, galeria)

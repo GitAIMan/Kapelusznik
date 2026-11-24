@@ -10,7 +10,7 @@ export default function Hero() {
       {/* Tło: film z BBuskingu (komputer) / zdjęcie (telefon) */}
       <div className="absolute inset-0">
         <BackgroundVideo
-          src="/Video/bbusking_tlo.mp4"
+          src="/Video/bbusking_tlo_v3.mp4"
           mobileImage={{
             src: "/images/hero-mobile.jpg",
             alt: "Artystka Kapelusznika w kostiumie z porożem w lesie",
