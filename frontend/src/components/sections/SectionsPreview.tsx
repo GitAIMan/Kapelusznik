@@ -33,7 +33,7 @@ const SECTIONS = [
   },
   {
     title: "Kontakt",
-    description: "Napisz do nas — opowiedz o swoim wydarzeniu, a my zaproponujemy program.",
+    description: "Napisz do nas, opowiedz o swoim wydarzeniu, a my zaproponujemy program.",
     href: "/kontakt",
     icon: Mail,
     span: "",

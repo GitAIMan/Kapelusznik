@@ -72,7 +72,7 @@ export default function TesseraktOgniaPage() {
           <div className="space-y-6 text-text-secondary leading-[1.85]">
             {/* TODO: treść */}
             <p>
-              Sekcja z dłuższym opisem — historia, idea, inspiracje. Tu klient wstawi
+              Sekcja z dłuższym opisem, historia, idea, inspiracje. Tu klient wstawi
               przygotowane treści.
             </p>
             <p>
@@ -116,10 +116,10 @@ export default function TesseraktOgniaPage() {
         <div className="mx-auto max-w-4xl">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {[
-              { value: "—", label: "Czas trwania" },
-              { value: "—", label: "Liczba artystów" },
-              { value: "—", label: "Wymiary sceny" },
-              { value: "—", label: "Wymogi techniczne" },
+              { value: "Wkrótce", label: "Czas trwania" },
+              { value: "Wkrótce", label: "Liczba artystów" },
+              { value: "Wkrótce", label: "Wymiary sceny" },
+              { value: "Wkrótce", label: "Wymogi techniczne" },
             ].map((item, i) => (
               <div
                 key={i}
@@ -144,7 +144,7 @@ export default function TesseraktOgniaPage() {
             Zainteresowany pokazem?
           </h2>
           <p className="text-text-secondary text-lg mb-10">
-            Skontaktuj się z nami — dopasujemy Tesserakt Ognia do Twojego wydarzenia.
+            Skontaktuj się z nami, dopasujemy Tesserakt Ognia do Twojego wydarzenia.
           </p>
           <Link
             href="/kontakt"

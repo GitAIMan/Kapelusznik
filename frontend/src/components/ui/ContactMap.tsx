@@ -9,7 +9,7 @@ export default function ContactMap() {
         allowFullScreen
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
-        title="Lokalizacja Kapelusznik — Bielsko-Biała"
+        title="Lokalizacja Kapelusznik, Bielsko-Biała"
       />
     </div>
   );

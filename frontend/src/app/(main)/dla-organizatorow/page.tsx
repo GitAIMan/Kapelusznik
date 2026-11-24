@@ -13,7 +13,7 @@ const DisciplineWheelSection = dynamic(
 );
 
 export const metadata: Metadata = {
-  title: "Dla organizatorów — Kapelusznik | Kolektyw Artystyczny",
+  title: "Dla organizatorów | Kapelusznik | Kolektyw Artystyczny",
   description:
     "Zamów występ artystów ulicznych na swoje wydarzenie. Cztery kroki do niezapomnianego spektaklu.",
 };
@@ -24,7 +24,7 @@ const WHAT_WE_OFFER = [
   "Żywe rzeźby i interaktywne instalacje",
   "Pokazy highline nad publicznością",
   "Wielkoformatowe lalki i teatr uliczny",
-  "Scena sztukmistrzów — magia i komedia",
+  "Scena sztukmistrzów, magia i komedia",
   "Pełne zaplecze techniczne (nagłośnienie, oświetlenie)",
   "Program dopasowany do charakteru wydarzenia",
 ];
@@ -53,7 +53,7 @@ export default function ForOrganizersPage() {
                 Twoje wydarzenie zasługuje na niezapomniane emocje
               </SectionHeading>
               <p className="text-text-secondary text-base leading-relaxed mt-6">
-                Od kameralnych imprez firmowych po wielotysięczne festiwale —
+                Od kameralnych imprez firmowych po wielotysięczne festiwale,
                 dopasowujemy program do każdego wydarzenia. Przyjeżdżamy z pełnym
                 zapleczem technicznym i gwarantujemy profesjonalną obsługę od
                 pierwszego kontaktu po finałowe brawa.
@@ -93,7 +93,7 @@ export default function ForOrganizersPage() {
               Jak to działa
             </SectionHeading>
             <p className="text-text-muted text-sm mt-3">
-              Od kontaktu do owacji — cztery kroki.
+              Od kontaktu do owacji, cztery kroki.
             </p>
           </div>
 
@@ -195,7 +195,7 @@ export default function ForOrganizersPage() {
               Gotowy na niezapomniany event?
             </h3>
             <p className="text-text-secondary text-sm mb-8 max-w-md mx-auto">
-              Opisz swoje wydarzenie — wrócimy z propozycją programu
+              Opisz swoje wydarzenie, wrócimy z propozycją programu
               i&nbsp;wyceny w ciągu 48 godzin.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">

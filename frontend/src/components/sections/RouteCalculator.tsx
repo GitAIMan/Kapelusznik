@@ -72,7 +72,7 @@ export default function RouteCalculator() {
             Sprawdź, ile zajmuje dojazd
           </SectionHeading>
           <p className="text-text-secondary text-base mt-4 max-w-lg mx-auto">
-            Wpisz swój adres — pokażemy odległość i czas przejazdu do Bielska-Białej.
+            Wpisz swój adres, pokażemy odległość i czas przejazdu do Bielska-Białej.
           </p>
         </div>
 

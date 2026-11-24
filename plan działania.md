@@ -48,6 +48,10 @@ Materiały: `Plik_klienta/Animacje dla dzieci/` (każda sekcja ma swój readme +
 - [x] 1. Animacje aktorskie (2026-11-24) — `/animacje/animacje-aktorskie`. Szablon: `AnimacjaTemplate` + dane w `lib/animacje.ts` (kolejne podstrony = nowy wpis). Panele „Gotowe realizacje” (`RealizacjePanels`). Zdjęcia: R2 `images/animacje/aktorskie/` (webp) + oryginały R2 `Zdjecia/animacje/aktorskie/`; lokalnie w public/ ale poza gitem. Przycisk Zamów tylko na dole.
   - Potter 1–4 + Kleks 1–3 → panel Szkoła Magii (7 zdjęć)
 - [x] 2. O nowym cyrku (2026-11-24) — strona startowa działu. Film YT w miejscu zdjęcia, definicja AI jako cytat, 5 cech (kafelki), pedagogika cyrku, galeria 18 zdjęć (R2 `images/animacje/nowy-cyrk/`), nagłówek „Zaproś nowy cyrk…” + kafelki pozostałych podstron.
+- [x] 3. Kuglarze w terenie i warsztaty plenerowe (2026-11-24) — `/animacje/kuglarze-i-warsztaty`. Układ B (wybrany z 2 mockupów): zdjęcie na całą szerokość, „Złóż swój skład” (9 artystów do klikania → przycisk na dole → /kontakt?sklad=… z gotową wiadomością), przełącznik Kuglarze w tłumie / Warsztaty, mocne zdanie, mozaika 21 zdjęć z „Pokaż wszystkie”, wysokie karty „Zobacz też”. Zdjęcia R2 `images/animacje/kuglarze/`.
+  - ❓ Krótkie opisy artystów („Ogień po zmroku” itd.) wymyślone — do potwierdzenia z klientem
+  - ❓ Zdjęcie główne (nr 19) i zdjęcia trybów (17, 20) dobrane bez oglądania — do sprawdzenia
+  - ⚠️ Formularz kontaktowy NIE wysyła maili (w kodzie TODO, tylko console.log) — do zrobienia osobno
 - Kolejność w menu/kafelkach = jak w readme klienta (O nowym cyrku, Szczudlarze, Kuglarze, Animacje aktorskie, Parady, Usługi klasyczne) — NIE zmieniać.
 - ❓ Klient pisze o „8 kafelkach”, a pozycji jest 5 — do wyjaśnienia
 

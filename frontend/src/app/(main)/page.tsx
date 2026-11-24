@@ -4,9 +4,9 @@ import AboutContent from "@/components/sections/AboutContent";
 import TrustedBy from "@/components/sections/TrustedBy";
 
 export const metadata: Metadata = {
-  title: "Kapelusznik — Kolektyw Artystyczny z Bielska-Białej",
+  title: "Kapelusznik | Kolektyw Artystyczny z Bielska-Białej",
   description:
-    "Kolektyw artystów ulicznych z Bielska-Białej. Ogień, akrobatyka, lalkarstwo, highline — spektakle, które publiczność pamięta latami.",
+    "Kolektyw artystów ulicznych z Bielska-Białej. Ogień, akrobatyka, lalkarstwo, highline, spektakle, które publiczność pamięta latami.",
 };
 
 export default function Home() {

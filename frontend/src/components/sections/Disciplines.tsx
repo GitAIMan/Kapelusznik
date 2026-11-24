@@ -25,7 +25,7 @@ export default function Disciplines() {
             <SectionHeading className="mt-4">Co robimy</SectionHeading>
             <p className="text-text-secondary text-sm leading-relaxed mt-4">
               Sześć dziedzin, jeden kolektyw. Każda dyscyplina ma własną historię,
-              artystów i styl — kliknij, żeby poznać szczegóły.
+              artystów i styl, kliknij, żeby poznać szczegóły.
             </p>
           </div>
 

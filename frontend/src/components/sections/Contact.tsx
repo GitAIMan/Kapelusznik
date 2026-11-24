@@ -9,11 +9,12 @@ import Button from "@/components/ui/Button";
 import { CONTACT_INFO } from "@/lib/constants";
 import type { ContactFormData } from "@/types";
 
-export default function Contact() {
+/** initialMessage: gotowy początek wiadomości, np. ze „Złóż swój skład” (/kontakt?sklad=…) */
+export default function Contact({ initialMessage = "" }: { initialMessage?: string }) {
   const [form, setForm] = useState<ContactFormData>({
     name: "",
     email: "",
-    message: "",
+    message: initialMessage,
   });
 
   const handleChange = (

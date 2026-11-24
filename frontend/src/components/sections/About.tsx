@@ -76,7 +76,7 @@ export default function About() {
         <p className="text-text-muted text-sm leading-relaxed">
           Nasz zespół to pasjonaci, dla których sztuka uliczna jest sposobem
           na życie. Każdy występ to unikalne doświadczenie, które tworzymy
-          wspólnie z publicznością — bo najlepsze spektakle rodzą się w
+          wspólnie z publicznością, bo najlepsze spektakle rodzą się w
           interakcji.
         </p>
       </div>

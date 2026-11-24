@@ -48,7 +48,7 @@ export default function DisciplinesPage() {
             Co dla Ciebie robimy
           </SectionHeading>
           <p className="text-text-secondary text-base mt-4 max-w-lg mx-auto">
-            Trzy filary naszej oferty — kliknij kategorię, by rozwinąć.
+            Trzy filary naszej oferty, kliknij kategorię, by rozwinąć.
           </p>
         </div>
       </section>

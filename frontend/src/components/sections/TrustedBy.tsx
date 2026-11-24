@@ -12,15 +12,15 @@ const LOGOS = [
   { file: "gok-milowka", name: "GOK Milówka" },
   { file: "warownia", name: "Warownia Pszczyńskich Rycerzy" },
   { file: "w-to-mi-graj", name: "Fundacja W To Mi Graj" },
-  { file: "zywiec", name: "Żywiec — miasto zmysłów" },
+  { file: "zywiec", name: "Żywiec, miasto zmysłów" },
   { file: "gok-buczkowice", name: "Gminny Ośrodek Kultury w Buczkowicach" },
   { file: "kta", name: "KTA Bielsko-Biała" },
   { file: "fest", name: "FEST" },
   { file: "odskocznia", name: "Odskocznia" },
   { file: "lufcik", name: "Lufcik na korbkę" },
   { file: "nakaja", name: "Nakaja Art" },
-  { file: "decors", name: "Decor's — firma eventowa" },
-  { file: "korsarz", name: "Korsarz — fajerwerki" },
+  { file: "decors", name: "Decor's, firma eventowa" },
+  { file: "korsarz", name: "Korsarz, fajerwerki" },
   { file: "fuego", name: "Fuego fajerwerki" },
 ];
 

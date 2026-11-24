@@ -208,7 +208,7 @@ export default function BlogPostPage() {
                       </p>
                       {block.author && (
                         <footer className="text-sm text-text-muted mt-3 not-italic">
-                          — {block.author}
+                          {block.author}
                         </footer>
                       )}
                     </blockquote>

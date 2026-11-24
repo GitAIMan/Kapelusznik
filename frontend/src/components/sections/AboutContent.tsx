@@ -104,7 +104,7 @@ export default function AboutContent() {
                 Tesserakt, który funkcjonuje na rynku od 2019 roku.
               </p>
               <p className="text-text-secondary text-base leading-relaxed mt-4 max-w-xl">
-                Założycielem Kolektywu jest Miłosz Goślicki — kuglarz, tancerz
+                Założycielem Kolektywu jest Miłosz Goślicki, kuglarz, tancerz
                 ognia, warsztatowiec i&nbsp;pedagog cyrkowy.
               </p>
               <p className="text-text-muted text-base leading-relaxed mt-4 max-w-xl">
@@ -209,7 +209,7 @@ export default function AboutContent() {
             <p className="text-text-secondary text-base leading-relaxed mt-6">
               Kapelusznik jest twórcą i&nbsp;organizatorem dwóch własnych imprez
               w&nbsp;Bielsku-Białej. Oprócz tego możemy podjąć się kompleksowej
-              realizacji wydarzenia pod kątem animacyjnym — nie tylko
+              realizacji wydarzenia pod kątem animacyjnym, nie tylko
               w&nbsp;klimacie cyrkowym.
             </p>
           </div>

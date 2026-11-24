@@ -17,7 +17,7 @@ export async function generateMetadata({
   const discipline = DISCIPLINES.find((d) => d.id === id);
   if (!discipline) return {};
   return {
-    title: `${discipline.name} — Kapelusznik`,
+    title: `${discipline.name} | Kapelusznik`,
     description: discipline.description,
   };
 }
@@ -107,7 +107,7 @@ export default async function DisciplinePage({
                     &ldquo;{details.quote}&rdquo;
                   </p>
                   <cite className="block mt-4 text-text-muted text-sm not-italic">
-                    — {details.quoteAuthor}
+                    {details.quoteAuthor}
                   </cite>
                 </blockquote>
               )}

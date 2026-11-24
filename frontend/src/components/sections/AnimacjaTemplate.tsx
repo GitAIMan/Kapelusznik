@@ -1,6 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, Star } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowDown, Star } from "lucide-react";
+import { SkladProvider, RosterPicker } from "@/components/sections/Sklad";
+import ModesSwitch from "@/components/sections/ModesSwitch";
+import MosaicGallery from "@/components/sections/MosaicGallery";
 import Gallery from "@/components/ui/Gallery";
 import Button from "@/components/ui/Button";
 import SectionLabel from "@/components/ui/SectionLabel";
@@ -20,24 +23,70 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
   const others = all.filter((l) => l.href !== `/animacje/${page.slug}`);
   const isHub = `/animacje/${page.slug}` === HUB;
 
-  return (
-    <div className="pt-28">
+  const full = page.heroStyle === "full" && page.cover;
+  const backLink = (
+    <Link
+      href={isHub ? "/" : HUB}
+      className="relative z-10 inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm mb-8"
+    >
+      <ArrowLeft className="h-4 w-4" />
+      {isHub ? "Strona główna" : "Wszystkie animacje"}
+    </Link>
+  );
+
+  const content = (
+    <div className={full ? undefined : "pt-28"}>
+      {/* 1a. Nagłówek na zdjęciu (pełna szerokość) */}
+      {full && page.cover && (
+        <section className="relative flex min-h-[88vh] flex-col overflow-hidden px-6 md:px-12 pt-28 pb-16 md:pb-20">
+          <Image
+            src={page.cover.src}
+            alt={page.cover.alt}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+            style={{ objectPosition: page.cover.position ?? "center" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/75 to-bg/30" />
+          <div className="relative mx-auto w-full max-w-7xl">{backLink}</div>
+          <div className="relative mx-auto mt-auto w-full max-w-7xl">
+            <SectionLabel>{page.name}</SectionLabel>
+            <h1 className="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-text leading-[1.05] tracking-tight mt-4 mb-6 max-w-4xl">
+              {page.heading}
+              {page.headingAccent && (
+                <em className="block font-semibold text-accent-gold">{page.headingAccent}</em>
+              )}
+            </h1>
+            {page.lead && (
+              <p className="text-text/85 text-base md:text-lg leading-relaxed max-w-2xl">{page.lead}</p>
+            )}
+            {page.roster && (
+              <a
+                href="#sklad"
+                className="mt-8 inline-flex items-center gap-2 text-accent-gold font-semibold hover:gap-3 transition-all"
+              >
+                Złóż swój skład <ArrowDown className="h-4 w-4" />
+              </a>
+            )}
+          </div>
+        </section>
+      )}
+
       {/* 1. Nagłówek + lead + zdjęcie główne */}
+      {!full && (
       <section className="relative px-6 md:px-12 pb-16">
         <div className="mx-auto max-w-7xl">
-          <Link
-            href={isHub ? "/" : HUB}
-            className="inline-flex items-center gap-2 text-text-muted hover:text-text transition-colors text-sm mb-8"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            {isHub ? "Strona główna" : "Wszystkie animacje"}
-          </Link>
+          {backLink}
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             <div className="lg:col-span-6">
               <SectionLabel>{page.name}</SectionLabel>
               <h1 className="font-heading text-4xl md:text-6xl font-bold text-text leading-[1.05] tracking-tight mt-4 mb-6">
                 {page.heading}
+                {page.headingAccent && (
+                  <em className="block font-semibold text-accent-gold">{page.headingAccent}</em>
+                )}
               </h1>
               {page.lead && (
                 <p className="text-text-secondary text-base md:text-lg leading-relaxed">{page.lead}</p>
@@ -47,7 +96,7 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
                   <blockquote className="text-text text-base md:text-lg leading-relaxed italic">
                     „{page.quote.text}”
                   </blockquote>
-                  <figcaption className="mt-3 text-sm text-text-muted">— {page.quote.source}</figcaption>
+                  <figcaption className="mt-3 text-sm text-text-muted">{page.quote.source}</figcaption>
                 </figure>
               )}
             </div>
@@ -78,6 +127,47 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
           )}
         </div>
       </section>
+      )}
+
+      {/* Złóż swój skład */}
+      {page.roster && (
+        <section id="sklad" className="relative scroll-mt-24 px-6 md:px-12 py-20">
+          <div className="section-reveal mx-auto max-w-7xl">
+            <div className="mb-9 flex flex-wrap items-end justify-between gap-6">
+              <div>
+                <SectionLabel>{page.roster.eyebrow}</SectionLabel>
+                <SectionHeading className="mt-3">{page.roster.heading}</SectionHeading>
+              </div>
+              <p className="text-text-secondary max-w-md">{page.roster.intro}</p>
+            </div>
+            <RosterPicker items={page.roster.items} />
+          </div>
+        </section>
+      )}
+
+      {/* Przełącznik trybów */}
+      {page.modes && (
+        <section className="relative px-6 md:px-12 py-20">
+          <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
+          <div className="section-reveal mx-auto max-w-7xl">
+            <div className="text-center mb-8">
+              <SectionLabel>{page.modes.eyebrow}</SectionLabel>
+              <SectionHeading className="mt-3">{page.modes.heading}</SectionHeading>
+            </div>
+            <ModesSwitch items={page.modes.items} />
+          </div>
+        </section>
+      )}
+
+      {/* Jedno mocne zdanie */}
+      {page.highlight && (
+        <section className="relative px-6 md:px-12 py-24">
+          <p className="section-reveal mx-auto max-w-4xl text-center font-heading italic text-2xl md:text-4xl leading-snug text-text">
+            „{page.highlight.text}
+            {page.highlight.accent && <span className="text-accent-gold"> {page.highlight.accent}</span>}”
+          </p>
+        </section>
+      )}
 
       {/* 2. Opis */}
       {page.body && page.body.length > 0 && (
@@ -133,13 +223,17 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
         <section className="relative px-6 md:px-12 py-20">
           <div className="section-divider absolute top-0 left-[10%] right-[10%]" />
           <div className="section-reveal mx-auto max-w-7xl">
-            <SectionHeading>Zdjęcia</SectionHeading>
-            <Gallery
-              photos={page.gallery}
-              className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
-              itemClassName="aspect-[4/3]"
-              sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-            />
+            <SectionHeading>{page.galleryHeading ?? "Zdjęcia"}</SectionHeading>
+            {page.galleryStyle === "mosaic" ? (
+              <MosaicGallery photos={page.gallery} />
+            ) : (
+              <Gallery
+                photos={page.gallery}
+                className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3"
+                itemClassName="aspect-[4/3]"
+                sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+              />
+            )}
           </div>
         </section>
       )}
@@ -192,6 +286,33 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
               {others.map((o) => {
                 const data = ANIMACJE_PAGES.find((p) => `/animacje/${p.slug}` === o.href);
                 const img = data?.cover ?? data?.gallery?.[0];
+                if (page.tilesStyle === "tall") {
+                  return (
+                    <Link
+                      key={o.href}
+                      href={o.href}
+                      className="group relative aspect-[3/4] overflow-hidden rounded-2xl border border-white/[0.08] bg-gradient-to-br from-accent-violet to-bg"
+                    >
+                      {img && (
+                        <Image
+                          src={img.src}
+                          alt=""
+                          fill
+                          sizes="(min-width: 1024px) 20vw, 50vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                          style={{ objectPosition: img.position ?? "center" }}
+                        />
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                      <span className="absolute inset-x-4 bottom-4 font-heading text-lg md:text-xl font-semibold text-text leading-snug">
+                        {o.label}
+                        <small className="mt-1 flex items-center gap-1 font-body text-sm font-semibold text-accent-gold">
+                          Zobacz <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                        </small>
+                      </span>
+                    </Link>
+                  );
+                }
                 return (
                   <Link
                     key={o.href}
@@ -234,4 +355,6 @@ export default function AnimacjaTemplate({ page }: { page: AnimacjaPage }) {
       </section>
     </div>
   );
+
+  return page.roster ? <SkladProvider>{content}</SkladProvider> : content;
 }

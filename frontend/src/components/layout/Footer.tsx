@@ -18,7 +18,7 @@ export default function Footer() {
           <Link href="/" className="shrink-0">
             <Image
               src="/images/logo.jpg"
-              alt="Kolektyw Artystyczny Kapelusznik — logo"
+              alt="Kolektyw Artystyczny Kapelusznik, logo"
               width={64}
               height={64}
               className="h-16 w-16 rounded-lg border border-accent-gold/20 hover:border-accent-gold/50 transition-colors"

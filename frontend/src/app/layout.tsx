@@ -16,15 +16,15 @@ const hanken = Hanken_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Kapelusznik — Kolektyw Artystyczny | Artyści Uliczni z Bielska-Białej",
+  title: "Kapelusznik | Kolektyw Artystyczny | Artyści Uliczni z Bielska-Białej",
   description:
     "Kolektyw artystów ulicznych z Bielska-Białej. Żywe rzeźby, żonglerka, akrobatyka powietrzna, highline, lalkarstwo i scena sztukmistrzów. Zamieniamy ulice w sceny.",
   keywords:
     "artyści uliczni, Bielsko-Biała, żonglerka, akrobatyka powietrzna, żywe rzeźby, kolektyw artystyczny, Kapelusznik, sztuka uliczna, busking, festiwal",
   openGraph: {
-    title: "Kapelusznik — Kolektyw Artystyczny",
+    title: "Kapelusznik | Kolektyw Artystyczny",
     description:
-      "Zamieniamy ulice w sceny. Ogień, akrobatyka, magia — przeżyj sztukę, która nie zna granic.",
+      "Zamieniamy ulice w sceny. Ogień, akrobatyka, magia, przeżyj sztukę, która nie zna granic.",
     url: "https://kapelusznik.com.pl",
     siteName: "Kapelusznik",
     locale: "pl_PL",

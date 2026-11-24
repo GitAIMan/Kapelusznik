@@ -22,7 +22,7 @@ export default function ForOrganizers() {
             Jak to działa
           </SectionHeading>
           <p className="text-text-secondary text-sm mt-3 max-w-md mx-auto">
-            Od kontaktu do owacji — cztery kroki.
+            Od kontaktu do owacji, cztery kroki.
           </p>
         </div>
 

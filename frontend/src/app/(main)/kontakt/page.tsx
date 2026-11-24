@@ -8,12 +8,26 @@ import SectionLabel from "@/components/ui/SectionLabel";
 import SectionHeading from "@/components/ui/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "Kontakt — Kapelusznik | Kolektyw Artystyczny",
+  title: "Kontakt | Kapelusznik | Kolektyw Artystyczny",
   description:
     "Skontaktuj się z kolektywem Kapelusznik. Zamów występ artystów ulicznych na swoje wydarzenie.",
 };
 
-export default function ContactPage() {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ sklad?: string | string[] }>;
+}) {
+  // ?sklad=Żonglerzy,Iluzjoniści (ze „Złóż swój skład” na podstronach Animacji)
+  const { sklad } = await searchParams;
+  const list = (Array.isArray(sklad) ? sklad[0] : sklad ?? "")
+    .split(",")
+    .map((s) => s.trim().slice(0, 40))
+    .filter(Boolean)
+    .slice(0, 12)
+    .join(", ");
+  const initialMessage = list ? `Interesuje mnie skład: ${list}.\n\nData i miejsce wydarzenia: ` : "";
+
   return (
     <div className="pt-28 pb-20">
       <div className="px-6 md:px-12 mb-6">
@@ -31,14 +45,14 @@ export default function ContactPage() {
             Porozmawiajmy
           </SectionHeading>
           <p className="text-text-secondary text-base mt-4 max-w-lg mx-auto">
-            Opisz swoje wydarzenie — wrócimy z propozycją programu. Odpowiadamy
+            Opisz swoje wydarzenie, wrócimy z propozycją programu. Odpowiadamy
             w ciągu 48 godzin.
           </p>
         </div>
       </section>
 
       {/* Formularz kontaktowy */}
-      <Contact />
+      <Contact key={initialMessage} initialMessage={initialMessage} />
 
       {/* Mapa pod formularzem */}
       <section className="px-6 md:px-12 py-8">

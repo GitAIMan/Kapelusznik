@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const page = getAnimacja(slug);
   if (!page) return {};
   return {
-    title: `${page.name} — Kapelusznik`,
+    title: `${page.name} | Kapelusznik`,
     description: (page.lead ?? page.quote?.text ?? "").slice(0, 155),
   };
 }
