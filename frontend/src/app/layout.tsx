@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import SectionRevealProvider from "@/components/SectionRevealProvider";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-heading",
+// Nagłówki: szeryfowa, "vintage" — nawiązuje do ozdobnego K w logo
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
 });
 
-const inter = Inter({
-  variable: "--font-body",
+// Tekst: ciepły, czytelny grotesk
+const hanken = Hanken_Grotesk({
+  variable: "--font-hanken",
   subsets: ["latin", "latin-ext"],
 });
 
@@ -37,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pl" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+    <html lang="pl" className={`${fraunces.variable} ${hanken.variable}`}>
       <body>
         {children}
         <SectionRevealProvider />

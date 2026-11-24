@@ -33,12 +33,13 @@ Start: 2026-11-24 · Gałąź: **staging** (nie main)
 - ✅ Film z ogniem przeniesiony ze strony głównej na Tesserakt Ognia (commit 72edc11, staging)
 - ✅ Pisownia „Tesserakt” (2×s) w całej stronie + adres `/tesserakt-ognia` (stary przekierowuje)
 - ✅ Prawdziwy mail/telefon/adres też na /kontakt i w menu mobilnym
+- ✅ Czcionki: nagłówki Fraunces, tekst Hanken Grotesk (2026-11-24, wysłane na staging)
 
 ### Otwarte pytania
 - (brak) — logo potwierdzone jako OK (2026-11-24)
 
 ### Do wysłania
-- ⏳ Zmiany z pkt 4, 5, 6, 7, 9 i Tesserakt — tylko lokalnie, czekają na commit + push na staging.
+- ✅ Wszystko wysłane na staging (commit d254f47, 2026-11-24).
 
 ## Dziennik
 | Data | Część | Co zrobione |

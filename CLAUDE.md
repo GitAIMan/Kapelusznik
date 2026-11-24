@@ -32,7 +32,7 @@ cd backend && npm run build   # TypeScript compile
 - **embla-carousel-react** — blog carousel on homepage (coverflow 3D effect)
 - **react-easy-crop** — image cropper in admin panel (16:9, 9:16, 1:1 aspect ratios)
 - **lucide-react** for icons, **clsx + tailwind-merge** via `cn()` in `lib/utils.ts`
-- Fonts: **Space Grotesk** (headings, `--font-heading`) + **Inter** (body, `--font-body`) via `next/font/google`
+- Fonts: **Fraunces** (headings, serif — nawiązuje do K w logo, `--font-heading`) + **Hanken Grotesk** (body, `--font-body`) via `next/font/google` (zmiana 2026-11-24, wcześniej Space Grotesk + Inter = „AI look”)
 
 ### Color palette (brand-based, warm dark theme)
 All color tokens defined in `globals.css` `@theme inline`. Key tokens:
