@@ -59,3 +59,4 @@ Materiały: `Plik_klienta/Animacje dla dzieci/` (każda sekcja ma swój readme +
 | Data | Część | Co zrobione |
 |---|---|---|
 | 2026-11-24 | 3. Strona główna | Cała strona główna wg materiałów klienta. Ostatni commit: c2b56ff (staging). |
+| 2026-11-24 | Animacje dla dzieci (w toku) | Menu „Animacje”, szablon podstron, 3 z 6 podstron: Animacje aktorskie, O nowym cyrku, Kuglarze i warsztaty („Złóż swój skład” → formularz). Zdjęcia na R2. Usunięte myślniki z całej strony. Ostatni commit: 47f1002 (staging). Zostały: Szczudlarze, Parady, Usługi klasyczne. |
